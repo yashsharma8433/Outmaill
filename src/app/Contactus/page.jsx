@@ -1,0 +1,55 @@
+import Navbar from '@/component/Navbar'
+import Hero from '@/component/Hero'
+import React from 'react'
+import Partners from '@/component/Partners'
+import Faq from '@/component/faq'
+import Footer from '@/component/Footer'
+import GetInTouch from '@/component/getintouch'
+
+
+function page() {
+  return (
+    <div>
+      <Navbar/>
+
+      <div className="bg-black text-white bg-[linear-gradient(to_bottom,#000,#200D42_40%,#4F21A1_65%,#A46EDB_100%,#ffff_150%)] py-20">   
+      
+
+      <div className="container mx-auto px-4 text-center">
+        <div className="inline-block  px-4 py-1 border-white/30 rounded-md">
+
+        </div>
+
+        <h1 className="text-4xl sm:text-5xl font-syne font-bold tracking-wide mt-6">
+          Contact Us
+        </h1>
+
+
+        <p className="text-[#C0C0C0] text-base sm:text-lg mt-6 leading-relaxed">
+          Automate your job search, create stunning resumes, and track every application — all in
+          <br />
+          <span className="block mt-2">one place.</span>
+        </p>
+
+        <div className="mt-8">
+          <button className="bg-white hover:text-purple-600 text-black font-medium rounded-full px-6 py-2 transition">
+            Scroll to Know More!
+          </button>
+        </div>
+
+
+      </div>
+      </div>
+      <GetInTouch/>
+
+      <Partners/>
+
+      <Faq/>
+      <Footer/>
+
+
+    </div>
+  )
+}
+
+export default page
