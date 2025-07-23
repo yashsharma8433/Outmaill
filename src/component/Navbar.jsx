@@ -4,7 +4,7 @@ import Logo from '@/assets/logo.svg';
 
 function Navbar() {
   return (
-    <header className="w-full bg-black">
+    <header className="w-full bg-black pb-10">
       <nav className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap items-center justify-between">
         
         {/* Logo Section */}

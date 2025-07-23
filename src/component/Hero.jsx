@@ -6,9 +6,9 @@ import AboutUs from '@/component/aboutuscontent';
 function Hero() {
   return (
     <div>
-    <div className="bg-black text-white bg-[linear-gradient(to_bottom,#000,#200D42_40%,#4F21A1_65%,#A46EDB_100%,#ffff_150%)] py-20">
+    <div className="bg-[linear-gradient(to_bottom,#000,#200D42_20%,#4F21A1_45%,#A46EDB_60%,#FFFFFF_100%)]">
       <div className="container mx-auto px-4 text-center">
-        <div className="inline-block  px-4 py-1 border-white/30 rounded-md">
+        <div className="inline-block  px-4 py-1 border-white/30 rounded-md pt-10">
           <span className="text-[#C0C0C0] hover:text-purple-400 transition font-syne text-base">
             Welcome to Outmail
           </span>

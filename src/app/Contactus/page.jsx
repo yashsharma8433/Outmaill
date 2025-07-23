@@ -12,7 +12,7 @@ function page() {
     <div>
       <Navbar/>
 
-      <div className="bg-black text-white bg-[linear-gradient(to_bottom,#000,#200D42_40%,#4F21A1_65%,#A46EDB_100%,#ffff_150%)] py-20">   
+      <div className="bg-[linear-gradient(to_bottom,#000,#200D42_20%,#4F21A1_45%,#A46EDB_60%,#FFFFFF_100%)]">   
       
 
       <div className="container mx-auto px-4 text-center">
@@ -20,7 +20,7 @@ function page() {
 
         </div>
 
-        <h1 className="text-4xl sm:text-5xl font-syne font-bold tracking-wide mt-6">
+        <h1 className="text-4xl sm:text-5xl px-4  font-syne font-bold tracking-wide mt-29">
           Contact Us
         </h1>
 

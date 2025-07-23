@@ -12,7 +12,7 @@ function page() {
     <div>
       <Navbar/>
 
-      <div className="bg-black text-white bg-[linear-gradient(to_bottom,#000,#200D42_40%,#4F21A1_65%,#A46EDB_100%,#ffff_150%)] py-20">   
+      <div className="bg-[linear-gradient(to_bottom,#000,#200D42_20%,#4F21A1_45%,#A46EDB_80%,#FFFFFF_100%)]  py-20">   
       
 
       <div className="container mx-auto px-4 text-center">
