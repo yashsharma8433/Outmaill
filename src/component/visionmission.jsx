@@ -4,7 +4,7 @@ export default function MissionValues() {
   return (
     <div className="bg-white text-black">
       {/* Vision Section */}
-      <section className="bg-gradient-to-r from-indigo-900 to-purple-600 text-white p-10 rounded-t-[60px] mx-4 mt-10">
+      <section className="bg-gradient-to-r from-indigo-900 to-purple-600 text-white p-10  mx-4 mt-10">
         <div className="max-w-4xl mx-auto text-center space-y-4">
           <p className="text-lg sm:text-xl font-light">
             Our vision is to foster widespread adoption and technology and by championing innovation, accessibility, and security. We aim to empower individuals and businesses globally through user-friendly solutions that simplify complex financial processes and enable seamless participation in the digital economy.
@@ -55,7 +55,7 @@ export default function MissionValues() {
       </section>
 
       {/* Values Section */}
-      <section className="bg-gradient-to-b from-violet-700 to-purple-900 text-white py-20 px-6 sm:px-20 rounded-t-[60px]">
+      <section className="bg-gradient-to-b from-violet-700 to-purple-900 text-white py-20 px-6 sm:px-20 ">
         <p className="text-sm text-center text-purple-200">Our Value</p>
         <h2 className="text-3xl font-bold text-center mb-4">Outmail Foundational Values</h2>
         <p className="text-center text-purple-200 max-w-2xl mx-auto mb-16">

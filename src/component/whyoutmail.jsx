@@ -7,7 +7,7 @@ export default function Membership() {
       {/* Membership Plans Section */}
       <section className="py-20 px-4 max-w-7xl mx-auto text-center">
         <h1 className="text-sm font-medium text-purple-500">Membership</h1>
-        <h2 className="text-3xl font-semibold mt-2">Your Gateway to Premium Services</h2>
+        <h2 className="text-3xl font-semibold mt-2 tracking-tighter">Your Gateway to Premium Services</h2>
         <p className="mt-2 text-gray-500">Choose the plan that fits your needs.</p>
 
         {/* Cards */}

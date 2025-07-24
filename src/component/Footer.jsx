@@ -11,11 +11,9 @@ export default function Footer() {
             Integer sit quisque sed at. Fermentum nunc aliquet cursus eget. Egestas ornare.
           </p>
           <ul className="flex flex-wrap gap-4 text-sm text-white/80">
-            <li><a href="#">Overview</a></li>
-            <li><a href="#">About Us</a></li>
+
+            <li><a href="/Aboutus">About Us</a></li>
             <li><a href="#">Products</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Careers</a></li>
             <li><a href="#">Help</a></li>
             <li><a href="#">Privacy</a></li>
           </ul>
@@ -41,7 +39,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/20 mt-12 pt-4 text-center text-sm text-white/50">
-        © 2025 Outmail. All rights reserved. <span className="block mt-1">Designed by Yaash</span>
+        © 2025 Outmail. All rights reserved. <span className="block mt-1">Designed by Yash</span>
       </div>
     </footer>
   );

@@ -6,6 +6,7 @@ import Pricing from '@/component/pricing'
 import Footer from '@/component/Footer'
 import Faq from '@/component/faq'
 import Testimonials from '@/component/Testimonials'
+import MembershipBenefits from '@/component/membershipbenefits'
 
 
 function page() {
@@ -41,8 +42,9 @@ function page() {
 
       </div>
       </div>
-      <AboutUs/>
-      <Pricing/>
+      <MembershipBenefits/>
+      <div><Pricing/></div>
+      
       <Testimonials/>
       <Faq/>
       <Footer/>

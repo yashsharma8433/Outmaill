@@ -23,7 +23,7 @@ export default function Home() {
     <CtaOne/>
     <Pricing/>
     <Testimonials/>
-    <Membership/>
+    {/* <Membership/> */}
     <Faq/>
     <Footer/>
    

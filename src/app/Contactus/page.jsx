@@ -25,6 +25,7 @@ function page() {
         </h1>
 
 
+
         <p className="text-[#C0C0C0] text-base sm:text-lg mt-6 leading-relaxed">
           Automate your job search, create stunning resumes, and track every application — all in
           <br />

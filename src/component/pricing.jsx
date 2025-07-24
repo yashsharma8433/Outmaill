@@ -47,7 +47,7 @@ export default function Pricing() {
     <div className="bg-gradient-to-b from-[#2a00b7] to-[#6c00ff] text-white py-20 px-4">
       <div className="max-w-7xl mx-auto text-center">
         <p className="text-sm font-medium text-white/80 mb-2">Membership</p>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tighter">
           Your Gateway to Premium AI Job Services
         </h2>
         <p className="text-white/70 mb-12 max-w-2xl mx-auto">
