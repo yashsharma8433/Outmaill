@@ -12,6 +12,7 @@ import Membership from "@/component/whyoutmail";
 import Faq from "@/component/faq";
 
 
+
 export default function Home() {
   return (
     <div >
@@ -25,6 +26,7 @@ export default function Home() {
     <Testimonials/>
     {/* <Membership/> */}
     <Faq/>
+   
     <Footer/>
    
 

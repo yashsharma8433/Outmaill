@@ -28,7 +28,8 @@ export default function CtaOne() {
         </div>
 
         {/* CTA Box */}
-        <div className="bg-gradient-to-r from-[#2a00b7] to-[#6c00ff] rounded-2xl p-20 flex flex-col md:flex-row justify-between items-center shadow-xl ">
+        <div className="bg-gradient-to-l from-white via-[#6c00ff] to-black
+ rounded-2xl p-20 flex flex-col md:flex-row justify-between items-center shadow-xl ">
           <div className="text-white max-w-md">
             <h3 className="text-2xl font-semibold mb-4">Unlock Your AI-JOB Potential</h3>
             <p className="mb-6 text-white/80">

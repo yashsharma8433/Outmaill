@@ -26,7 +26,9 @@ export default function Features() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#2a00b7] to-[#6c00ff] flex items-center justify-center px-8 py-20">
+    <div className="min-h-screen bg-gradient-to-b from-violet-700 to-purple-900 flex items-center justify-center px-8 py-20 min-h-screen flex items-center" style={{
+    background: 'linear-gradient(to bottom, #691FFC 0%, #461C9A 54%, #461C9A 98%)',
+  }}>
       <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         {/* Left Side */}
         <div className="text-white">
@@ -49,11 +51,11 @@ export default function Features() {
         </div>
 
         {/* Right Side - Dashboard image (mockup or actual image) */}
-        <div className="w-full flex  justify-end">
+        <div className="w-full flex  justify-end ">
           <img
             src="../../dashboard.jpg" 
             alt="Dashboard Preview"
-            className="rounded-4xl shadow-xl max-w-full translate-x-12 md:translate-x-24 lg:translate-x-32"
+            className="rounded-4xl shadow-xl  max-w-full transition-transform duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 translate-x-12 md:translate-x-24 lg:translate-x-32 "
             width={1000}
           />
         </div>

@@ -1,98 +1,194 @@
-import React from 'react';
+'use client';
 
-export default function Faq() {
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import { Badge } from '@/component/ui/badge';
+import { MinusIcon, PlusIcon } from 'lucide-react';
+
+const faqItems = [
+  {
+    id: '1',
+    question: 'What is OutMail?',
+    answer:
+      'OutMail is your AI-powered job application assistant. It helps students automatically apply to multiple job listings using tailored resumes and cover letters.',
+    category: 'general',
+  },
+  {
+    id: '2',
+    question: 'How does OutMail work?',
+    answer:
+      'You connect your resume and job preferences, and OutMail uses AI to apply on your behalf by matching you with relevant job listings and generating custom applications.',
+    category: 'general',
+  },
+  {
+    id: '3',
+    question: 'Do I need to manually upload my resume every time?',
+    answer:
+      'No, once you upload your resume and set your preferences, OutMail uses that information for all future applications unless you update it.',
+    category: 'technical',
+  },
+  {
+    id: '4',
+    question: 'Can I customize my cover letter?',
+    answer:
+      'Yes! OutMail provides AI-generated cover letters, but you can edit and customize them before they are sent out.',
+    category: 'technical',
+  },
+  {
+    id: '5',
+    question: 'Is OutMail free to use?',
+    answer:
+      'OutMail offers a free tier with limited applications per month. For unlimited access and advanced AI features, you can upgrade to a premium plan.',
+    category: 'pricing',
+  },
+  {
+    id: '6',
+    question: 'Will I get notifications about applied jobs?',
+    answer:
+      'Yes, OutMail sends email and dashboard notifications for each job it applies to, including tracking and response status (if available).',
+    category: 'support',
+  },
+  {
+    id: '7',
+    question: 'Can I pause or stop the AI from applying?',
+    answer:
+      'Absolutely. You have full control — you can pause, resume, or stop applications at any time from your dashboard.',
+    category: 'technical',
+  },
+  {
+    id: '8',
+    question: 'Is my data safe with OutMail?',
+    answer:
+      'Yes, your data is encrypted and stored securely. We never share your resume or details without your permission.',
+    category: 'support',
+  },
+];
+
+const categories = [
+  { id: 'all', label: 'All' },
+  { id: 'general', label: 'General' },
+  { id: 'technical', label: 'Technical' },
+  { id: 'pricing', label: 'Pricing' },
+  { id: 'support', label: 'Support' },
+];
+
+export default function Faq2() {
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [expandedId, setExpandedId] = useState(null);
+
+  const filteredFaqs =
+    activeCategory === 'all'
+      ? faqItems
+      : faqItems.filter((item) => item.category === activeCategory);
+
+  const toggleExpand = (id) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
+
   return (
-    // Main container for the FAQ section
-    // Uses responsive padding, max-width, and centers the content
-    <section className="w-full py-20 px-4 sm:px-10 max-w-5xl mx-auto font-inter">
-      {/* Subtitle for the section */}
-      <p className="text-center text-purple-600 text-base font-semibold mb-2">Questions & Answers</p>
-      {/* Main heading for the FAQ section */}
-      <h2 className="text-center text-3xl sm:text-4xl font-bold text-gray-900 mb-6">Frequently Ask Questions</h2>
-      {/* Introductory paragraph for the FAQ section */}
-      <p className="text-center text-gray-600 mb-12 leading-relaxed max-w-2xl mx-auto">
-        Commodo nec mi id ullamcorper vitae augue neque dis. Nunc lacinia viverra orci diam.
-        Nibh est vitae suspendisse parturient sed lorem eu.
-      </p>
+    <section className="bg-white text-black  font-syne py-16">
+      <div className="container mx-auto max-w-6xl px-4 md:px-6">
+        <div className="mb-12 flex flex-col items-center">
+          <Badge
+            variant="outline"
+            className="border-primary mb-4 px-3 py-1 text-xs font-medium tracking-wider uppercase"
+          >
+            FAQs
+          </Badge>
 
-      {/* Container for the FAQ items */}
-      <div className="w-full space-y-4">
-        {/* FAQ Item 1 */}
-        <details className="group rounded-xl bg-white px-6 py-4 shadow-lg">
-          <summary className="flex cursor-pointer items-center justify-between text-lg font-medium text-gray-800">
-            What is outmail?
-            {/* Dropdown arrow icon, rotates on open */}
-            <span className="transition group-open:rotate-180 text-purple-600">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down">
-                <path d="m6 9 6 6 6-6"/>
-              </svg>
-            </span>
-          </summary>
-          <p className="mt-4 text-gray-700 leading-relaxed">
-            Ultricies justo arcu sit donec nibh dictumst nulla ac. Dolor purus mauris quam tellus iaculis
-            cursus ipsum elit sed. At enim duis sit fringilla. Lacus justo velit viverra iaculis pellentesque leo
-            massa. Netus in in eu et rutrum venenatis. Nunc egestas nisl felis morbi.
+          <h2 className="mb-6 text-center text-4xl font-bold tracking-tight md:text-5xl ">
+            Frequently Asked Questions
+          </h2>
+
+          <p className="max-w-2xl text-center text-gray-600">
+            Learn how OutMail helps students streamline their job applications using AI.
           </p>
-        </details>
+        </div>
 
-        {/* FAQ Item 2 */}
-        <details className="group rounded-xl bg-white px-6 py-4 shadow-lg">
-          <summary className="flex cursor-pointer items-center justify-between text-lg font-medium text-gray-800">
-            How do I buy outmail?
-            <span className="transition group-open:rotate-180 text-purple-600">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down">
-                <path d="m6 9 6 6 6-6"/>
-              </svg>
-            </span>
-          </summary>
-          <p className="mt-4 text-gray-700 leading-relaxed">
-            You can sign up and choose a membership plan that suits your needs best.
-          </p>
-        </details>
+       {/* Category Tabs */}
+<div className="mb-10 flex flex-wrap justify-center gap-2">
+  {categories.map((category) => (
+    <button
+      key={category.id}
+      onClick={() => setActiveCategory(category.id)}
+      className={cn(
+        'rounded-full px-4 py-2 text-sm font-medium transition-colors',
+        activeCategory === category.id
+          ? 'bg-purple-600 text-white'
+          : 'bg-gray-200 text-black hover:bg-gray-300'
+      )}
+    >
+      {category.label}
+    </button>
+  ))}
+</div>
 
-        {/* FAQ Item 3 */}
-        <details className="group rounded-xl bg-white px-6 py-4 shadow-lg">
-          <summary className="flex cursor-pointer items-center justify-between text-lg font-medium text-gray-800">
-            What is outmil?
-            <span className="transition group-open:rotate-180 text-purple-600">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down">
-                <path d="m6 9 6 6 6-6"/>
-              </svg>
-            </span>
-          </summary>
-          <p className="mt-4 text-gray-700 leading-relaxed">
-            Outmil is a similar platform to Outmail, offering exclusive content and benefits to its premium members.
-          </p>
-        </details>
+        {/* FAQ Grid */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <AnimatePresence>
+            {filteredFaqs.map((faq, index) => (
+              <motion.div
+                key={faq.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                className={cn(
+                  'border border-gray-200 bg-white shadow-md h-fit overflow-hidden rounded-xl',
+                  expandedId === faq.id ? 'shadow-lg' : ''
+                )}
+                style={{ minHeight: '88px' }}
+              >
+                <button
+                  onClick={() => toggleExpand(faq.id)}
+                  className="flex w-full items-center justify-between p-6 text-left"
+                >
+                  <h3 className="text-lg font-medium">{faq.question}</h3>
+                  <div className="ml-4 flex-shrink-0">
+                    {expandedId === faq.id ? (
+                      <MinusIcon className="text-primary h-5 w-5" />
+                    ) : (
+                      <PlusIcon className="text-primary h-5 w-5" />
+                    )}
+                  </div>
+                </button>
 
-        {/* FAQ Item 4 */}
-        <details className="group rounded-xl bg-white px-6 py-4 shadow-lg">
-          <summary className="flex cursor-pointer items-center justify-between text-lg font-medium text-gray-800">
-            Is it safe to use?
-            <span className="transition group-open:rotate-180 text-purple-600">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down">
-                <path d="m6 9 6 6 6-6"/>
-              </svg>
-            </span>
-          </summary>
-          <p className="mt-4 text-gray-700 leading-relaxed">
-            Absolutely. We use secure encryption and privacy protection for all transactions. Your safety and privacy are our top priorities.
-          </p>
-        </details>
-      </div>
+                <AnimatePresence>
+                  {expandedId === faq.id && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="border-t border-gray-200 px-6 pt-2 pb-6">
+                        <p className="text-gray-600">{faq.answer}</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
 
-      {/* Section for "Didn't find the answer?" */}
-      <div className="text-center mt-12">
-        <p className="text-gray-600 mb-4">
-          Didn't find the answer you are looking for?
-          <br />
-          Eget nam congue neque nunc vel viverra lorem massa urna. Magna proin
-          pellentesque cras amet et. Sit in mattis quam nec tellus.
-        </p>
-        {/* Contact Support Button */}
-        <button className="mt-4 rounded-full bg-purple-600 text-white px-8 py-3 hover:bg-purple-700 transition duration-200 shadow-md">
-          Contact Our Support
-        </button>
+        {/* Contact CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="mt-16 text-center"
+        >
+          <p className="mb-4 text-gray-600">Can’t find what you’re looking for?</p>
+          <a
+            href="#"
+            className="inline-flex items-center justify-center rounded-lg border-2 border-primary bg-transparent px-6 py-3 font-medium text-black hover:black transition-colors hover:bg-primary hover:text-black hover:bg-purple-400"
+          >
+            Contact Support
+          </a>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Quote } from 'lucide-react';
+import Flip from './flip';
+import CardSwipeDemo from './swipe';
 
 export default function Testimonials() {
   const people = [
@@ -22,7 +24,7 @@ export default function Testimonials() {
   ];
 
   return (
-    <div className="bg-[#f9f9fb] text-black px-4 py-20">
+    <div className="bg-white text-black px-4 py-20">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-8">Outmail Testimonials</h2>
 
@@ -35,7 +37,7 @@ export default function Testimonials() {
         </div>
 
         {/* Profiles */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-6"> <Flip/>
           {people.map((person, index) => (
             <div key={index} className="text-center">
               <div className="w-full aspect-square rounded-xl bg-purple-200 mx-auto mb-4" />
@@ -43,7 +45,10 @@ export default function Testimonials() {
               <p className="text-sm text-gray-600">{person.role}</p>
             </div>
           ))}
-        </div>
+        </div> */}
+        <div className='py-5'><CardSwipeDemo/></div>
+
+
       </div>
     </div>
   );

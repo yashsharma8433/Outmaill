@@ -44,7 +44,12 @@ export default function Pricing() {
   ];
 
   return (
-    <div className="bg-gradient-to-b from-[#2a00b7] to-[#6c00ff] text-white py-20 px-4">
+    <div
+    className="text-white py-20 px-4"
+    style={{
+     background: 'linear-gradient(to bottom, #691FFC 10%, #461C9A 54%, #461C9A 98%)',
+    }}
+  >
       <div className="max-w-7xl mx-auto text-center">
         <p className="text-sm font-medium text-white/80 mb-2">Membership</p>
         <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tighter">

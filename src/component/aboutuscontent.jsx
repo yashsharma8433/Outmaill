@@ -1,9 +1,14 @@
 'use client';
 import React from 'react';
 
+
+import CardSwipeDemo from './swipe';
+import Flip from './flip';
+
 export default function AboutUs() {
   return (
     <div className="w-full px-4 sm:px-8 md:px-16 py-20 bg-white text-center">
+
       <p className="text-sm text-indigo-600 font-medium mb-2">About Us</p>
       <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Unveiling outmail Story</h2>
       <p className="text-gray-500 max-w-2xl mx-auto">
@@ -13,7 +18,7 @@ export default function AboutUs() {
 
       <div className="flex flex-col md:flex-row items-center justify-center mt-16 gap-12">
         {/* Left side image block */}
-        <div className="bg-purple-400 w-[300px] h-[300px] md:w-[450px] md:h-[350px] rounded-[40px]"></div>
+        <div className=" w-[300px] h-[300px] md:w-[450px] md:h-[350px] rounded-[50px]"> <Flip/></div>
 
         {/* Timeline */}
         <div className="text-left">
