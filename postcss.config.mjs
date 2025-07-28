@@ -24,6 +24,7 @@ const config = {
         geist: ['var(--font-geist-sans)', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
       },
+      
     },
   },
   plugins: ["@tailwindcss/postcss"],

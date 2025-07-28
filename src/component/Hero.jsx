@@ -1,6 +1,7 @@
 import React from 'react';
 import AboutUs from '@/component/aboutuscontent';
 import { HeroScrollDemo } from './heroscroll';
+import StackingCards from './stackcards';
 
 function Hero() {
   return (
@@ -28,13 +29,16 @@ function Hero() {
           </p>
 
           <div className="mt-8">
-            <button className="bg-white hover:text-purple-600 text-black font-medium rounded-full px-6 py-2 transition">
-              Get Started For Free!
-            </button>
+
+          <button className="px-4 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">Get Started</button>
+
+
+         
           </div>
         </div>
       </div>
-      <HeroScrollDemo />
+      {/* <HeroScrollDemo /> */}
+     <div className='-mt-130'><StackingCards/></div> 
     </div>
   );
 }

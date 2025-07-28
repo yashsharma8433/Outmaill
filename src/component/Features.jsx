@@ -26,7 +26,7 @@ export default function Features() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-violet-700 to-purple-900 flex items-center justify-center px-8 py-20 min-h-screen flex items-center" style={{
+    <div className="bg-gradient-to-b from-violet-700 to-purple-900 flex items-center justify-center px-8 py-20 min-h-screen flex items-center" style={{
     background: 'linear-gradient(to bottom, #691FFC 0%, #461C9A 54%, #461C9A 98%)',
   }}>
       <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center">

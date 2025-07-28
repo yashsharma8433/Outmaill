@@ -2,29 +2,12 @@ import React from 'react';
 import { Quote } from 'lucide-react';
 import Flip from './flip';
 import CardSwipeDemo from './swipe';
+import StaggerTestimonials from './ui/stagger-testimonials';
 
 export default function Testimonials() {
-  const people = [
-    {
-      name: 'Constance Julien',
-      role: 'Chief Factors Technician',
-    },
-    {
-      name: 'Gilbert Maverick',
-      role: 'Financial Analyst',
-    },
-    {
-      name: 'Della Lee Luwe',
-      role: 'Forward Identity Agent',
-    },
-    {
-      name: 'Bernard Houtson',
-      role: 'Lead Branding Supervisor',
-    },
-  ];
-
+ 
   return (
-    <div className="bg-white text-black px-4 py-20">
+    <div className=" text-black px-4 py-20">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-8">Outmail Testimonials</h2>
 
@@ -46,7 +29,8 @@ export default function Testimonials() {
             </div>
           ))}
         </div> */}
-        <div className='py-5'><CardSwipeDemo/></div>
+        {/* <div className='py-5'><CardSwipeDemo/></div> */}
+      <div> <StaggerTestimonials/></div> 
 
 
       </div>

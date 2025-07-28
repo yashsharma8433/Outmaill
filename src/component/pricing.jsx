@@ -59,9 +59,9 @@ export default function Pricing() {
           Commodo nec mi id ullamcorper vitae augue neque dis. Nunc lacinia viverra orci diam. Nibh est vitae suspendisse parturient sed lorem eu.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8   ">
           {memberships.map((plan, idx) => (
-            <div key={idx} className="bg-black rounded-2xl p-8 text-left shadow-lg">
+            <div key={idx} className="bg-black rounded-2xl p-8 text-left shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 ">
               <span className="text-sm px-3 py-1 bg-white/10 rounded-full text-white/80 mb-4 inline-block">
                 {plan.level}
               </span>

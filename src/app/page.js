@@ -10,6 +10,9 @@ import Testimonials from "@/component/Testimonials";
 import Footer from "@/component/Footer";
 import Membership from "@/component/whyoutmail";
 import Faq from "@/component/faq";
+import { StaggerTestimonials } from "@/component/ui/stagger-testimonials";
+import { Card } from "@/component/ui/container-scroll-animation";
+
 
 
 
@@ -28,6 +31,8 @@ export default function Home() {
     <Faq/>
    
     <Footer/>
+   
+    
    
 
 

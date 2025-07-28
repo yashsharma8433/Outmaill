@@ -14,7 +14,7 @@ export default function Partners() {
   const repeatedLogos = [...logos, ...logos]; // Duplicate for seamless loop
 
   return (
-    <div className="bg-white py-16 px-4 sm:px-6 lg:px-8 text-center overflow-hidden  -mt-50">
+    <div className="bg-white py-16 px-4 sm:px-6 lg:px-8 text-center overflow-hidden  -mt-10">
       <h2 className="text-2xl font-semibold text-gray-900 mb-10">
         Our Diverse Network of Partners.
       </h2>
