@@ -5,6 +5,7 @@ import AboutUs from '@/component/aboutuscontent'
 import MissionValues from '@/component/visionmission'
 import Footer from '@/component/Footer'
 import Faq from '@/component/faq'
+import Stickyscroll from '@/component/aboutusscroller'
 
 
 function page() {
@@ -44,6 +45,7 @@ function page() {
       <MissionValues/>
       <Faq/>
       <Footer/>
+
 
 
     </div>

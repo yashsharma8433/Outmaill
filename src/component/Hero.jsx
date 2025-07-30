@@ -38,7 +38,7 @@ function Hero() {
         </div>
       </div>
       {/* <HeroScrollDemo /> */}
-     <div className='-mt-130'><StackingCards/></div> 
+     <div className='-mt-130 '><StackingCards/></div> 
     </div>
   );
 }

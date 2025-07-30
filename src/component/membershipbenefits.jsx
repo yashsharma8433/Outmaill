@@ -1,5 +1,6 @@
-// components/MembershipBenefits.js
+
 import React from 'react';
+import StackingCards from './stackcards';
 
 const MembershipBenefits = () => {
   return (
@@ -40,10 +41,13 @@ const MembershipBenefits = () => {
         </div>
 
         {/* Right Section - Placeholder Box */}
-        <div className="bg-purple-300 rounded-3xl w-full h-96 lg:h-[500px] shadow-lg flex items-center justify-center">
+        <div className="bg-purple-300 rounded-2xl w-full h-96 lg:h-[500px] shadow-lg flex items-center justify-center">
+        
+
           {/* You can place an image or more complex content here */}
           {/* <p className="text-white text-2xl font-bold">Placeholder for Image/Content</p> */}
         </div>
+
       </div>
     </section>
   );
