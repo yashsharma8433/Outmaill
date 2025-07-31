@@ -115,8 +115,7 @@ export const Card = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           style={{
-            background:
-              'linear-gradient(to bottom, #000, #200D42 30%, #4F21A1 50%, #A46EDB 70%, #FFFFFF 100%)',
+
           }}
         ></motion.div>
       )}
