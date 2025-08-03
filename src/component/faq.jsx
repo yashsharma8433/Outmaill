@@ -87,42 +87,47 @@ export default function Faq2() {
   };
 
   return (
-    <section className="bg-white text-black  font-syne py-16">
+    <section className="min-h-screen bg-white text-black font-syne py-16 pb-24 bg-gradient-to-l from-black via-[#6c00ff] to-black">
       <div className="container mx-auto max-w-6xl px-4 md:px-6">
         <div className="mb-12 flex flex-col items-center">
           <Badge
             variant="outline"
-            className="border-primary mb-4 px-3 py-1 text-xs font-medium tracking-wider uppercase"
+            className="border-primary mb-4 px-10 py-1 text-xl font-medium tracking-wider uppercase"
           >
-            FAQs
+            FAQ&rsquo;s
           </Badge>
 
-          <h2 className="mb-6 text-center text-4xl font-bold tracking-tight md:text-5xl ">
+          <h2 className="mb-6 text-center text-4xl font-bold tracking-tight md:text-5xl text-white">
             Frequently Asked Questions
           </h2>
 
-          <p className="max-w-2xl text-center text-gray-600">
+          <p className="max-w-2xl text-center text-white">
             Learn how OutMail helps students streamline their job applications using AI.
           </p>
         </div>
 
-       {/* Category Tabs */}
-<div className="mb-10 flex flex-wrap justify-center gap-2">
-  {categories.map((category) => (
-    <button
-      key={category.id}
-      onClick={() => setActiveCategory(category.id)}
-      className={cn(
-        'rounded-full px-4 py-2 text-sm font-medium transition-colors',
-        activeCategory === category.id
-          ? 'bg-purple-600 text-white'
-          : 'bg-gray-200 text-black hover:bg-gray-300'
-      )}
-    >
-      {category.label}
-    </button>
-  ))}
-</div>
+        {/* Category Tabs */}
+        <div className="mb-10 flex flex-wrap justify-center gap-2">
+          {categories.map((category) => (
+            <button
+              type="button"
+              key={category.id}
+              onClick={() => {
+                setActiveCategory(category.id);
+                // Remove the window.scrollTo() call to prevent the page from jumping to the top.
+                // window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className={cn(
+                'rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                activeCategory === category.id
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-gray-200 text-black hover:bg-gray-300'
+              )}
+            >
+              {category.label}
+            </button>
+          ))}
+        </div>
 
         {/* FAQ Grid */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -181,10 +186,10 @@ export default function Faq2() {
           transition={{ delay: 0.5, duration: 0.5 }}
           className="mt-16 text-center"
         >
-          <p className="mb-4 text-gray-600">Can’t find what you’re looking for?</p>
+          <p className="mb-4 text-white">Can’t find what you’re looking for?</p>
           <a
-            href="#"
-            className="inline-flex items-center justify-center rounded-lg border-2 border-primary bg-transparent px-6 py-3 font-medium text-black hover:black transition-colors hover:bg-primary hover:text-black hover:bg-purple-400"
+            href="/Contactus"
+            className="px-4 py-3 bg-white text-black font-extrabold rounded-xl hover:bg-[#dbddd2] border-amber-100 transition"
           >
             Contact Support
           </a>

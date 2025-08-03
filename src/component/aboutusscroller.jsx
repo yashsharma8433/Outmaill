@@ -9,13 +9,19 @@ export default function index() {
 
         </div>
 
-        <section className="text-white   w-full bg-white  ">
+        <section className="bg-gradient-to-l from-black via-[#6c00ff] to-black   w-full bg-white  ">
           <div className="grid grid-cols-2">
             <div className="sticky top-0 h-screen flex items-center justify-center">
-              <h1 className="2xl:text-7xl text-black text-5xl px-8 font-semibold text-center tracking-tight leading-[120%]">
-                Mission
-                <br /> 
-              </h1>
+            <div className="sticky top-0 h-screen grid place-content-center">
+  <div className="text-right px-8">
+    <h1 className="2xl:text-7xl text-white text-5xl font-semibold text-left tracking-tight leading-[120%] mb-4">
+     Our Vision
+    </h1>
+    <p className="text-white text-lg max-w-xl ml-auto text-left">
+    Our vision is to build a future where technology empowers every individual and business to innovate without limits. We strive to create intelligent, scalable, and human-centric digital solutions that redefine industries and drive meaningful change.
+    </p>
+  </div>
+</div>
             </div>
             <div className="grid gap-2">
               <figure className="grid place-content-center -skew-x-12">
@@ -49,7 +55,7 @@ export default function index() {
             </div>
           </div>
         </section>
-        <section className="text-white   w-full bg-white  ">
+        <section className="text-white   w-full bg-gradient-to-l from-black via-[#6c00ff] to-black  ">
           <div className="grid grid-cols-2 px-8">
             <div className="grid gap-2">
               <figure className="sticky top-0 h-screen grid place-content-center">
@@ -82,9 +88,16 @@ export default function index() {
               </figure>
             </div>
             <div className="sticky top-0 h-screen grid place-content-center">
-              <h1 className="text-4xl  text-black px-8 font-medium text-right tracking-tight leading-[120%]">
-                Vision
-              </h1>
+            <div className="sticky top-0 h-screen grid place-content-center">
+  <div className="text-right px-8">
+    <h1 className="text-5xl  text-white text-left font-medium tracking-tight leading-[120%] mb-4">
+      Our Mission
+    </h1>
+    <p className="text-white text-lg max-w-xl ml-auto text-left">
+      Our mission is to empower businesses and creators through innovative digital products that are fast, scalable, and user-centric. We aim to bridge the gap between technology and real-world impact—one solution at a time.
+    </p>
+  </div>
+</div>
             </div>
           </div>
         </section>

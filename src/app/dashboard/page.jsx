@@ -15,7 +15,7 @@ import {
 // Mock ChartComponent for demonstration purposes
 const ChartComponent = ({ type, data }) => {
   return (
-    <div className="flex items-center justify-center h-full bg-[#2C2C2C] rounded-lg text-gray-400">
+    <div className="flex items-center justify-center h-full border border-white text-white">
       {type === "line" ? "Line Chart Placeholder" : "Bar/Doughnut Chart Placeholder"}
     </div>
   );
@@ -107,7 +107,7 @@ const Templates = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold mb-1">Templates</h1>
-          <p className="text-gray-400 text-sm sm:text-base">AI-powered templates to boost your application success rate</p>
+          <p className="text-white text-sm sm:text-base">AI-powered templates to boost your application success rate</p>
         </div>
         <button className="mt-4 sm:mt-0 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center shadow-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5">
           <Plus size={20} className="mr-2" /> Create Template
@@ -118,7 +118,7 @@ const Templates = () => {
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row items-center bg-[#1A1A1A] rounded-lg p-2 border border-[#2C2C2C] shadow-md">
           <div className="flex items-center w-full sm:w-auto flex-grow">
-            <Search size={20} className="text-gray-400 ml-2 mr-3" />
+            <Search size={20} className="text-white ml-2 mr-3" />
             <input
               type="text"
               placeholder="Search templates..."
@@ -128,7 +128,7 @@ const Templates = () => {
             />
           </div>
           <div className="flex items-center mt-2 sm:mt-0 sm:ml-4 border-t sm:border-t-0 sm:border-l border-[#2C2C2C] pt-2 sm:pt-0 sm:pl-4 w-full sm:w-auto">
-            <button className="flex items-center text-gray-400 hover:text-purple-400 transition mr-4">
+            <button className="flex items-center text-white hover:text-purple-400 transition mr-4">
               <SlidersHorizontal size={20} className="mr-2" /> Filter
             </button>
             <div className="flex flex-wrap gap-2">
@@ -167,13 +167,13 @@ const Templates = () => {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-purple-400">{template.title}</h3>
-                      <p className="text-sm text-gray-400 mt-1">{template.description}</p>
+                      <p className="text-sm text-white mt-1">{template.description}</p>
                     </div>
                   </div>
                   <span className="bg-purple-800 text-white text-xs font-medium px-2.5 py-0.5 rounded-full">Featured</span>
                 </div>
 
-                <div className="flex items-center text-sm text-gray-400 mb-4">
+                <div className="flex items-center text-sm text-white mb-4">
                   <Star size={16} className="text-yellow-400 mr-1" fill="currentColor" />
                   <span>{template.rating}</span>
                   <span className="mx-2">•</span>
@@ -197,14 +197,14 @@ const Templates = () => {
                   <button className="flex-grow bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5 mr-2">
                     Use Template
                   </button>
-                  <button className="p-2 bg-[#2C2C2C] hover:bg-[#3A3A3A] rounded-lg text-gray-400 hover:text-white transition">
+                  <button className="p-2 bg-[#2C2C2C] hover:bg-[#3A3A3A] rounded-lg text-white hover:text-white transition">
                     <MoreHorizontal size={20} />
                   </button>
                 </div>
               </div>
             ))
           ) : (
-            <p className="text-gray-400 col-span-full">No featured templates found.</p>
+            <p className="text-white col-span-full">No featured templates found.</p>
           )}
         </div>
       </div>
@@ -226,12 +226,12 @@ const Templates = () => {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-purple-400">{template.title}</h3>
-                      <p className="text-sm text-gray-400 mt-1">{template.description}</p>
+                      <p className="text-sm text-white mt-1">{template.description}</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center text-sm text-gray-400 mb-4">
+                <div className="flex items-center text-sm text-white mb-4">
                   <Star size={16} className="text-yellow-400 mr-1" fill="currentColor" />
                   <span>{template.rating}</span>
                 </div>
@@ -245,14 +245,14 @@ const Templates = () => {
                   <button className="flex-grow bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5 mr-2">
                     Use Template
                   </button>
-                  <button className="p-2 bg-[#2C2C2C] hover:bg-[#3A3A3A] rounded-lg text-gray-400 hover:text-white transition">
+                  <button className="p-2 bg-[#2C2C2C] hover:bg-[#3A3A3A] rounded-lg text-white hover:text-white transition">
                     <MoreHorizontal size={20} />
                   </button>
                 </div>
               </div>
             ))
           ) : (
-            <p className="text-gray-400 col-span-full">No templates found.</p>
+            <p className="text-white col-span-full">No templates found.</p>
           )}
         </div>
       </div>
@@ -281,11 +281,11 @@ const Attachments = () => {
     };
 
     return (
-        <div className="p-4 sm:p-6 font-syne"> {/* Applied font-syne */}
+        <div className="p-4 sm:p-6 font-syne "> {/* Applied font-syne */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-bold mb-1">Attachments</h1>
-                    <p className="text-gray-400 text-sm sm:text-base">Manage your job application attachments</p>
+                    <p className="text-white text-sm sm:text-base">Manage your job application attachments</p>
                 </div>
                 <button
                     onClick={handleUploadAttachment}
@@ -302,11 +302,11 @@ const Attachments = () => {
                         <table className="min-w-full divide-y divide-[#2C2C2C]">
                             <thead>
                                 <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Name</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Type</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Size</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Upload Date</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Type</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Size</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Upload Date</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-[#2C2C2C]">
@@ -330,7 +330,7 @@ const Attachments = () => {
                         </table>
                     </div>
                 ) : (
-                    <p className="text-gray-400">No attachments uploaded yet.</p>
+                    <p className="text-white">No attachments uploaded yet.</p>
                 )}
             </div>
         </div>
@@ -365,7 +365,7 @@ const Settings = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold mb-1">Settings</h1>
-          <p className="text-gray-400 text-sm sm:text-base">Manage your application settings and preferences</p>
+          <p className="text-white text-sm sm:text-base">Manage your application settings and preferences</p>
         </div>
         <button
           onClick={handleSaveChanges}
@@ -483,10 +483,10 @@ export default function Page() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#0A0A0A] text-white overflow-hidden font-syne"> {/* Applied font-syne */}
+    <div className="flex min-h-screen bg-gradient-to-l from-black via-[#6c00ff] to-black text-white overflow-hidden font-syne"> {/* Applied font-syne */}
       {/* Sidebar */}
       <aside
-        className={`bg-[#1A1A1A] text-white p-6 border-r border-[#2C2C2C] flex flex-col justify-between transition-all duration-300 ease-in-out
+        className={`bg-[#0000] text-white p-6 border-r border-[#2C2C2C] flex flex-col justify-between transition-all duration-300 ease-in-out
           ${isSidebarOpen ? "w-64" : "w-0"} fixed h-screen z-20`}
       >
         <div className={isSidebarOpen ? "block" : "hidden"}>
@@ -507,8 +507,8 @@ export default function Page() {
               onClick={() => setActiveSection("dashboard")}
               className={`flex items-center gap-2 transition cursor-pointer ${
                 activeSection === "dashboard"
-                  ? "text-purple-400 font-semibold"
-                  : "text-gray-400 hover:text-purple-400"
+                  ? "text-purple-400 font-bold"
+                  : "text-white hover:text-purple-400"
               }`}
             >
               <LayoutDashboard size={16} /> Dashboard
@@ -518,7 +518,7 @@ export default function Page() {
               className={`block transition cursor-pointer ${
                 activeSection === "attachments"
                   ? "text-purple-400 font-semibold"
-                  : "text-gray-400 hover:text-purple-400"
+                  : "text-white hover:text-purple-400"
               }`}
             >
               Attachments
@@ -528,7 +528,7 @@ export default function Page() {
               className={`block transition cursor-pointer ${
                 activeSection === "templates"
                   ? "text-purple-400 font-semibold"
-                  : "text-gray-400 hover:text-purple-400"
+                  : "text-white hover:text-purple-400"
               }`}
             >
               Templates
@@ -538,7 +538,7 @@ export default function Page() {
               className={`block transition cursor-pointer ${
                 activeSection === "settings"
                   ? "text-purple-400 font-semibold"
-                  : "text-gray-400 hover:text-purple-400"
+                  : "text-white hover:text-purple-400"
               }`}
             >
               Settings
@@ -548,7 +548,7 @@ export default function Page() {
         <div className={isSidebarOpen ? "block" : "hidden"}>
           <a
             href="#"
-            className="flex items-center gap-2 text-gray-400 hover:text-red-500 transition"
+            className="flex items-center gap-2 text-white hover:text-red-500 transition"
           >
             <LogOut size={16} /> Logout
           </a>
@@ -564,7 +564,7 @@ export default function Page() {
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               className="p-2 rounded hover:bg-[#2C2C2C] focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
-              <Menu className="text-gray-400" />
+              <Menu className="text-white  " />
             </button>
             <div>
               <h2 className="text-xl font-bold">Job Application Dashboard</h2>
@@ -606,14 +606,14 @@ export default function Page() {
         {activeSection === "dashboard" && (
           <section className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
             {/* Main Chart */}
-            <div className="bg-[#1A1A1A] rounded-lg p-6 md:col-span-2 pb-15">
+            <div className="bg-transparent rounded-lg p-6 md:col-span-2 pb-15">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-semibold">Application Activity</h3>
-                <span className="text-sm text-gray-400">
+                <span className="text-sm text-white">
                   Total Applications: <span className="text-purple-400 font-bold">24</span>
                 </span>
               </div>
-              <p className="text-sm text-gray-400 mb-4">
+              <p className="text-sm text-white mb-4">
                 You can see your search performance over time
               </p>
               <div className="h-64">
@@ -624,14 +624,14 @@ export default function Page() {
 
             {/* Sidebar Stats */}
             <div className="grid gap-6">
-              <div className="bg-[#8B5CF6] rounded-lg p-6 text-white">
+              <div className="bg-transparent rounded-lg p-6 text-white border border-amber-50">
                 <div className="flex justify-between items-center">
                   <span className="text-4xl font-bold">33%</span>
                   <span className="text-sm bg-purple-700 px-2 py-0.5 rounded-full">+2.5%</span>
                 </div>
                 <p className="text-sm mt-2">Conversion Rate</p>
               </div>
-              <div className="bg-[#1A1A1A] rounded-lg p-6">
+              <div className="bg-transparent rounded-lg p-6 border border-amber-50">
                 <div className="flex justify-between items-center">
                   <span className="text-4xl font-bold">8</span>
                   <span className="text-sm bg-[#2C2C2C] text-purple-400 px-2 py-0.5 rounded-full">+2 new</span>
@@ -645,7 +645,7 @@ export default function Page() {
             {/* Additional Charts below the main chart and sidebar stats */}
             <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Response Rates Chart */}
-              <div className="bg-[#1A1A1A] rounded-lg p-6">
+              <div className="bg-transparent rounded-lg p-6">
                 <h3 className="text-lg font-semibold mb-4">Response Rates</h3>
                 <div className="h-64">
                   <ChartComponent type="bar" data={responseRatesData} />
@@ -653,7 +653,7 @@ export default function Page() {
               </div>
 
               {/* Status Overview Chart */}
-              <div className="bg-[#1A1A1A] rounded-lg p-6">
+              <div className="bg-transparent rounded-lg p-6">
                 <h3 className="text-lg font-semibold mb-4">Status Overview</h3>
                 <div className="h-64">
                   <ChartComponent type="doughnut" data={statusOverviewData} />

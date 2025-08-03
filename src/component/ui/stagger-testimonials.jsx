@@ -48,8 +48,8 @@ const TestimonialCard = ({ position, testimonial, handleMove, cardSize }) => {
       className={cn(
         "absolute left-1/2 top-1/2 cursor-pointer border p-8 transition-all duration-500 ease-in-out",
         isCenter
-          ? "z-10 bg-black text-white font-extrabold border-primary"
-          : "z-0 bg-white text-black border-border hover:border-primary/50"
+          ? "z-10 bg-[#5C1ED9] text-white font-extrabold border-primary"
+          : "z-0 bg-[#AD45FF] text-black border-border hover:border-primary/50"
       )}
       style={{
         width: cardSize,
@@ -152,30 +152,23 @@ export const StaggerTestimonials = () => {
           />
         );
       })}
-      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-        <button
-          onClick={() => handleMove(-1)}
-          className={cn(
-            "flex h-14 w-14 items-center justify-center text-2xl transition-colors",
-            "bg-background border-2 border-border hover:bg-primary hover:text-primary-foreground",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          )}
-          aria-label="Previous testimonial"
-        >
-          <ChevronLeft />
-        </button>
-        <button
-          onClick={() => handleMove(1)}
-          className={cn(
-            "flex h-14 w-14 items-center justify-center text-2xl transition-colors",
-            "bg-background border-2 border-border hover:bg-primary hover:text-black",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          )}
-          aria-label="Next testimonial"
-        >
-          <ChevronRight />
-        </button>
-      </div>
+      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-60">
+  <button
+    onClick={() => handleMove(-1)}
+    className="flex h-14 w-14 items-center justify-center text-2xl bg-background border-2 border-border text-[#6c00ff] rounded-full transition hover:bg-gray-300"
+    aria-label="Previous testimonial"
+  >
+    <ChevronLeft />
+  </button>
+  <button
+    onClick={() => handleMove(1)}
+    className="flex h-14 w-14 items-center justify-center text-2xl bg-background border-2 border-border text-[#6c00ff] rounded-full transition hover:bg-gray-300"
+    aria-label="Next testimonial"
+  >
+    <ChevronRight />
+  </button>
+</div>
+
     </div>
   );
 };

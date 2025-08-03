@@ -1,3 +1,5 @@
+"use client";
+
 import Navbar from '@/component/Navbar'
 import Hero from '@/component/Hero'
 import React from 'react'
@@ -7,12 +9,13 @@ import Footer from '@/component/Footer'
 import GetInTouch from '@/component/getintouch'
 
 
+
 function page() {
   return (
     <div>
       <Navbar/>
 
-      <div className="bg-[linear-gradient(to_bottom,#000,#200D42_20%,#4F21A1_45%,#A46EDB_60%,#FFFFFF_100%)]">   
+      <div className="bg-gradient-to-l from-black via-[#6c00ff] to-black ">   
       
 
       <div className="container mx-auto px-4 text-center">
@@ -20,32 +23,40 @@ function page() {
 
         </div>
 
-        <h1 className="text-4xl sm:text-5xl px-4  font-syne font-bold tracking-wide mt-29">
+        <h1 className="text-4xl sm:text-5xl px-4  font-syne font-bold tracking-wide mt-25">
           Contact Us
         </h1>
-
-
-
-        <p className="text-[#C0C0C0] text-base sm:text-lg mt-6 leading-relaxed">
-          Automate your job search, create stunning resumes, and track every application — all in
+        <p className="text-[#C0C0C0] text-base sm:text-lg mt-6 mb-25 leading-relaxed">
+          If you have any query , please fill the below form.
           <br />
-          <span className="block mt-2">one place.</span>
+          {/* <span className="block mt-2">.</span> */}
         </p>
 
-        <div className="mt-8">
-          <button className="bg-white hover:text-purple-600 text-black font-medium rounded-full px-6 py-2 transition">
-            Scroll to Know More!
-          </button>
-        </div>
+        <div className="text-center -mt-10">
+            <button
+              onClick={() => {
+                const missionSection = document.getElementById('contact-us');
+                missionSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="rounded-full border-2 border-white text-white px-5 py-3 hover:bg-white hover:text-black transition duration-300"
+            >
+              ↓
+            </button>
+          </div>
+
+
+
+      
+
 
 
       </div>
       </div>
-      <GetInTouch/>
+    <div id="contact-us"> <GetInTouch/></div> 
 
-      <Partners/>
+      {/* <Partners/> */}
 
-      <Faq/>
+      {/* <Faq/> */}
       <Footer/>
 
 

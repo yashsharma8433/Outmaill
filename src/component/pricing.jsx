@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Pricing() {
+export default function ZPricing() {
   const memberships = [
     {
       level: 'Entry Level',
@@ -13,7 +13,6 @@ export default function Pricing() {
         'Discount on select partner services',
       ],
       buttonText: 'Join Basic Membership',
-      buttonStyle: 'bg-white text-black',
     },
     {
       level: 'Intermediate Level',
@@ -26,7 +25,6 @@ export default function Pricing() {
         'Exclusive webinars and events',
       ],
       buttonText: 'Upgrade Pro Membership',
-      buttonStyle: 'bg-[#6c00ff] text-white',
     },
     {
       level: 'Premium Level',
@@ -39,17 +37,11 @@ export default function Pricing() {
         'Invitations to VIP events and networking',
       ],
       buttonText: 'Become a VIP Member',
-      buttonStyle: 'bg-white text-black',
     },
   ];
 
   return (
-    <div
-    className="text-white py-20 px-4"
-    style={{
-     background: 'linear-gradient(to bottom, #691FFC 10%, #461C9A 54%, #461C9A 98%)',
-    }}
-  >
+    <div className="text-white py-20 px-4 bg-gradient-to-l from-black via-[#6c00ff] to-black">
       <div className="max-w-7xl mx-auto text-center">
         <p className="text-sm font-medium text-white/80 mb-2">Membership</p>
         <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tighter">
@@ -59,9 +51,12 @@ export default function Pricing() {
           Commodo nec mi id ullamcorper vitae augue neque dis. Nunc lacinia viverra orci diam. Nibh est vitae suspendisse parturient sed lorem eu.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8   ">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {memberships.map((plan, idx) => (
-            <div key={idx} className="bg-black rounded-2xl p-8 text-left shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 ">
+            <div
+              key={idx}
+              className="group rounded-2xl border border-white p-8 text-left shadow-lg transition duration-300 bg-black hover:bg-[#5C1ED9] hover:-translate-y-1 hover:scale-105"
+            >
               <span className="text-sm px-3 py-1 bg-white/10 rounded-full text-white/80 mb-4 inline-block">
                 {plan.level}
               </span>
@@ -77,7 +72,7 @@ export default function Pricing() {
                 ))}
               </ul>
               <button
-                className={`w-full text-center py-2 px-4 rounded-full font-medium ${plan.buttonStyle} hover:opacity-90 transition`}
+                className={`w-full text-center py-2 px-4 rounded-full font-medium bg-white text-black transition group-hover:bg-black group-hover:text-white`}
               >
                 {plan.buttonText}
               </button>

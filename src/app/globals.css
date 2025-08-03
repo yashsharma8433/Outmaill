@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -21,7 +22,7 @@
 }
 
 .animate-scroll {
-  animation: scroll 30s linear infinite;
+  animation: scroll 10s linear infinite;
 }
 
 
@@ -51,7 +52,12 @@
 .flip-card:hover .flip-card-inner {
   transform: rotateY(180deg);
 }
-
+html,
+body {
+  background-color: #0A0A0A;
+  color: #ffffff;
+  font-family: 'Syne', sans-serif;
+}
 .flip-card-front, .flip-card-back {
   position: absolute;
   width: 100%;

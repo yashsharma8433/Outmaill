@@ -105,15 +105,17 @@ export const Card = ({
   return (
     <div
       ref={container}
-      className="h-screen flex items-center justify-center sticky top-0"
+      className="relative h-screen flex items-center justify-center sticky top-0 before:absolute before:bottom-0 before:left-0 before:right-0 before:h-32"
     >
+
+
       {/* Gradient background only on 2nd card (i === 1) */}
       {i === 1 && (
         <motion.div
           className="absolute inset-0 z-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          exit={{ opacity: 1000 }}
           style={{
 
           }}
@@ -126,7 +128,7 @@ export const Card = ({
           scale,
           top: `calc(-5vh + ${i * 25}px)`,
         }}
-        className={`flex flex-col relative -top-[25%] h-[450px] w-[70%] rounded-md p-10 origin-top z-10`}
+        className={`flex flex-col relative -top-[25%] h-[500px] w-[70%] rounded-2xl p-10 origin-top z-10`}
       >
         <h2 className="text-2xl text-center font-semibold">{title}</h2>
         <div className={`flex h-full mt-5 gap-10`}>
@@ -159,4 +161,3 @@ export const Card = ({
     </div>
   );
 };
-

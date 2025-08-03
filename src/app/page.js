@@ -13,6 +13,7 @@ import Faq from "@/component/faq";
 import { StaggerTestimonials } from "@/component/ui/stagger-testimonials";
 import { Card } from "@/component/ui/container-scroll-animation";
 import MissionValues from "@/component/visionmission";
+import FlipMaskCard from "@/component/flipmask";
 
 
 
@@ -22,12 +23,16 @@ export default function Home() {
     <div >
     <Navbar/>
     <Hero/>
-    <Partners/>
-    <AboutUs/>
     <Features/>
+    <Partners/>
+   
+    
+    
     <CtaOne/>
+    <AboutUs/>
     <Pricing/>
     <Testimonials/>
+
     {/* <Membership/> */}
     <Faq/>
    

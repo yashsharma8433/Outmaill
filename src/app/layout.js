@@ -3,6 +3,7 @@ import { Syne } from 'next/font/google';
 import './globals.css';
 import SmoothScrollWrapper from '@/component/SmoothScrollWrapper';
 
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -29,7 +30,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} antialiased`}>
         <SmoothScrollWrapper>
+        <dot>
           {children}
+          </dot>
         </SmoothScrollWrapper>
       </body>
     </html>

@@ -7,13 +7,13 @@ import StaggerTestimonials from './ui/stagger-testimonials';
 export default function Testimonials() {
  
   return (
-    <div className=" text-black px-4 py-20">
+    <div className=" text-white px-4 py-20 bg-gradient-to-l from-black via-[#6c00ff] to-black">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-8">Outmail Testimonials</h2>
 
         <div className="flex items-start justify-center gap-4 mb-12 max-w-4xl mx-auto">
           <Quote size={36} className="text-[#6c00ff] mt-2" />
-          <p className="text-gray-600 text-lg text-left">
+          <p className="text-white text-lg text-left">
             "Joining this platform was a game-changer for me. The educational resources helped me
             understand crypto trading, and the community support is invaluable. Highly recommended!"
           </p>
