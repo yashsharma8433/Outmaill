@@ -6,6 +6,8 @@
   --foreground: #171717;
 }
 
+
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -58,6 +60,7 @@ body {
   color: #ffffff;
   font-family: 'Syne', sans-serif;
 }
+
 .flip-card-front, .flip-card-back {
   position: absolute;
   width: 100%;

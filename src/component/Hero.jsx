@@ -55,17 +55,17 @@ function Hero() {
       </div>
       {/* <HeroScrollDemo /> */}
      <div className='  
-  sm:-mt-20
-  md:-mt-235 
-  lg:-mt-100 
-  xl:-mt-100
-  
-   bg-gradient-to-l from-black via-[#6c00ff] to-black '><StackingCards/></div> 
+ -mt-40
+    sm:-mt-16
+    md:-mt-24
+    lg:-mt-32
+    xl:-mt-100
+    bg-gradient-to-l from-black via-[#6c00ff] to-black '><StackingCards/></div> 
      
     </div>
 
    
-  );z
+  );
 }
 
 export default Hero;
