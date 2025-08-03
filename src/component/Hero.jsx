@@ -54,7 +54,11 @@ function Hero() {
         </div>
       </div>
       {/* <HeroScrollDemo /> */}
-     <div className=' -mt-87 -mb-25 bg-gradient-to-l from-black via-[#6c00ff] to-black '><StackingCards/></div> 
+     <div className='  
+  sm:-mt-20
+  md:-mt-235 
+  lg:-mt-165 
+   bg-gradient-to-l from-black via-[#6c00ff] to-black '><StackingCards/></div> 
      
     </div>
 
