@@ -55,7 +55,7 @@ function Hero() {
       </div>
       {/* <HeroScrollDemo /> */}
      <div className='  
- -mt-10
+ -mt-40
     sm:-mt-16
     md:-mt-24
     lg:-mt-32
