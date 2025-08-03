@@ -57,7 +57,9 @@ function Hero() {
      <div className='  
   sm:-mt-20
   md:-mt-235 
-  lg:-mt-165 
+  lg:-mt-100 
+  xl:-mt-100
+  
    bg-gradient-to-l from-black via-[#6c00ff] to-black '><StackingCards/></div> 
      
     </div>
