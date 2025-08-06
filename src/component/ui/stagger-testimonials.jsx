@@ -49,7 +49,7 @@ const TestimonialCard = ({ position, testimonial, handleMove, cardSize }) => {
         "absolute left-1/2 top-1/2 cursor-pointer border p-8 transition-all duration-500 ease-in-out",
         isCenter
           ? "z-10 bg-[#5C1ED9] text-white font-extrabold border-primary"
-          : "z-0 bg-[#AD45FF] text-black border-border hover:border-primary/50"
+          : "z-0 bg-white text-black border-border hover:border-primary/50"
       )}
       style={{
         width: cardSize,
