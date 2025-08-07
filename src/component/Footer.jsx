@@ -53,7 +53,7 @@ export default function Footer() {
       {/* Bottom Line */}
       <div className="border-t border-white/20 mt-12 pt-6 text-center text-sm text-white/50">
         <p>© {new Date().getFullYear()} OUTMAIL. All rights reserved.</p>
-        <p className="mt-1">Crafted with ❤️ by Innotecz Solutions</p>
+
       </div>
     </footer>
   );

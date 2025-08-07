@@ -29,10 +29,178 @@ import {
   Globe,
   MousePointer,
   Paperclip,
-
+  ChevronLeft,
+  Calendar,
+  Play,
+  User, Bell, Moon, Sun, Clock, Check, Zap, Edit, Save,
 } from "lucide-react";
 
-// Header Component
+// The campaign creation form, extracted and renamed for clarity
+const CampaignForm = () => {
+  const [campaignName, setCampaignName] = useState('');
+  const [emailSubject, setEmailSubject] = useState('');
+  const [emailBody, setEmailBody] = useState('');
+  const [emailsManual, setEmailsManual] = useState('');
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [timezone, setTimezone] = useState('(GMT+5:50) Chennai, Kolkata, Mumbai, New Delhi'); // Corrected time zone to match the image
+
+  // Placeholder function for handling form submission
+  const handleStartCampaign = () => {
+    console.log('Starting Campaign:', { campaignName, emailSubject, emailBody, startTime, endTime, timezone });
+    // In a real application, you would send this data to a server.
+    // Also, handle file uploads and email inputs.
+  };
+  return (
+    <div className="w-full max-w-7xl bg-white/10 ounded-2xl p-6 text-white  border border-white/20  border backdrop-blur-lg shadow-md rounded-xl sm:p-8 lg:p-10">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6 flex items-center gap-2">
+
+
+          Create Campaign
+        </h1>
+
+        {/* Campaign Name Input */}
+        <div className="mb-6">
+          <label className="block text-white font-medium mb-2">Campaign Name</label>
+          <input
+            type="text"
+            value={campaignName}
+            onChange={(e) => setCampaignName(e.target.value)}
+            placeholder="e.g., Q4 Outreach Campaign"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+          />
+        </div>
+
+        {/* Upload CSV or Enter Emails Section */}
+        <div className="mb-6">
+          <label className="block text-white font-medium mb-2">
+            Upload CSV File or Enter Emails <br />
+            <span className="text-sm text-red-500  font-bold font-normal">
+              Important: Your file must have a column named "email". If not, email addresses will not be fetched and mails will not be sent.
+            </span>
+          </label>
+          <div className="flex flex-col sm:flex-row gap-4">
+            {/* File Upload Input */}
+            <div className="flex-1">
+              <label className="w-full flex items-center justify-center p-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                <Upload size={20} className="text-white mr-2" />
+                <span className="text-gray-500">Choose file</span>
+                <input type="file" className="hidden" />
+              </label>
+            </div>
+           
+            {/* Manual Email Input */}
+            <div className="flex-1">
+              <input
+                type="text"
+                value={emailsManual}
+                onChange={(e) => setEmailsManual(e.target.value)}
+                placeholder=""
+                className="w-full p-3  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+              />
+            </div>
+          </div>
+          <p className="text-sm text-white mt-2">
+            CSV should contain name, email, and company columns. Or manually enter emails above.
+          </p>
+        </div>
+
+        {/* Email Subject Input */}
+        <div className="mb-6">
+          <label className="block text-white font-medium mb-2">Email Subject*</label>
+          <input
+            type="text"
+            value={emailSubject}
+            onChange={(e) => setEmailSubject(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+          />
+        </div>
+
+        {/* Email Body Text Area */}
+        <div className="mb-6">
+          <label className="block text-white font-medium mb-2">Email Body*</label>
+          <textarea
+            value={emailBody}
+            onChange={(e) => setEmailBody(e.target.value)}
+            rows="6"
+            placeholder="Hi there,"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y transition-shadow"
+          ></textarea>
+          <p className="text-sm text-white mt-2">Use personalization variables for better engagement</p>
+        </div>
+
+        {/* Time and Timezone Section */}
+        <div className="flex flex-col md:flex-row gap-6 mb-6">
+          {/* Start Time */}
+          <div className="flex-1">
+            <label className="block text-white font-medium mb-2">Start Time*</label>
+            <div className="flex items-center gap-2">
+              <input
+                type="date"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+              />
+
+            </div>
+          </div>
+          {/* End Time */}
+          <div className="flex-1">
+            <label className="block text-white font-medium mb-2"></label>
+
+          </div>
+        </div>
+
+        {/* Timezone Dropdown */}
+        <div className="mb-6">
+          <label className="block text-white font-medium mb-2">Timezone*</label>
+          <div className="relative">
+            <select
+              value={timezone}
+              onChange={(e) => setTimezone(e.target.value)}
+              className="appearance-none w-full p-3 border border-gray-300 rounded-lg pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+            >
+              <option>(GMT+5:50) Chennai, Kolkata, Mumbai, New Delhi</option>
+              {/* Add more timezone options here */}
+            </select>
+            <Globe size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+          </div>
+        </div>
+
+        {/* Campaign Details Section */}
+        <div className="mb-8">
+          <h2 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+            <Settings size={20} className="text-white" />
+            Campaign Details
+          </h2>
+          <ul className="list-disc list-inside text-white space-y-1">
+            <li>Delay between each email</li>
+            <li>Emails personalized with name, email, and company</li>
+            <li>Fixed HTML template with placeholders</li>
+            <li>CSV data stored securely</li>
+          </ul>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <button
+            onClick={handleStartCampaign}
+            className="flex-1 w-full bg-purple-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-purple-400 transition-colors flex items-center justify-center gap-2"
+          >
+            <Play size={20} />
+            Start Campaign
+          </button>
+          <button
+            className="flex-1 w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+          >
+            <Eye size={20} />
+            Preview Email & Check Placeholders
+          </button>
+        </div>
+      </div>
+  );
+};
+
 const Header = ({ setIsSidebarOpen, isSidebarOpen }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -47,27 +215,27 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen }) => {
 
   return (
     <div
-      className={`bg-transparent sticky p-4 rounded-full ${
-        isScrolled ? "" : "border-transparent"
+      className={`bg-transparent sticky p-3 sm:p-4 rounded-full ${
+        isScrolled ? "border-white/10" : "border-transparent"
       } top-0 z-10 flex justify-between items-center transition-all duration-300`}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4">
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className="p-2 rounded hover:bg-[#2C2C2C] focus:outline-none focus:ring-2 focus:ring-purple-500"
         >
-          <Menu className="text-white" />
+          <Menu className="text-white w-5 sm:w-6 h-5 sm:h-6" />
         </button>
         <div>
-          <h2 className="text-xl font-bold">Job Application Dashboard</h2>
-          <p className="text-sm text-gray-400">AI-powered insights for your job search</p>
-          <p className="text-sm text-gray-400 mt-1">Welcome back, Yash!</p>
+          <h2 className="text-lg sm:text-xl font-bold">Job Application Dashboard</h2>
+          <p className="text-xs sm:text-sm text-gray-400">AI-powered insights for your job search</p>
+          <p className="text-xs sm:text-sm text-gray-400 mt-0.5 sm:mt-1">Welcome back, Yash!</p>
         </div>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4">
         <div className="relative">
           <select
-            className="bg-[#2C2C2C] text-gray-300 px-3 py-1 rounded appearance-none pr-8"
+            className="bg-[#2C2C2C] text-gray-300 px-2 sm:px-3 py-1 rounded appearance-none pr-6 sm:pr-8 text-xs sm:text-sm"
             onChange={() => {}}
           >
             <option value="7 days">7 days</option>
@@ -78,7 +246,7 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen }) => {
             <ChevronDown className="fill-current h-4 w-4" />
           </div>
         </div>
-        <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center font-bold text-sm">
+        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-purple-600 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm">
           U
         </div>
       </div>
@@ -104,7 +272,7 @@ const Card = ({ title, value, percentage, icon }) => {
   const percentageColor = isPositive ? 'text-green-500' : 'text-red-500';
 
   return (
-    <div class="flex items-center justify-between p-6 bg- backdrop-blur-md rounded-xl shadow-lg border border-white/20">
+    <div className="flex items-center justify-between p-6 bg-transparent backdrop-blur-md rounded-xl shadow-lg border border-white/20">
       <div className="flex flex-col">
         <p className="text-sm text-slate-400">{title}</p>
         <p className="text-3xl font-bold text-white mt-1">
@@ -119,48 +287,19 @@ const Card = ({ title, value, percentage, icon }) => {
   );
 };
 
-const DashboardCards = () => {
-  return (
-    <div className="flex flex-wrap justify-center gap-4 p-5 bg-transparent ">
-      <Card
-        title="Today's Applications"
-        value="$53,000"
-        percentage="+55%"
-        icon={<CreditCard size={24} />}
-      />
-      <Card
-        title="Today's Visitors"
-        value="2,300"
-        percentage="+3%"
-        icon={<Globe size={24} />}
-      />
-      <Card
-        title="New Companies"
-        value="+3,462"
-        percentage="-2%"
-        icon={<Users size={24} />}
-      />
-      <Card
-        title="Total Turnover"
-        value="$103,430"
-        percentage="+5%"
-        icon={<ShoppingCart size={24} />}
-      />
-    </div>
-  );
-};
+
 // TopHorizontalCards Component
 const TopHorizontalCards = () => {
   return (
-    <div className="flex flex-col md:flex-row gap-6 p-6 font-syne text-white">
-      {/* Middle Card: Satisfaction Rate */}
-      <div className="flex-1 bg-white/10 backdrop-blur-lg rounded-2xl p-8 flex flex-col items-center justify-center shadow-lg border border-white/10">
-        <h2 className="text-2xl font-semibold text-white mb-6">Acceptance Rate</h2>
-        <div className="relative w-48 h-48">
+    <div className="flex flex-col gap-4 font-syne text-white">
+      {/* Card 1: Acceptance Rate */}
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 flex flex-col items-center justify-center shadow-lg border border-white/10">
+        <h2 className="text-lg font-semibold text-white mb-1">Acceptance Rate</h2>
+        <div className="relative w-28 h-28">
           <svg className="w-full h-full" viewBox="0 0 100 100">
             <circle
               className="text-white/20 stroke-current"
-              strokeWidth="10"
+              strokeWidth="8"
               cx="50"
               cy="50"
               r="40"
@@ -168,7 +307,7 @@ const TopHorizontalCards = () => {
             ></circle>
             <circle
               className="text-purple-500 stroke-current"
-              strokeWidth="10"
+              strokeWidth="8"
               strokeLinecap="round"
               cx="50"
               cy="50"
@@ -179,37 +318,33 @@ const TopHorizontalCards = () => {
             ></circle>
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-5xl font-bold text-purple-500">95%</span>
+            <span className="text-2xl font-bold text-purple-500">95%</span>
           </div>
         </div>
       </div>
 
-      {/* Right Card: Referral Tracking */}
-      <div className="flex-1 rounded-2xl p-8 flex flex-col shadow-xl border border-white/20 backdrop-blur-md bg-white/10">
-        <div className="flex justify-between items-start mb-6">
-          <h2 className="text-2xl font-semibold text-white">Referral Tracking</h2>
-          <button className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition">
-            <MoreHorizontal size={20} className="text-white/80" />
+      {/* Card 2: Referral Tracking */}
+      <div className="rounded-xl p-4 flex flex-col shadow-xl border border-white/20 backdrop-blur-md bg-white/10">
+        <div className="flex justify-between items-center mb-1">
+          <h2 className="text-lg font-semibold text-white">Referral Tracking</h2>
+          <button className="p-1 bg-white/10 hover:bg-white/20 rounded-full transition">
+            <MoreHorizontal size={16} className="text-white/80" />
           </button>
         </div>
 
-        <div className="flex flex-row md:flex-col lg:flex-row items-center justify-center gap-6">
-          <div className="flex-1">
-            <div className="mb-4">
-              <p className="text-sm text-white/60">Invited</p>
-              <p className="text-3xl font-bold text-white">145 people</p>
-            </div>
-            <div>
-              <p className="text-sm text-white/60">Bonus</p>
-              <p className="text-3xl font-bold text-white">1,465</p>
-            </div>
+        <div className="flex flex-row items-center justify-between gap-4">
+          <div>
+            <p className="text-xs text-white/60">Invited</p>
+            <p className="text-xl font-bold text-white">145</p>
+            <p className="text-xs text-white/60 mt-2">Bonus</p>
+            <p className="text-xl font-bold text-white">1,465</p>
           </div>
 
-          <div className="relative w-32 h-32 flex-shrink-0">
+          <div className="relative w-24 h-24 flex-shrink-0">
             <svg className="w-full h-full" viewBox="0 0 100 100">
               <circle
                 className="text-white/20 stroke-current"
-                strokeWidth="10"
+                strokeWidth="8"
                 cx="50"
                 cy="50"
                 r="40"
@@ -217,7 +352,7 @@ const TopHorizontalCards = () => {
               ></circle>
               <circle
                 className="text-green-400 stroke-current"
-                strokeWidth="10"
+                strokeWidth="8"
                 strokeLinecap="round"
                 cx="50"
                 cy="50"
@@ -228,8 +363,8 @@ const TopHorizontalCards = () => {
               ></circle>
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-4xl font-bold text-green-400">9.3</span>
-              <span className="text-xs text-white/60">Total Score</span>
+              <span className="text-xl font-bold text-green-400">9.3</span>
+              <span className="text-[10px] text-white/60">Score</span>
             </div>
           </div>
         </div>
@@ -237,6 +372,7 @@ const TopHorizontalCards = () => {
     </div>
   );
 };
+
 
 // SalesOverview Component
 const SalesOverview = () => {
@@ -252,43 +388,11 @@ const SalesOverview = () => {
         </div>
       </div>
 
-      <div className="h-64 mb-6">
+      <div className="h-64 mb-1">
         <ChartComponent type="line" title="Sales Overview" />
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-        <div className="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow">
-          <div className="flex items-center gap-2 mb-2">
-            <Users size={20} className="text-blue-400" />
-            <span className="text-sm text-gray-300">Users</span>
-          </div>
-          <span className="text-xl font-bold text-white">32,984</span>
-        </div>
-
-        <div className="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow">
-          <div className="flex items-center gap-2 mb-2">
-            <MousePointerClick size={20} className="text-blue-400" />
-            <span className="text-sm text-gray-300">Clicks</span>
-          </div>
-          <span className="text-xl font-bold text-white">2.42M</span>
-        </div>
-
-        <div className="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow">
-          <div className="flex items-center gap-2 mb-2">
-            <ShoppingCart size={20} className="text-blue-400" />
-            <span className="text-sm text-gray-300">Sales</span>
-          </div>
-          <span className="text-xl font-bold text-white">2,400$</span>
-        </div>
-
-        <div className="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow">
-          <div className="flex items-center gap-2 mb-2">
-            <HardDrive size={20} className="text-blue-400" />
-            <span className="text-sm text-gray-300">Items</span>
-          </div>
-          <span className="text-xl font-bold text-white">320</span>
-        </div>
-      </div>
+    
     </div>
   );
 };
@@ -301,11 +405,9 @@ const ActiveUsers = () => {
         <h3 className="text-xl font-semibold">Active Users</h3>
         <MoreHorizontal size={20} className="text-white/70" />
       </div>
-
       <p className="text-sm text-white/70 mb-4">
         <span className="text-green-400">+23</span> from last week
       </p>
-
       <div className="h-48">
         <ChartComponent type="bar" title="Active Users" />
       </div>
@@ -320,7 +422,7 @@ const Projects = () => {
   return (
     <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-white shadow-lg border border-white/10 col-span-2">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl font-semibold">Applied COmpanies</h3>
+        <h3 className="text-xl font-semibold">Applied Companies</h3>
         <p className="text-sm text-green-400">+30 done this month</p>
         <MoreHorizontal size={20} className="text-white/70" />
       </div>
@@ -367,6 +469,9 @@ const Projects = () => {
   );
 };
 
+
+
+
 // OrdersOverview Component
 const OrdersOverview = () => {
   const orders = []; // Empty as per your code
@@ -402,24 +507,46 @@ const OrdersOverview = () => {
   );
 };
 
-// CombinedDashboard Component
 const CombinedDashboard = () => {
   return (
     <div className="flex-1 flex flex-col p-6">
-     <DashboardCards/>
-      <TopHorizontalCards />
-     
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
-        <div className="lg:col-span-2">
+      {/* 3 columns on large screens, 1 column on small */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* LEFT SIDE (2 columns): SalesOverview + Projects & ActiveUsers */}
+        <div className="lg:col-span-2 flex flex-col gap-6">
+
+          {/* 1. SalesOverview takes full width of 2 columns */}
           <SalesOverview />
+
+          {/* 2. Projects and ActiveUsers side-by-side under SalesOverview */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+
+          </div>
         </div>
-        <ActiveUsers />
-        <Projects />
-        <OrdersOverview />
+
+        
+
+        {/* RIGHT SIDE (1 column): TopHorizontalCards */}
+        <div className="flex flex-col gap-6">
+          <TopHorizontalCards />
+        </div>
+        
       </div>
+      <div className="p-4 grid grid-cols-3 gap-4">
+      {/* The Projects component will take up 2 of 3 columns */}
+      <Projects />
+      
+      {/* The ActiveUsers component will take up the remaining 1 column */}
+      <ActiveUsers />
+    </div>
     </div>
   );
 };
+
+
+
 
 // Attachments Component
 const Attachments = () => {
@@ -455,7 +582,7 @@ const Attachments = () => {
         </button>
       </div>
 
-      <div class="bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20 shadow-md">
+      <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20 shadow-md">
         <h2 className="text-xl font-semibold mb-4 text-gray-200">Your Attachments</h2>
         {attachments.length > 0 ? (
           <div className="overflow-x-auto">
@@ -588,7 +715,7 @@ const Templates = () => {
         </button>
       </div>
       <div className="mb-8">
-      <div class="flex flex-col sm:flex-row items-center bg-white/10 backdrop-blur-md rounded-lg p-2 border border-white/20 shadow-md">
+      <div className="flex flex-col sm:flex-row items-center bg-white/10 backdrop-blur-md rounded-lg p-2 border border-white/20 shadow-md">
           <div className="flex items-center w-full sm:w-auto flex-grow">
             <Search size={20} className="text-white ml-2 mr-3" />
             <input
@@ -717,26 +844,28 @@ const Templates = () => {
   );
 };
 
-// Settings Component
+// Updated Settings Component
 const SettingsComponent = () => {
+  // State to manage the user's settings.
   const [profileSettings, setProfileSettings] = useState({
-    name: "Yash Sharma",
-    email: "yash.sharma@example.com",
+    name: "Yash",
+    email: "yash@gmail.com",
     notifications: true,
-    darkMode: true,
   });
 
-  const handleProfileChange = (e) => {
+  // Handle changes in the form inputs.
+  const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setProfileSettings((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
+    setProfileSettings(prevSettings => ({
+      ...prevSettings,
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
-  const handleSaveChanges = () => {
-    console.log("Saving settings:", profileSettings);
-    alert("Settings saved successfully!");
+  // Handle the save action for the profile information.
+  const handleSave = () => {
+    // In a real application, you would send this data to a server.
+    console.log("Saving profile settings:", profileSettings);
   };
 
   return (
@@ -744,80 +873,157 @@ const SettingsComponent = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold mb-1">Settings</h1>
-          <p className="text-white text-sm sm:text-base">Manage your application settings and preferences</p>
+          <p className="text-white text-sm sm:text-base">Manage your account and email settings</p>
         </div>
-        <button
-          onClick={handleSaveChanges}
-          className="mt-4 sm:mt-0 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center shadow-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5"
-        >
-          Save Changes
-        </button>
       </div>
 
-      <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 border border-[#2C2C2C] shadow-md">
-        <h2 className="text-xl font-semibold mb-4 text-gray-200">Profile Settings</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={profileSettings.name}
-              onChange={handleProfileChange}
-              className="w-full bg-[#2C2C2C] text-white border border-[#3A3A3A] rounded-lg px-4 py-2 focus:outline-none focus:border-purple-500"
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={profileSettings.email}
-              onChange={handleProfileChange}
-              className="w-full bg-[#2C2C2C] text-white border border-[#3A3A3A] rounded-lg px-4 py-2 focus:outline-none focus:border-purple-500"
-            />
-          </div>
-        </div>
+      <div className="max-w-6xl mx-auto space-y-6">
+        {/* Main content column */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-6">
 
-        <h2 className="text-xl font-semibold mb-4 text-gray-200">Preferences</h2>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between bg-[#2C2C2C] p-4 rounded-lg">
-            <label htmlFor="notifications" className="text-sm font-medium text-gray-300 cursor-pointer">
-              Enable Notifications
-            </label>
-            <input
-              type="checkbox"
-              id="notifications"
-              name="notifications"
-              checked={profileSettings.notifications}
-              onChange={handleProfileChange}
-              className="h-5 w-5 text-purple-600 rounded border-gray-300 focus:ring-purple-500"
-            />
+            {/* Profile Information Card */}
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 border border-white/20">
+              <div className="flex items-center gap-4 mb-6">
+                <User className="text-purple-600" size={24} />
+                <h2 className="text-xl font-semibold text-white">Profile Information</h2>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
+                    Full Name
+                  </label>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={profileSettings.name}
+                      onChange={handleChange}
+                      className="flex-grow p-3 rounded-lg border border-gray-600 bg-white/5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                    />
+                    <button
+                      onClick={handleSave}
+                      className="flex items-center gap-2 px-4 py-3 bg-purple-700 text-white rounded-lg font-medium hover:bg-purple-600 transition-colors"
+                    >
+                      <Save size={18} />
+                      Save
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <Mail className="text-gray-400" size={20} />
+                    </div>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={profileSettings.email}
+                      disabled
+                      className="w-full pl-10 pr-3 py-3 rounded-lg border border-gray-600 bg-white/5 text-gray-400 cursor-not-allowed focus:outline-none"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-400 mt-1">
+                    This email will be used for sending all campaigns
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Email Scheduling Rules Card */}
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 border border-white/20">
+              <div className="flex items-center gap-4 mb-6">
+                <Clock className="text-violet-400" size={24} />
+                <h2 className="text-xl font-semibold text-white">Email Scheduling Rules</h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium text-gray-300">Daily Email Limit</span>
+                  <div className="mt-2 text-xl font-bold text-white">
+                    0/50
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium text-gray-300">Hourly Email Limit</span>
+                  <div className="mt-2 text-xl font-bold text-white">
+                    0/20
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Optimal Sending Times Card */}
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 border border-white/20">
+              <div className="flex items-center gap-4 mb-6">
+                <h2 className="text-xl font-semibold text-white">Optimal Sending Times</h2>
+              </div>
+              <ul className="text-gray-300 space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-500 font-bold">&#8226;</span>
+                  <span>Best time: 9 AM - 11 AM (weekdays)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-500 font-bold">&#8226;</span>
+                  <span>Avoid weekends and holidays</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-500 font-bold">&#8226;</span>
+                  <span>Space emails a few minutes apart</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-blue-500 font-bold">&#8226;</span>
+                  <span>Follow-ups sent only if no reply received</span>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div className="flex items-center justify-between bg-[#2C2C2C] p-4 rounded-lg">
-            <label htmlFor="darkMode" className="text-sm font-medium text-gray-300 cursor-pointer">
-              Dark Mode
-            </label>
-            <input
-              type="checkbox"
-              id="darkMode"
-              name="darkMode"
-              checked={profileSettings.darkMode}
-              onChange={handleProfileChange}
-              className="h-5 w-5 text-purple-600 rounded border-gray-300 focus:ring-purple-500"
-            />
+
+          {/* Sidebar column */}
+          <div className="lg:col-span-1 space-y-6">
+
+            {/* Preferences Card */}
+           
+
+            {/* Account Status Card */}
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 border border-white/20">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-2 bg-white/5 rounded-full">
+                  <Zap className="text-yellow-400" size={20} />
+                </div>
+                <h2 className="text-xl font-semibold text-white">Account Status</h2>
+              </div>
+              <div className="flex flex-col items-center text-center">
+                <User className="text-gray-400 mb-2" size={40} />
+                <span className="text-lg font-bold text-white">Free Plan</span>
+                <span className="text-sm text-gray-400 mt-1">50 emails/day limit</span>
+              </div>
+              <ul className="mt-6 space-y-3">
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="text-green-500" size={20} />
+                  <span>Email campaigns</span>
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="text-green-500" size={20} />
+                  <span>Basic analytics</span>
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="text-green-500" size={20} />
+                  <span>CSV list upload</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 
 // Main Page Component
 export default function Page() {
@@ -856,6 +1062,15 @@ export default function Page() {
               }`}
             >
               <LayoutDashboard size={16} />  Dashboard
+            </a>
+            {/* The corrected Campaign link */}
+            <a
+              onClick={() => setActiveSection("campaign")}
+              className={`flex items-center gap-2 transition cursor-pointer ${
+                activeSection === "campaign" ? "text-purple-400 font-bold" : "text-white hover:text-purple-400"
+              }`}
+            >
+              <Mail size={16} />  Campaign
             </a>
             <a
   onClick={() => setActiveSection("attachments")}
@@ -913,6 +1128,7 @@ export default function Page() {
         <Header setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen} />
         {/* Conditional rendering based on activeSection */}
         {activeSection === "dashboard" && <CombinedDashboard />}
+        {activeSection === "campaign" && <CampaignForm />} {/* New conditional rendering for the Campaign form */}
         {activeSection === "attachments" && <Attachments />}
         {activeSection === "templates" && <Templates />}
         {activeSection === "settings" && <SettingsComponent />}

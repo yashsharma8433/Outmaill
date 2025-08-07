@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/component/ui/badge';
 import { MinusIcon, PlusIcon } from 'lucide-react';
@@ -112,11 +111,7 @@ export default function Faq2() {
             <button
               type="button"
               key={category.id}
-              onClick={() => {
-                setActiveCategory(category.id);
-                // Remove the window.scrollTo() call to prevent the page from jumping to the top.
-                // window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
+              onClick={() => setActiveCategory(category.id)}
               className={cn(
                 'rounded-full px-4 py-2 text-sm font-medium transition-colors',
                 activeCategory === category.id
@@ -131,61 +126,40 @@ export default function Faq2() {
 
         {/* FAQ Grid */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <AnimatePresence>
-            {filteredFaqs.map((faq, index) => (
-              <motion.div
-                key={faq.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className={cn(
-                  'border border-gray-200 bg-white shadow-md h-fit overflow-hidden rounded-xl',
-                  expandedId === faq.id ? 'shadow-lg' : ''
-                )}
-                style={{ minHeight: '88px' }}
+          {filteredFaqs.map((faq) => (
+            <div
+              key={faq.id}
+              className={cn(
+                'border border-gray-200 bg-white shadow-md h-fit overflow-hidden rounded-xl',
+                expandedId === faq.id ? 'shadow-lg' : ''
+              )}
+              style={{ minHeight: '88px' }}
+            >
+              <button
+                onClick={() => toggleExpand(faq.id)}
+                className="flex w-full items-center justify-between p-6 text-left"
               >
-                <button
-                  onClick={() => toggleExpand(faq.id)}
-                  className="flex w-full items-center justify-between p-6 text-left"
-                >
-                  <h3 className="text-lg font-medium">{faq.question}</h3>
-                  <div className="ml-4 flex-shrink-0">
-                    {expandedId === faq.id ? (
-                      <MinusIcon className="text-primary h-5 w-5" />
-                    ) : (
-                      <PlusIcon className="text-primary h-5 w-5" />
-                    )}
-                  </div>
-                </button>
-
-                <AnimatePresence>
-                  {expandedId === faq.id && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="border-t border-gray-200 px-6 pt-2 pb-6">
-                        <p className="text-gray-600">{faq.answer}</p>
-                      </div>
-                    </motion.div>
+                <h3 className="text-lg font-medium">{faq.question}</h3>
+                <div className="ml-4 flex-shrink-0">
+                  {expandedId === faq.id ? (
+                    <MinusIcon className="text-primary h-5 w-5" />
+                  ) : (
+                    <PlusIcon className="text-primary h-5 w-5" />
                   )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+                </div>
+              </button>
+
+              {expandedId === faq.id && (
+                <div className="border-t border-gray-200 px-6 pt-2 pb-6">
+                  <p className="text-gray-600">{faq.answer}</p>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
 
         {/* Contact CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="mt-16 text-center"
-        >
+        <div className="mt-16 text-center">
           <p className="mb-4 text-white">Can’t find what you’re looking for?</p>
           <a
             href="/Contactus"
@@ -193,7 +167,7 @@ export default function Faq2() {
           >
             Contact Support
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
