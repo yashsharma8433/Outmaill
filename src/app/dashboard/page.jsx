@@ -31,8 +31,11 @@ import {
   Paperclip,
   ChevronLeft,
   Calendar,
+  Twitter,
+  Linkedin,
+  Instagram,
   Play,
-  User, Bell, Moon, Sun, Clock, Check, Zap, Edit, Save,
+  User, Bell, Moon, Sun, Clock, Check, Zap, Edit, Save, Phone,
 } from "lucide-react";
 
 // The campaign creation form, extracted and renamed for clarity
@@ -66,7 +69,7 @@ const CampaignForm = () => {
             type="text"
             value={campaignName}
             onChange={(e) => setCampaignName(e.target.value)}
-            placeholder="e.g., Q4 Outreach Campaign"
+            placeholder=""
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
           />
         </div>
@@ -233,21 +236,9 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen }) => {
         </div>
       </div>
       <div className="flex items-center gap-2 sm:gap-4">
-        <div className="relative">
-          <select
-            className="bg-[#2C2C2C] text-gray-300 px-2 sm:px-3 py-1 rounded appearance-none pr-6 sm:pr-8 text-xs sm:text-sm"
-            onChange={() => {}}
-          >
-            <option value="7 days">7 days</option>
-            <option value="15 days">15 days</option>
-            <option value="30 days">30 days</option>
-          </select>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-300">
-            <ChevronDown className="fill-current h-4 w-4" />
-          </div>
-        </div>
+      
         <div className="w-7 h-7 sm:w-8 sm:h-8 bg-purple-600 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm">
-          U
+          Y
         </div>
       </div>
     </div>
@@ -292,6 +283,19 @@ const Card = ({ title, value, percentage, icon }) => {
 const TopHorizontalCards = () => {
   return (
     <div className="flex flex-col gap-4 font-syne text-white">
+      <div className="relative -mt-10">
+          <select
+            className="bg-[#2C2C2C] text-gray-300 px-2 sm:px-3 py-1 rounded appearance-none pr-6 sm:pr-8 text-xs sm:text-sm"
+            onChange={() => {}}
+          >
+            <option value="7 days">7 days</option>
+            <option value="15 days">15 days</option>
+            <option value="30 days">30 days</option>
+          </select>
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-300">
+            <ChevronDown className="fill-current h-4 w-4" />
+          </div>
+        </div>
       {/* Card 1: Acceptance Rate */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 flex flex-col items-center justify-center shadow-lg border border-white/10">
         <h2 className="text-lg font-semibold text-white mb-1">Acceptance Rate</h2>
@@ -549,6 +553,8 @@ const CombinedDashboard = () => {
 
 
 // Attachments Component
+// Attachments Component
+// Attachments Component
 const Attachments = () => {
   const [attachments, setAttachments] = useState([
     { id: 1, name: "Resume_YashSharma.pdf", type: "PDF", size: "2.1 MB", uploadDate: "2024-07-25" },
@@ -556,15 +562,28 @@ const Attachments = () => {
     { id: 3, name: "Portfolio_Link.txt", type: "Link", size: "0.1 MB", uploadDate: "2024-07-18" },
   ]);
 
+  const ATTACHMENT_LIMIT = 3;
+
   const handleUploadAttachment = () => {
+    if (attachments.length >= ATTACHMENT_LIMIT) {
+      alert("You have reached the maximum limit of 3 attachments.");
+      return;
+    }
+
     const newAttachment = {
-      id: attachments.length + 1,
+      id: attachments.length > 0 ? Math.max(...attachments.map(a => a.id)) + 1 : 1,
       name: `New_Attachment_${attachments.length + 1}.pdf`,
       type: "PDF",
       size: "1.0 MB",
       uploadDate: new Date().toISOString().slice(0, 10),
     };
     setAttachments([...attachments, newAttachment]);
+  };
+
+  const handleDeleteAttachment = (id) => {
+    // Filter out the attachment that matches the provided id
+    const updatedAttachments = attachments.filter(attachment => attachment.id !== id);
+    setAttachments(updatedAttachments);
   };
 
   return (
@@ -576,7 +595,12 @@ const Attachments = () => {
         </div>
         <button
           onClick={handleUploadAttachment}
-          className="mt-4 sm:mt-0 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center shadow-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5"
+          disabled={attachments.length >= ATTACHMENT_LIMIT}
+          className={`mt-4 sm:mt-0 text-white font-semibold py-2 px-4 rounded-lg flex items-center shadow-lg transition duration-200 ease-in-out transform ${
+            attachments.length >= ATTACHMENT_LIMIT
+              ? 'bg-gray-500 cursor-not-allowed'
+              : 'bg-purple-600 hover:bg-purple-700 hover:-translate-y-0.5'
+          }`}
         >
           <Upload size={20} className="mr-2" /> Upload Attachment
         </button>
@@ -607,7 +631,10 @@ const Attachments = () => {
                       <button className="text-purple-400 hover:text-purple-600 mr-4">
                         <Eye size={16} className="inline-block mr-1" />View
                       </button>
-                      <button className="text-red-400 hover:text-red-600">
+                      <button
+                        onClick={() => handleDeleteAttachment(attachment.id)}
+                        className="text-red-400 hover:text-red-600"
+                      >
                         <Trash2 size={16} className="inline-block mr-1" />Delete
                       </button>
                     </td>
@@ -623,7 +650,6 @@ const Attachments = () => {
     </div>
   );
 };
-
 // Templates Component
 const Templates = () => {
   const [templates, setTemplates] = useState([
@@ -999,7 +1025,7 @@ const SettingsComponent = () => {
               </div>
               <div className="flex flex-col items-center text-center">
                 <User className="text-gray-400 mb-2" size={40} />
-                <span className="text-lg font-bold text-white">Free Plan</span>
+                <span className="text-lg font-bold text-white">Pro Plan</span>
                 <span className="text-sm text-gray-400 mt-1">50 emails/day limit</span>
               </div>
               <ul className="mt-6 space-y-3">
@@ -1109,6 +1135,19 @@ export default function Page() {
   <SlidersHorizontal size={18} />
   Settings
 </a>
+
+{/* New Contact Us link */}
+<a
+  onClick={() => setActiveSection("contact")}
+  className={`block transition cursor-pointer flex items-center gap-2 ${
+    activeSection === "contact"
+      ? "text-purple-400 font-semibold"
+      : "text-white hover:text-purple-400"
+  }`}
+>
+  <Phone size={18} />
+  Contact Us
+</a>
           </nav>
         </div>
         <div className={isSidebarOpen ? "block" : "hidden"}>
@@ -1132,6 +1171,71 @@ export default function Page() {
         {activeSection === "attachments" && <Attachments />}
         {activeSection === "templates" && <Templates />}
         {activeSection === "settings" && <SettingsComponent />}
+        {activeSection === "contact" && (
+          <div className="flex-1 bg-transparent p-8 text-black">
+           
+          <div className="bg-transparent flex flex-col lg:flex-row items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8 font-inter -mt-35">
+      {/* Inner container with max width and rounded corners */}
+      <div className="mt-20 max-w-6xl w-full bg-white/10 backdrop-blur-md shadow-lg border border-white/30 rounded-xl p-6 sm:p-8 lg:p-12 flex flex-col lg:flex-row gap-8 lg:gap-12">
+
+        
+        {/* Left Column: Contact Info */}
+        <div className="flex-1 flex flex-col gap-8">
+          {/* Placeholder box */}
+          <div className="bg-purple-200 rounded-xl h-64 w-full flex items-center justify-center text-purple-600 text-lg font-semibold">
+            Placeholder for Image/Map
+          </div>
+
+          {/* Phone Number */}
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 p-3 bg-purple-100 rounded-full text-purple-600">
+              <Phone className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-white font-semibold text-lg">Phone Number</p>
+              <p className="text-white">+123 456 789 101</p>
+            </div>
+          </div>
+
+          {/* Business Hours */}
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 p-3 bg-purple-100 rounded-full text-purple-600">
+              <Clock className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-white font-semibold text-lg">Business Hours</p>
+              <p className="text-white">Monday - Friday / 8AM to 5PM</p>
+            </div>
+          </div>
+
+          {/* Social Media Icons */}
+          <div className="flex space-x-4">
+            <a href="#" className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200">
+              <Twitter className="w-5 h-5" />
+            </a>
+            <a href="#" className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200">
+              <Linkedin className="w-5 h-5" />
+            </a>
+            <a href="#" className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200">
+              <Instagram className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+
+        {/* Right Column: Contact Form */}
+        <div className="flex-1">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Get In Touch</h2>
+          <p className="text-white mb-8 leading-relaxed">
+            Facilisis commodo mattis neque nulla ultrices mattis sed. Ullamcorper tempus mattis ac tristique gravida ornare faucibus suspendisse.
+          </p>
+
+          
+        </div>
+      </div>
+    </div>
+
+          </div>
+        )}
       </main>
     </div>
   );

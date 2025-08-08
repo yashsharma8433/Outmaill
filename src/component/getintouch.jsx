@@ -1,7 +1,19 @@
-import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
-import React from "react";
+// components/ContactUs.jsx
+"use client";
+import React, { useState } from "react";
+import { Phone, Clock, Twitter, Linkedin, Instagram } from "lucide-react";
 
-function GetInTouch() {
+const ContactUs = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Contact form submitted:", { name, email, message });
+    // In a real application, you would send this data to a backend API.
+  };
+
   return (
     // Main container for the Get In Touch section
     <div className="bg-gradient-to-l from-black via-[#6c00ff] to-black flex flex-col lg:flex-row items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8 font-inter">
@@ -18,9 +30,7 @@ function GetInTouch() {
           {/* Phone Number */}
           <div className="flex items-start gap-4">
             <div className="flex-shrink-0 p-3 bg-purple-100 rounded-full text-purple-600">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
+              <Phone className="w-5 h-5" />
             </div>
             <div>
               <p className="text-gray-900 font-semibold text-lg">Phone Number</p>
@@ -31,10 +41,7 @@ function GetInTouch() {
           {/* Business Hours */}
           <div className="flex items-start gap-4">
             <div className="flex-shrink-0 p-3 bg-purple-100 rounded-full text-purple-600">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock">
-                <circle cx="12" cy="12" r="10" />
-                <polyline points="12 6 12 12 16 14" />
-              </svg>
+              <Clock className="w-5 h-5" />
             </div>
             <div>
               <p className="text-gray-900 font-semibold text-lg">Business Hours</p>
@@ -44,9 +51,6 @@ function GetInTouch() {
 
           {/* Social Media Icons */}
           <div className="flex space-x-4">
-            <a href="#" className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200">
-              <Facebook className="w-5 h-5" />
-            </a>
             <a href="#" className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200">
               <Twitter className="w-5 h-5" />
             </a>
@@ -66,24 +70,50 @@ function GetInTouch() {
             Facilisis commodo mattis neque nulla ultrices mattis sed. Ullamcorper tempus mattis ac tristique gravida ornare faucibus suspendisse.
           </p>
 
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
-              <input type="text" id="name" name="name" placeholder="Your Name" className="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200" />
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                placeholder="Your Name" 
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200" 
+              />
             </div>
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Your Email</label>
-              <input type="email" id="email" name="email" placeholder="Email" className="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200" />
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                placeholder="Email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200" 
+              />
             </div>
 
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Your Message</label>
-              <textarea id="message" name="message" rows="5" placeholder="Write your message here..." className="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200 resize-y" ></textarea>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="5" 
+                placeholder="Write your message here..." 
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200 resize-y" >
+              </textarea>
             </div>
 
             <div className="flex justify-center">
-              <button type="submit" className="flex justify-center w-full sm:w-auto px-8 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition duration-200">
+              <button 
+                type="submit" 
+                className="flex justify-center w-full sm:w-auto px-8 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition duration-200">
                 Send Message
               </button>
             </div>
@@ -94,4 +124,4 @@ function GetInTouch() {
   );
 }
 
-export default GetInTouch;
+export default ContactUs;
