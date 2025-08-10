@@ -225,7 +225,7 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen }) => {
       <div className="flex items-center gap-2 sm:gap-4">
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="p-2 rounded hover:bg-[#2C2C2C] focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="p-2 rounded hover:bg-[#2C2C2C] focus:outline-none focus:ring-2 focus:ring-purple-500 lg:hidden"
         >
           <Menu className="text-white w-5 sm:w-6 h-5 sm:h-6" />
         </button>
@@ -1053,26 +1053,31 @@ const SettingsComponent = () => {
 
 // Main Page Component
 export default function Page() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
 
   return (
     <div
-      className="flex min-h-screen bg-gradient-to-l from-black via-[#6c00ff] to-black text-white overflow-hidden font-syne"
+      className="relative flex min-h-screen bg-gradient-to-l from-black via-[#6c00ff] to-black text-white font-syne overflow-hidden lg:overflow-visible"
       style={{
         background: "radial-gradient(ellipse at center, #6c00ff 0%, #0f0f2d 60%, #000 100%)",
       }}
     >
-      {/* Sidebar */}
+      {/* Sidebar - fixed and responsive */}
       <aside
-        className={`bg-[#0000] text-white p-6 flex flex-col justify-between transition-all duration-300 ease-in-out ${
-          isSidebarOpen ? "w-64" : "w-0"
-        } fixed h-screen z-20`}
+        className={`bg-[#0000] text-white p-6 flex flex-col justify-between fixed h-screen z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+          isSidebarOpen ? "translate-x-0 w-64" : "-translate-x-full w-64"
+        }`}
       >
-        <div className={isSidebarOpen ? "block" : "hidden"}>
-          <h1 className="text-2xl font-bold mb-8 font-syne">
-            Out<span className="text-purple-500">mail</span>
-          </h1>
+        <div className="flex flex-col">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-2xl font-bold font-syne">
+              Out<span className="text-purple-500">mail</span>
+            </h1>
+            <button onClick={() => setIsSidebarOpen(false)} className="lg:hidden p-2 text-white hover:text-purple-400">
+              <ChevronLeft size={24} />
+            </button>
+          </div>
           <div className="flex items-center gap-3 mb-6">
             <CircleUserRound className="w-10 h-10 text-white" />
             <div>
@@ -1082,16 +1087,15 @@ export default function Page() {
           </div>
           <nav className="space-y-4 mt-10">
             <a
-              onClick={() => setActiveSection("dashboard")}
+              onClick={() => {setActiveSection("dashboard"); setIsSidebarOpen(false);}}
               className={`flex items-center gap-2 transition cursor-pointer ${
                 activeSection === "dashboard" ? "text-purple-400 font-bold" : "text-white hover:text-purple-400"
               }`}
             >
               <LayoutDashboard size={16} />  Dashboard
             </a>
-            {/* The corrected Campaign link */}
             <a
-              onClick={() => setActiveSection("campaign")}
+              onClick={() => {setActiveSection("campaign"); setIsSidebarOpen(false);}}
               className={`flex items-center gap-2 transition cursor-pointer ${
                 activeSection === "campaign" ? "text-purple-400 font-bold" : "text-white hover:text-purple-400"
               }`}
@@ -1099,75 +1103,77 @@ export default function Page() {
               <Mail size={16} />  Campaign
             </a>
             <a
-  onClick={() => setActiveSection("attachments")}
-  className={`block transition cursor-pointer flex items-center gap-2 ${
-    activeSection === "attachments"
-      ? "text-purple-400 font-semibold"
-      : "text-white hover:text-purple-400"
-  }`}
->
-  <Paperclip size={18} />
-  Attachments
-</a>
-
-            {/* Templates */}
-<a
-  onClick={() => setActiveSection("templates")}
-  className={`block transition cursor-pointer flex items-center gap-2 ${
-    activeSection === "templates"
-      ? "text-purple-400 font-semibold"
-      : "text-white hover:text-purple-400"
-  }`}
->
-  <FileText size={18} />
-  Templates
-</a>
-
-{/* Settings */}
-<a
-  onClick={() => setActiveSection("settings")}
-  className={`block transition cursor-pointer flex items-center gap-2 ${
-    activeSection === "settings"
-      ? "text-purple-400 font-semibold"
-      : "text-white hover:text-purple-400"
-  }`}
->
-  <SlidersHorizontal size={18} />
-  Settings
-</a>
-
-{/* New Contact Us link */}
-<a
-  onClick={() => setActiveSection("contact")}
-  className={`block transition cursor-pointer flex items-center gap-2 ${
-    activeSection === "contact"
-      ? "text-purple-400 font-semibold"
-      : "text-white hover:text-purple-400"
-  }`}
->
-  <Phone size={18} />
-  Contact Us
-</a>
+              onClick={() => {setActiveSection("attachments"); setIsSidebarOpen(false);}}
+              className={`block transition cursor-pointer flex items-center gap-2 ${
+                activeSection === "attachments"
+                  ? "text-purple-400 font-semibold"
+                  : "text-white hover:text-purple-400"
+              }`}
+            >
+              <Paperclip size={18} />
+              Attachments
+            </a>
+            <a
+              onClick={() => {setActiveSection("templates"); setIsSidebarOpen(false);}}
+              className={`block transition cursor-pointer flex items-center gap-2 ${
+                activeSection === "templates"
+                  ? "text-purple-400 font-semibold"
+                  : "text-white hover:text-purple-400"
+              }`}
+            >
+              <FileText size={18} />
+              Templates
+            </a>
+            <a
+              onClick={() => {setActiveSection("settings"); setIsSidebarOpen(false);}}
+              className={`block transition cursor-pointer flex items-center gap-2 ${
+                activeSection === "settings"
+                  ? "text-purple-400 font-semibold"
+                  : "text-white hover:text-purple-400"
+              }`}
+            >
+              <SlidersHorizontal size={18} />
+              Settings
+            </a>
+            <a
+              onClick={() => {setActiveSection("contact"); setIsSidebarOpen(false);}}
+              className={`block transition cursor-pointer flex items-center gap-2 ${
+                activeSection === "contact"
+                  ? "text-purple-400 font-semibold"
+                  : "text-white hover:text-purple-400"
+              }`}
+            >
+              <Phone size={18} />
+              Contact Us
+            </a>
           </nav>
         </div>
-        <div className={isSidebarOpen ? "block" : "hidden"}>
+        <div className="mt-auto">
           <a href="#" className="flex items-center gap-2 text-white hover:text-red-500 transition">
             <LogOut size={16} /> Logout
           </a>
         </div>
       </aside>
 
+      {/* Overlay for small screens to close sidebar */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
+
       {/* Main Content */}
       <main
-        className={`flex-1 flex flex-col overflow-x-hidden transition-all duration-300 ease-in-out ${
-          isSidebarOpen ? "ml-64" : "ml-0"
+        className={`flex-1 flex flex-col transition-all duration-300 ease-in-out lg:ml-64 ${
+          isSidebarOpen ? "overflow-hidden" : "overflow-x-hidden"
         }`}
       >
         {/* Topbar */}
         <Header setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen} />
         {/* Conditional rendering based on activeSection */}
         {activeSection === "dashboard" && <CombinedDashboard />}
-        {activeSection === "campaign" && <CampaignForm />} {/* New conditional rendering for the Campaign form */}
+        {activeSection === "campaign" && <CampaignForm />}
         {activeSection === "attachments" && <Attachments />}
         {activeSection === "templates" && <Templates />}
         {activeSection === "settings" && <SettingsComponent />}
