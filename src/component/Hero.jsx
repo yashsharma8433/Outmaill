@@ -55,7 +55,7 @@ function Hero() {
       </div>
       {/* <HeroScrollDemo /> */}
      <div className='  
-  sm:-mt-20
+  sm:-mt-400
   md:-mt-235 
   lg:-mt-100 
   xl:-mt-100
@@ -64,8 +64,9 @@ function Hero() {
      
     </div>
 
+
    
-  );z
+  );
 }
 
 export default Hero;
