@@ -8,18 +8,13 @@ import WrapButton from './ui/wrap-button';
 function Hero() {
   return (
     <div>
-     
-      <div className="bg-gradient-to-l from-black via-[#6c00ff] to-black 
-
- min-h-screen">
-
-
-        <div className="container mx-auto px-4 text-center">
-          <div className="inline-block  px-4 py-1 border-white/30 rounded-md pt-25">
-            <span className="text-[#C0C0C0] hover:text-purple-400 transition font-syne text-base ">
-              Welcome to Outmail
-            </span>
-          </div>
+    <div className="bg-gradient-to-l from-black via-[#6c00ff] to-black py-20 lg:py-32">
+  <div className="container mx-auto px-4 text-center">
+    <div className="inline-block px-4 py-1   rounded-md">
+      <span className="text-[#C0C0C0] hover:text-purple-400 transition font-syne text-base">
+        Welcome to Outmail
+      </span>
+    </div>
 
           <h1 className="text-4xl  text-white sm:text-5xl font-syne font-bold tracking-wide mt-6">
             Land Jobs 3x Faster — We
@@ -55,10 +50,14 @@ function Hero() {
       </div>
       {/* <HeroScrollDemo /> */}
      <div className='  
-  sm:-mt-20
-  md:-mt-235 
-  lg:-mt-100 
-  xl:-mt-100
+   -mt-10   /* small overlap for mobile */
+    sm:-mt-14
+    md:-mt-20
+    lg:-mt-28
+    xl:-mt-36  /* not too aggressive */
+
+
+
   
    bg-gradient-to-l from-black via-[#6c00ff] to-black '><StackingCards/></div> 
      
