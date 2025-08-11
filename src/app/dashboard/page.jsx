@@ -231,7 +231,7 @@ const CampaignForm = () => {
   );
 };
 
-const Header = ({ setIsSidebarOpen, isSidebarOpen }) => {
+const Header = ({ setIsSidebarOpen, isSidebarOpen, activeSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -242,6 +242,8 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const shouldShowNav = activeSection === "dashboard";
 
   return (
     <div
@@ -260,24 +262,26 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen }) => {
           <h2 className="text-lg sm:text-xl font-bold">Welcome Yash!</h2>
         </div>
       </div>
-      <div className="flex items-center gap-2 sm:gap-4">
-        <div className="flex flex-col gap-4 font-syne text-white">
-          <div className="relative ">
-            <select
-              className="bg-[#2C2C2C] text-gray-300 px-2 sm:px-3 py-1 rounded appearance-none pr-6 sm:pr-8 text-xs sm:text-sm"
-              onChange={() => {}}
-            >
-              <option value="7 days">7 days</option>
-              <option value="15 days">15 days</option>
-              <option value="30 days">30 days</option>
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-300">
-              <ChevronDown className="fill-current h-4 w-4" />
+      {shouldShowNav && (
+        <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex flex-col gap-4 font-syne text-white">
+            <div className="relative ">
+              <select
+                className="bg-[#2C2C2C] text-gray-300 px-2 sm:px-3 py-1 rounded appearance-none pr-6 sm:pr-8 text-xs sm:text-sm"
+                onChange={() => {}}
+              >
+                <option value="7 days">7 days</option>
+                <option value="15 days">15 days</option>
+                <option value="30 days">30 days</option>
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-300">
+                <ChevronDown className="fill-current h-4 w-4" />
+              </div>
             </div>
+            {/* ... rest of the TopHorizontalCards component ... */}
           </div>
-          {/* ... rest of the TopHorizontalCards component ... */}
         </div>
-      </div>
+      )}
     </div>
   );
 };
@@ -593,8 +597,6 @@ const CombinedDashboard = () => {
 };
 
 // Attachments Component
-// Attachments Component
-// Attachments Component
 const Attachments = () => {
   const [attachments, setAttachments] = useState([
     {
@@ -734,12 +736,12 @@ const Attachments = () => {
     </div>
   );
 };
+
 // Templates Component
 const Templates = () => {
-  const [templates, setTemplates] = useState([
+  const [templates] = useState([
     {
       id: 1,
-      type: "featured",
       icon: <FileText size={20} />,
       title: "Senior Software Engineer Cover Letter",
       description:
@@ -752,7 +754,6 @@ const Templates = () => {
     },
     {
       id: 2,
-      type: "featured",
       icon: <FileText size={20} />,
       title: "Frontend Developer Resume",
       description:
@@ -765,7 +766,6 @@ const Templates = () => {
     },
     {
       id: 3,
-      type: "all",
       icon: <Mail size={20} />,
       title: "Technical Interview Email",
       description: "Follow-up email template for technical interviews",
@@ -773,54 +773,25 @@ const Templates = () => {
       aiMatchScore: 88,
       category: "Email",
     },
-    {
-      id: 4,
-      type: "all",
-      icon: <Package size={20} />,
-      title: "Product Manager Application",
-      description: "Complete application package for product management roles",
-      rating: 4.8,
-      aiMatchScore: 85,
-      category: "Package",
-    },
-    {
-      id: 5,
-      type: "all",
-      icon: <FileText size={20} />,
-      title: "Startup Cover Letter",
-      description: "Dynamic cover letter template for startup environments",
-      rating: 4.5,
-      aiMatchScore: 83,
-      category: "Cover Letter",
-    },
+    // {
+    //   id: 4,
+    //   icon: <Package size={20} />,
+    //   title: "Product Manager Application",
+    //   description: "Complete application package for product management roles",
+    //   rating: 4.8,
+    //   aiMatchScore: 85,
+    //   category: "Package",
+    // },
+    // {
+    //   id: 5,
+    //   icon: <FileText size={20} />,
+    //   title: "Startup Cover Letter",
+    //   description: "Dynamic cover letter template for startup environments",
+    //   rating: 4.5,
+    //   aiMatchScore: 83,
+    //   category: "Cover Letter",
+    // },
   ]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [activeFilter, setActiveFilter] = useState("All");
-
-  const filterOptions = [
-    "All",
-    "Resume",
-    "Cover Letter",
-    "Email",
-    "Message",
-    "Package",
-  ];
-
-  const filteredTemplates = templates.filter((template) => {
-    const matchesSearch =
-      template.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      template.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = activeFilter === "All" || template.category === activeFilter;
-    return matchesSearch && matchesFilter;
-  });
-
-  const featuredTemplates = filteredTemplates.filter(
-    (template) => template.type === "featured"
-  );
-  const allTemplates = filteredTemplates.filter(
-    (template) => template.type === "all"
-  );
 
   return (
     <div className="p-4 sm:p-6 font-syne">
@@ -835,121 +806,13 @@ const Templates = () => {
           <Plus size={20} className="mr-2" /> Create Template
         </button>
       </div>
-      <div className="mb-8">
-        <div className="flex flex-col sm:flex-row items-center bg-white/10 backdrop-blur-md rounded-lg p-2 border border-white/20 shadow-md">
-          <div className="flex items-center w-full sm:w-auto flex-grow">
-            <Search size={20} className="text-white ml-2 mr-3" />
-            <input
-              type="text"
-              placeholder="Search templates..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-transparent text-white placeholder-gray-500 flex-grow py-2 focus:outline-none"
-            />
-          </div>
-          <div className="flex items-center mt-2 sm:mt-0 sm:ml-4 border-t sm:border-t-0 sm:border-l border-[#2C2C2C] pt-2 sm:pt-0 sm:pl-4 w-full sm:w-auto">
-            <button className="flex items-center text-white hover:text-purple-400 transition mr-4">
-              <SlidersHorizontal size={20} className="mr-2" /> Filter
-            </button>
-            <div className="flex flex-wrap gap-2">
-              {filterOptions.map((option) => (
-                <button
-                  key={option}
-                  onClick={() => setActiveFilter(option)}
-                  className={`px-3 py-1 rounded-full text-sm font-medium transition ${
-                    activeFilter === option
-                      ? "bg-purple-600 text-white"
-                      : "bg-[#2C2C2C] text-gray-300 hover:bg-[#3A3A3A]"
-                  }`}
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="mb-10">
-        <h2 className="text-xl font-semibold mb-4 text-gray-200">
-          Featured Templates
-        </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {featuredTemplates.length > 0 ? (
-            featuredTemplates.map((template) => (
-              <div
-                key={template.id}
-                className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 hover:border-white transition-all duration-300 shadow-md flex flex-col"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <div className="flex items-center">
-                    <div className="p-2 bg-[#2C2C2C] rounded-full mr-3 text-white">
-                      {template.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white">
-                        {template.title}
-                      </h3>
-                      <p className="text-sm text-white mt-1">
-                        {template.description}
-                      </p>
-                    </div>
-                  </div>
-                  <span className="bg-purple-800 text-white text-xs font-medium px-2.5 py-0.5 rounded-full">
-                    Featured
-                  </span>
-                </div>
-                <div className="flex items-center text-sm text-white mb-4">
-                  <Star
-                    size={16}
-                    className="text-yellow-400 mr-1"
-                    fill="currentColor"
-                  />
-                  <span>{template.rating}</span>
-                  <span className="mx-2">•</span>
-                  <span>{template.downloads} downloads</span>
-                </div>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {template.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="bg-white/10 backdrop-blur-sm text-gray-300 text-xs px-2 py-1 rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex items-center justify-between bg-[#2C2C2C] p-3 rounded-lg mb-4">
-                  <span className="text-sm text-gray-300">
-                    AI Match Score
-                  </span>
-                  <span className="text-lg font-bold text-purple-400">
-                    {template.aiMatchScore}%
-                  </span>
-                </div>
-                <div className="flex justify-between items-center mt-auto">
-                  <button className="flex-grow bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5 mr-2">
-                    Use Template
-                  </button>
-                  <button className="p-2 bg-[#2C2C2C] hover:bg-[#3A3A3A] rounded-lg text-white hover:text-white transition">
-                    <MoreHorizontal size={20} />
-                  </button>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-white col-span-full">
-              No featured templates found.
-            </p>
-          )}
-        </div>
-      </div>
       <div>
         <h2 className="text-xl font-semibold font-syne mb-4 text-gray-200">
           All Templates
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {allTemplates.length > 0 ? (
-            allTemplates.map((template) => (
+          {templates.length > 0 ? (
+            templates.map((template) => (
               <div
                 key={template.id}
                 className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-[#2C2C2C] hover:border-white transition-all duration-300 shadow-md flex flex-col"
@@ -1002,7 +865,7 @@ const Templates = () => {
   );
 };
 
-// Updated Settings Component
+// Settings Component
 const SettingsComponent = () => {
   // State to manage the user's settings.
   const [profileSettings, setProfileSettings] = useState({
@@ -1101,8 +964,7 @@ const SettingsComponent = () => {
                 </div>
               </div>
             </div>
-{/* 
-            Email Scheduling Rules Card
+{/* Email Scheduling Rules Card
             <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 border border-white/20">
               <div className="flex items-center gap-4 mb-6">
                 <Clock className="text-violet-400" size={24} />
@@ -1279,112 +1141,118 @@ export default function Page() {
           isSidebarOpen ? "translate-x-0 w-64" : "-translate-x-full w-64"
         }`}
       >
-        <div className="flex flex-col">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-2xl font-bold font-syne">
-              Out<span className="text-purple-500">mail</span>
-            </h1>
-            <button
-              onClick={() => setIsSidebarOpen(false)}
-              className="lg:hidden p-2 text-white hover:text-purple-400"
-            >
-              <ChevronLeft size={24} />
-            </button>
-          </div>
-          <div className="flex items-center gap-3 mb-6">
-            <CircleUserRound className="w-10 h-10 text-white" />
-            <div>
-              <p className="font-semibold">Yash Sharma</p>
-              <span className="text-xs bg-[#2C2C2C] px-2 py-0.5 rounded text-purple-400">
-                PRO
-              </span>
-            </div>
-          </div>
-          <nav className="space-y-4 mt-10">
-            <a
-              onClick={() => {
-                setActiveSection("dashboard");
-                setIsSidebarOpen(false);
-              }}
-              className={`flex items-center gap-2 transition cursor-pointer ${
-                activeSection === "dashboard"
-                  ? "text-purple-400 font-bold"
-                  : "text-white hover:text-purple-400"
-              }`}
-            >
-              <LayoutDashboard size={16} /> Dashboard
-            </a>
-            <a
-              onClick={() => {
-                setActiveSection("campaign");
-                setIsSidebarOpen(false);
-              }}
-              className={`flex items-center gap-2 transition cursor-pointer ${
-                activeSection === "campaign"
-                  ? "text-purple-400 font-bold"
-                  : "text-white hover:text-purple-400"
-              }`}
-            >
-              <Mail size={16} /> Campaign
-            </a>
-            <a
-              onClick={() => {
-                setActiveSection("attachments");
-                setIsSidebarOpen(false);
-              }}
-              className={`block transition cursor-pointer flex items-center gap-2 ${
-                activeSection === "attachments"
-                  ? "text-purple-400 font-semibold"
-                  : "text-white hover:text-purple-400"
-              }`}
-            >
-              <Paperclip size={18} />
-              Attachments
-            </a>
-            <a
-              onClick={() => {
-                setActiveSection("templates");
-                setIsSidebarOpen(false);
-              }}
-              className={`block transition cursor-pointer flex items-center gap-2 ${
-                activeSection === "templates"
-                  ? "text-purple-400 font-semibold"
-                  : "text-white hover:text-purple-400"
-              }`}
-            >
-              <FileText size={18} />
-              Templates
-            </a>
-            <a
-              onClick={() => {
-                setActiveSection("settings");
-                setIsSidebarOpen(false);
-              }}
-              className={`block transition cursor-pointer flex items-center gap-2 ${
-                activeSection === "settings"
-                  ? "text-purple-400 font-semibold"
-                  : "text-white hover:text-purple-400"
-              }`}
-            >
-              <SlidersHorizontal size={18} />
-              Settings
-            </a>
-            <a
-              onClick={() => {
-                setActiveSection("contact");
-                setIsSidebarOpen(false);
-              }}
-              className={`block transition cursor-pointer flex items-center gap-2 ${
-                activeSection === "contact"
-                  ? "text-purple-400 font-semibold"
-                  : "text-white hover:text-purple-400"
-              }`}
-            >
-              <Phone size={18} />
-              Contact Us
-            </a>
-          </nav>
-        </div>
+       <div className="flex flex-col">
+  <div className="flex justify-between items-center mb-8">
+    <h1 className="text-2xl font-bold font-syne">
+      Out<span className="text-purple-500">mail</span>
+    </h1>
+    <button
+      onClick={() => setIsSidebarOpen(false)}
+      className="lg:hidden p-2 text-white hover:text-purple-400"
+    >
+      <ChevronLeft size={24} />
+    </button>
+  </div>
+  <div
+    className="flex items-center gap-3 mb-6 cursor-pointer"
+    onClick={() => {
+      setActiveSection("settings");
+      setIsSidebarOpen(false);
+    }}
+  >
+    <CircleUserRound className="w-10 h-10 text-white" />
+    <div>
+      <p className="font-semibold">Yash Sharma</p>
+      <span className="text-xs bg-[#2C2C2C] px-2 py-0.5 rounded text-purple-400">
+        PRO
+      </span>
+    </div>
+  </div>
+  <nav className="space-y-4 mt-10">
+    <a
+      onClick={() => {
+        setActiveSection("dashboard");
+        setIsSidebarOpen(false);
+      }}
+      className={`flex items-center gap-2 transition cursor-pointer ${
+        activeSection === "dashboard"
+          ? "text-purple-400 font-bold"
+          : "text-white hover:text-purple-400"
+      }`}
+    >
+      <LayoutDashboard size={16} /> Dashboard
+    </a>
+    <a
+      onClick={() => {
+        setActiveSection("campaign");
+        setIsSidebarOpen(false);
+      }}
+      className={`flex items-center gap-2 transition cursor-pointer ${
+        activeSection === "campaign"
+          ? "text-purple-400 font-bold"
+          : "text-white hover:text-purple-400"
+      }`}
+    >
+      <Mail size={16} /> Campaign
+    </a>
+    <a
+      onClick={() => {
+        setActiveSection("attachments");
+        setIsSidebarOpen(false);
+      }}
+      className={`block transition cursor-pointer flex items-center gap-2 ${
+        activeSection === "attachments"
+          ? "text-purple-400 font-semibold"
+          : "text-white hover:text-purple-400"
+      }`}
+    >
+      <Paperclip size={18} />
+      Attachments
+    </a>
+    <a
+      onClick={() => {
+        setActiveSection("templates");
+        setIsSidebarOpen(false);
+      }}
+      className={`block transition cursor-pointer flex items-center gap-2 ${
+        activeSection === "templates"
+          ? "text-purple-400 font-semibold"
+          : "text-white hover:text-purple-400"
+      }`}
+    >
+      <FileText size={18} />
+      Templates
+    </a>
+    <a
+      onClick={() => {
+        setActiveSection("settings");
+        setIsSidebarOpen(false);
+      }}
+      className={`block transition cursor-pointer flex items-center gap-2 ${
+        activeSection === "settings"
+          ? "text-purple-400 font-semibold"
+          : "text-white hover:text-purple-400"
+      }`}
+    >
+      <SlidersHorizontal size={18} />
+      Settings
+    </a>
+    <a
+      onClick={() => {
+        setActiveSection("contact");
+        setIsSidebarOpen(false);
+      }}
+      className={`block transition cursor-pointer flex items-center gap-2 ${
+        activeSection === "contact"
+          ? "text-purple-400 font-semibold"
+          : "text-white hover:text-purple-400"
+      }`}
+    >
+      <Phone size={18} />
+      Contact Us
+    </a>
+  </nav>
+</div>
         <div className="mt-auto">
           <a
             href="#"
