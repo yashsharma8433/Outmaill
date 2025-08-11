@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link"; // Import Link component
 import Logo from "@/assets/logo.svg";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -28,12 +29,13 @@ function Navbar() {
 
         {/* CTA Button - Desktop */}
         <div className="hidden md:flex items-center">
-          <a
-            href="#"
+          {/* Change a tag to Link component for client-side routing */}
+          <Link
+            href="/app-login"
             className="text-white bg-[#AD46FF] font-semibold rounded-full px-4 py-1.5 hover:bg-[#c289f0] transition-colors"
           >
             Login
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -68,12 +70,14 @@ function Navbar() {
               <a href="/Aboutus" className="hover:text-[#AD46FF] transition text-center">About Us</a>
               <a href="/Pricing" className="hover:text-[#AD46FF] transition text-center">Pricing</a>
               <a href="/Contactus" className="hover:text-[#AD46FF] transition text-center">Contact Us</a>
-              <a
-                href="#"
+              
+              {/* Change a tag to Link component for mobile menu */}
+              <Link
+                href="/app-login"
                 className="text-center text-white bg-[#AD46FF] font-semibold rounded-full px-8 py-3 mt-4 hover:bg-[#c289f0] transition-colors"
               >
                 Login
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}

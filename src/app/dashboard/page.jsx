@@ -25,7 +25,7 @@ import {
   Square,
   ChevronDown,
   Settings,
-  CreditCard ,
+  CreditCard,
   Globe,
   MousePointer,
   Paperclip,
@@ -35,172 +35,199 @@ import {
   Linkedin,
   Instagram,
   Play,
-  User, Bell, Moon, Sun, Clock, Check, Zap, Edit, Save, Phone,
+  User,
+  Bell,
+  Moon,
+  Sun,
+  Clock,
+  Check,
+  Zap,
+  Edit,
+  Save,
+  Phone,
 } from "lucide-react";
 
 // The campaign creation form, extracted and renamed for clarity
 const CampaignForm = () => {
-  const [campaignName, setCampaignName] = useState('');
-  const [emailSubject, setEmailSubject] = useState('');
-  const [emailBody, setEmailBody] = useState('');
-  const [emailsManual, setEmailsManual] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-  const [timezone, setTimezone] = useState('(GMT+5:50) Chennai, Kolkata, Mumbai, New Delhi'); // Corrected time zone to match the image
+  const [campaignName, setCampaignName] = useState("");
+  const [emailSubject, setEmailSubject] = useState("");
+  const [emailBody, setEmailBody] = useState("");
+  const [emailsManual, setEmailsManual] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [timezone, setTimezone] = useState(
+    "(GMT+5:50) Chennai, Kolkata, Mumbai, New Delhi"
+  ); // Corrected time zone to match the image
 
   // Placeholder function for handling form submission
   const handleStartCampaign = () => {
-    console.log('Starting Campaign:', { campaignName, emailSubject, emailBody, startTime, endTime, timezone });
+    console.log("Starting Campaign:", {
+      campaignName,
+      emailSubject,
+      emailBody,
+      startTime,
+      endTime,
+      timezone,
+    });
     // In a real application, you would send this data to a server.
     // Also, handle file uploads and email inputs.
   };
   return (
     <div className="w-full max-w-7xl bg-white/10 ounded-2xl p-6 text-white  border border-white/20  border backdrop-blur-lg shadow-md rounded-xl sm:p-8 lg:p-10">
-        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6 flex items-center gap-2">
+      <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6 flex items-center gap-2">
+        Create Campaign
+      </h1>
 
+      {/* Campaign Name Input */}
+      <div className="mb-6">
+        <label className="block text-white font-medium mb-2">
+          Campaign Name
+        </label>
+        <input
+          type="text"
+          value={campaignName}
+          onChange={(e) => setCampaignName(e.target.value)}
+          placeholder=""
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+        />
+      </div>
 
-          Create Campaign
-        </h1>
-
-        {/* Campaign Name Input */}
-        <div className="mb-6">
-          <label className="block text-white font-medium mb-2">Campaign Name</label>
-          <input
-            type="text"
-            value={campaignName}
-            onChange={(e) => setCampaignName(e.target.value)}
-            placeholder=""
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
-          />
-        </div>
-
-        {/* Upload CSV or Enter Emails Section */}
-        <div className="mb-6">
-          <label className="block text-white font-medium mb-2">
-            Upload CSV File or Enter Emails <br />
-            <span className="text-sm text-red-500  font-bold font-normal">
-              Important: Your file must have a column named "email". If not, email addresses will not be fetched and mails will not be sent.
-            </span>
-          </label>
-          <div className="flex flex-col sm:flex-row gap-4">
-            {/* File Upload Input */}
-            <div className="flex-1">
-              <label className="w-full flex items-center justify-center p-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                <Upload size={20} className="text-white mr-2" />
-                <span className="text-gray-500">Choose file</span>
-                <input type="file" className="hidden" />
-              </label>
-            </div>
-           
-            {/* Manual Email Input */}
-            <div className="flex-1">
-              <input
-                type="text"
-                value={emailsManual}
-                onChange={(e) => setEmailsManual(e.target.value)}
-                placeholder=""
-                className="w-full p-3  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
-              />
-            </div>
-          </div>
-          <p className="text-sm text-white mt-2">
-            CSV should contain name, email, and company columns. Or manually enter emails above.
-          </p>
-        </div>
-
-        {/* Email Subject Input */}
-        <div className="mb-6">
-          <label className="block text-white font-medium mb-2">Email Subject*</label>
-          <input
-            type="text"
-            value={emailSubject}
-            onChange={(e) => setEmailSubject(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
-          />
-        </div>
-
-        {/* Email Body Text Area */}
-        <div className="mb-6">
-          <label className="block text-white font-medium mb-2">Email Body*</label>
-          <textarea
-            value={emailBody}
-            onChange={(e) => setEmailBody(e.target.value)}
-            rows="6"
-            placeholder="Hi there,"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y transition-shadow"
-          ></textarea>
-          <p className="text-sm text-white mt-2">Use personalization variables for better engagement</p>
-        </div>
-
-        {/* Time and Timezone Section */}
-        <div className="flex flex-col md:flex-row gap-6 mb-6">
-          {/* Start Time */}
-          <div className="flex-1">
-            <label className="block text-white font-medium mb-2">Start Time*</label>
-            <div className="flex items-center gap-2">
-              <input
-                type="date"
-                value={startTime}
-                onChange={(e) => setStartTime(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
-              />
-
-            </div>
-          </div>
-          {/* End Time */}
-          <div className="flex-1">
-            <label className="block text-white font-medium mb-2"></label>
-
-          </div>
-        </div>
-
-        {/* Timezone Dropdown */}
-        <div className="mb-6">
-          <label className="block text-white font-medium mb-2">Timezone*</label>
-          <div className="relative">
-            <select
-              value={timezone}
-              onChange={(e) => setTimezone(e.target.value)}
-              className="appearance-none w-full p-3 border border-gray-300 rounded-lg pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
-            >
-              <option>(GMT+5:50) Chennai, Kolkata, Mumbai, New Delhi</option>
-              {/* Add more timezone options here */}
-            </select>
-            <Globe size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
-          </div>
-        </div>
-
-        {/* Campaign Details Section */}
-        <div className="mb-8">
-          <h2 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-            <Settings size={20} className="text-white" />
-            Campaign Details
-          </h2>
-          <ul className="list-disc list-inside text-white space-y-1">
-            <li>Delay between each email</li>
-            <li>Emails personalized with name, email, and company</li>
-            <li>Fixed HTML template with placeholders</li>
-            <li>CSV data stored securely</li>
-          </ul>
-        </div>
-
-        {/* Action Buttons */}
+      {/* Upload CSV or Enter Emails Section */}
+      <div className="mb-6">
+        <label className="block text-white font-medium mb-2">
+          Upload CSV File or Enter Emails <br />
+          <span className="text-sm text-red-500  font-bold font-normal">
+            Important: Your file must have a column named "email". If not, email
+            addresses will not be fetched and mails will not be sent.
+          </span>
+        </label>
         <div className="flex flex-col sm:flex-row gap-4">
-          <button
-            onClick={handleStartCampaign}
-            className="flex-1 w-full bg-purple-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-purple-400 transition-colors flex items-center justify-center gap-2"
-          >
-            <Play size={20} />
-            Start Campaign
-          </button>
-          <button
-            className="flex-1 w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-          >
-            <Eye size={20} />
-            Preview Email & Check Placeholders
-          </button>
+          {/* File Upload Input */}
+          <div className="flex-1">
+            <label className="w-full flex items-center justify-center p-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+              <Upload size={20} className="text-white mr-2" />
+              <span className="text-gray-500">Choose file</span>
+              <input type="file" className="hidden" />
+            </label>
+          </div>
+
+          {/* Manual Email Input */}
+          <div className="flex-1">
+            <input
+              type="text"
+              value={emailsManual}
+              onChange={(e) => setEmailsManual(e.target.value)}
+              placeholder=""
+              className="w-full p-3  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+            />
+          </div>
+        </div>
+        <p className="text-sm text-white mt-2">
+          CSV should contain name, email, and company columns. Or manually enter
+          emails above.
+        </p>
+      </div>
+
+      {/* Email Subject Input */}
+      <div className="mb-6">
+        <label className="block text-white font-medium mb-2">
+          Email Subject*
+        </label>
+        <input
+          type="text"
+          value={emailSubject}
+          onChange={(e) => setEmailSubject(e.target.value)}
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+        />
+      </div>
+
+      {/* Email Body Text Area */}
+      <div className="mb-6">
+        <label className="block text-white font-medium mb-2">
+          Email Body*
+        </label>
+        <textarea
+          value={emailBody}
+          onChange={(e) => setEmailBody(e.target.value)}
+          rows="6"
+          placeholder="Hi there,"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y transition-shadow"
+        ></textarea>
+        <p className="text-sm text-white mt-2">
+          Use personalization variables for better engagement
+        </p>
+      </div>
+
+      {/* Time and Timezone Section */}
+      <div className="flex flex-col md:flex-row gap-6 mb-6">
+        {/* Start Time */}
+        <div className="flex-1">
+          <label className="block text-white font-medium mb-2">
+            Start Time*
+          </label>
+          <div className="flex items-center gap-2">
+            <input
+              type="date"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+            />
+          </div>
+        </div>
+        {/* End Time */}
+        <div className="flex-1">
+          <label className="block text-white font-medium mb-2"></label>
         </div>
       </div>
+
+      {/* Timezone Dropdown */}
+      <div className="mb-6">
+        <label className="block text-white font-medium mb-2">Timezone*</label>
+        <div className="relative">
+          <select
+            value={timezone}
+            onChange={(e) => setTimezone(e.target.value)}
+            className="appearance-none w-full p-3 border border-gray-300 rounded-lg pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+          >
+            <option>(GMT+5:50) Chennai, Kolkata, Mumbai, New Delhi</option>
+            {/* Add more timezone options here */}
+          </select>
+          <Globe
+            size={20}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
+          />
+        </div>
+      </div>
+
+      {/* Campaign Details Section */}
+      <div className="mb-8">
+        <h2 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+          <Settings size={20} className="text-white" />
+          Campaign Details
+        </h2>
+        <ul className="list-disc list-inside text-white space-y-1">
+          <li>Delay between each email</li>
+          <li>Emails personalized with name, email, and company</li>
+          <li>Fixed HTML template with placeholders</li>
+          <li>CSV data stored securely</li>
+        </ul>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex flex-col sm:flex-row gap-4">
+        <button
+          onClick={handleStartCampaign}
+          className="flex-1 w-full bg-purple-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-purple-400 transition-colors flex items-center justify-center gap-2"
+        >
+          <Play size={20} />
+          Start Campaign
+        </button>
+        <button className="flex-1 w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+          <Eye size={20} />
+          Preview Email & Check Placeholders
+        </button>
+      </div>
+    </div>
   );
 };
 
@@ -230,15 +257,25 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen }) => {
           <Menu className="text-white w-5 sm:w-6 h-5 sm:h-6" />
         </button>
         <div>
-          <h2 className="text-lg sm:text-xl font-bold">Job Application Dashboard</h2>
-          <p className="text-xs sm:text-sm text-gray-400">AI-powered insights for your job search</p>
-          <p className="text-xs sm:text-sm text-gray-400 mt-0.5 sm:mt-1">Welcome back, Yash!</p>
+          <h2 className="text-lg sm:text-xl font-bold">Welcome Yash!</h2>
         </div>
       </div>
       <div className="flex items-center gap-2 sm:gap-4">
-      
-        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-purple-600 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm">
-          Y
+        <div className="flex flex-col gap-4 font-syne text-white">
+          <div className="relative ">
+            <select
+              className="bg-[#2C2C2C] text-gray-300 px-2 sm:px-3 py-1 rounded appearance-none pr-6 sm:pr-8 text-xs sm:text-sm"
+              onChange={() => {}}
+            >
+              <option value="7 days">7 days</option>
+              <option value="15 days">15 days</option>
+              <option value="30 days">30 days</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-300">
+              <ChevronDown className="fill-current h-4 w-4" />
+            </div>
+          </div>
+          {/* ... rest of the TopHorizontalCards component ... */}
         </div>
       </div>
     </div>
@@ -247,7 +284,7 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen }) => {
 
 // Mock ChartComponent for demonstration purposes
 const ChartComponent = ({ type, data, title, isMini }) => {
-  const chartClass = isMini ? "h-16" : "h-64";
+  const chartClass = isMini ? "h-16" : "h-50";
   return (
     <div
       className={`flex items-center justify-center ${chartClass} border border-white text-white bg-white/10 backdrop-blur-md rounded-xl shadow-lg`}
@@ -257,48 +294,48 @@ const ChartComponent = ({ type, data, title, isMini }) => {
   );
 };
 
-
 const Card = ({ title, value, percentage, icon }) => {
-  const isPositive = percentage.includes('+');
-  const percentageColor = isPositive ? 'text-green-500' : 'text-red-500';
+  const isPositive = percentage.includes("+");
+  const percentageColor = isPositive ? "text-green-500" : "text-red-500";
 
   return (
     <div className="flex items-center justify-between p-6 bg-transparent backdrop-blur-md rounded-xl shadow-lg border border-white/20">
       <div className="flex flex-col">
         <p className="text-sm text-slate-400">{title}</p>
         <p className="text-3xl font-bold text-white mt-1">
-          {value}{' '}
-          <span className={`text-lg font-normal ${percentageColor}`}>{percentage}</span>
+          {value}{" "}
+          <span className={`text-lg font-normal ${percentageColor}`}>
+            {percentage}
+          </span>
         </p>
       </div>
-      <div className="p-3 bg-purple-600 rounded-full text-white">
-        {icon}
-      </div>
+      <div className="p-3 bg-purple-600 rounded-full text-white">{icon}</div>
     </div>
   );
 };
-
 
 // TopHorizontalCards Component
 const TopHorizontalCards = () => {
   return (
     <div className="flex flex-col gap-4 font-syne text-white">
       <div className="relative -mt-10">
-          <select
-            className="bg-[#2C2C2C] text-gray-300 px-2 sm:px-3 py-1 rounded appearance-none pr-6 sm:pr-8 text-xs sm:text-sm"
-            onChange={() => {}}
-          >
-            <option value="7 days">7 days</option>
-            <option value="15 days">15 days</option>
-            <option value="30 days">30 days</option>
-          </select>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-300">
-            <ChevronDown className="fill-current h-4 w-4" />
-          </div>
+        <select
+          className="bg-[#2C2C2C] text-gray-300 px-2 sm:px-3 py-1 rounded appearance-none pr-6 sm:pr-8 text-xs sm:text-sm "
+          onChange={() => {}}
+        >
+          <option value="7 days">7 days</option>
+          <option value="15 days">15 days</option>
+          <option value="30 days">30 days</option>
+        </select>
+        <div className="pointer-events-none absolute inset-y-0 right-0  items-center px-2 text-gray-300">
+          <ChevronDown className="fill-current h-4 w-4" />
         </div>
+      </div>
       {/* Card 1: Acceptance Rate */}
       <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 flex flex-col items-center justify-center shadow-lg border border-white/10">
-        <h2 className="text-lg font-semibold text-white mb-1">Acceptance Rate</h2>
+        <h2 className="text-lg font-semibold text-white mb-1">
+          Acceptance Rate
+        </h2>
         <div className="relative w-28 h-28">
           <svg className="w-full h-full" viewBox="0 0 100 100">
             <circle
@@ -330,7 +367,9 @@ const TopHorizontalCards = () => {
       {/* Card 2: Referral Tracking */}
       <div className="rounded-xl p-4 flex flex-col shadow-xl border border-white/20 backdrop-blur-md bg-white/10">
         <div className="flex justify-between items-center mb-1">
-          <h2 className="text-lg font-semibold text-white">Referral Tracking</h2>
+          <h2 className="text-lg font-semibold text-white">
+            Referral Tracking
+          </h2>
           <button className="p-1 bg-white/10 hover:bg-white/20 rounded-full transition">
             <MoreHorizontal size={16} className="text-white/80" />
           </button>
@@ -377,7 +416,6 @@ const TopHorizontalCards = () => {
   );
 };
 
-
 // SalesOverview Component
 const SalesOverview = () => {
   return (
@@ -386,17 +424,21 @@ const SalesOverview = () => {
         <h3 className="text-xl font-semibold"> Company Overview</h3>
         <span className="text-sm text-green-400">+5% more in 2021</span>
         <div className="flex items-center gap-2">
-          <button className="p-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm">Jan</button>
-          <button className="p-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm">Feb</button>
-          <button className="p-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm">Mar</button>
+          <button className="p-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm">
+            Jan
+          </button>
+          <button className="p-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm">
+            Feb
+          </button>
+          <button className="p-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm">
+            Mar
+          </button>
         </div>
       </div>
 
       <div className="h-64 mb-1">
         <ChartComponent type="line" title="Sales Overview" />
       </div>
-
-    
     </div>
   );
 };
@@ -442,17 +484,28 @@ const Projects = () => {
           </thead>
           <tbody>
             {projects.map((project) => (
-              <tr key={project.id} className="border-b border-white/5 last:border-b-0">
+              <tr
+                key={project.id}
+                className="border-b border-white/5 last:border-b-0"
+              >
                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium flex items-center gap-2">
                   <Square size={16} className="text-purple-500" />
                   {project.name}
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm text-white/80 flex items-center gap-1">
-                  <span className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-xs">M</span>
-                  <span className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-xs">S</span>
-                  <span className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-xs">J</span>
+                  <span className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-xs">
+                    M
+                  </span>
+                  <span className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-xs">
+                    S
+                  </span>
+                  <span className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-xs">
+                    J
+                  </span>
                 </td>
-                <td className="px-4 py-4 whitespace-nowrap text-sm text-white/80">{project.budget}</td>
+                <td className="px-4 py-4 whitespace-nowrap text-sm text-white/80">
+                  {project.budget}
+                </td>
                 <td className="px-4 py-4 whitespace-nowrap text-sm">
                   <div className="flex items-center gap-2">
                     <div className="w-24 bg-white/20 rounded-full h-2.5">
@@ -461,7 +514,9 @@ const Projects = () => {
                         style={{ width: `${project.completion}%` }}
                       ></div>
                     </div>
-                    <span className="text-white/70">{project.completion}%</span>
+                    <span className="text-white/70">
+                      {project.completion}%
+                    </span>
                   </div>
                 </td>
               </tr>
@@ -472,9 +527,6 @@ const Projects = () => {
     </div>
   );
 };
-
-
-
 
 // OrdersOverview Component
 const OrdersOverview = () => {
@@ -494,10 +546,16 @@ const OrdersOverview = () => {
             className="flex items-start gap-4 border-b border-gray-800 pb-4 last:border-b-0 last:pb-0"
           >
             <div className="mt-1">
-              {index === 0 && <CheckCircle size={20} className="text-green-500" />}
+              {index === 0 && (
+                <CheckCircle size={20} className="text-green-500" />
+              )}
               {index === 1 && <Plus size={20} className="text-red-500" />}
-              {index === 2 && <ShoppingCart size={20} className="text-blue-500" />}
-              {index === 3 || index === 4 ? <File size={20} className="text-purple-500" /> : null}
+              {index === 2 && (
+                <ShoppingCart size={20} className="text-blue-500" />
+              )}
+              {index === 3 || index === 4 ? (
+                <File size={20} className="text-purple-500" />
+              ) : null}
               {index === 5 && <Plus size={20} className="text-red-500" />}
             </div>
             <div>
@@ -511,55 +569,55 @@ const OrdersOverview = () => {
   );
 };
 
+// **Corrected CombinedDashboard Component**
 const CombinedDashboard = () => {
   return (
-    <div className="flex-1 flex flex-col p-6">
-      {/* 3 columns on large screens, 1 column on small */}
+    <div className="flex-1 flex flex-col p-6 overflow-y-auto">
+      {" "}
+      {/* Added overflow-y-auto to allow scrolling within this specific component */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        {/* LEFT SIDE (2 columns): SalesOverview + Projects & ActiveUsers */}
+        {/* Sales Overview and Projects (Left side) */}
         <div className="lg:col-span-2 flex flex-col gap-6">
-
-          {/* 1. SalesOverview takes full width of 2 columns */}
           <SalesOverview />
-
-          {/* 2. Projects and ActiveUsers side-by-side under SalesOverview */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-
-          </div>
+          <Projects />
         </div>
 
-        
-
-        {/* RIGHT SIDE (1 column): TopHorizontalCards */}
-        <div className="flex flex-col gap-6">
+        {/* Top Cards and Active Users (Right side) */}
+        <div className="lg:col-span-1 flex flex-col gap-6">
           <TopHorizontalCards />
+          <ActiveUsers />
         </div>
-        
       </div>
-      <div className="p-4 grid grid-cols-3 gap-4">
-      {/* The Projects component will take up 2 of 3 columns */}
-      <Projects />
-      
-      {/* The ActiveUsers component will take up the remaining 1 column */}
-      <ActiveUsers />
-    </div>
     </div>
   );
 };
-
-
-
 
 // Attachments Component
 // Attachments Component
 // Attachments Component
 const Attachments = () => {
   const [attachments, setAttachments] = useState([
-    { id: 1, name: "Resume_YashSharma.pdf", type: "PDF", size: "2.1 MB", uploadDate: "2024-07-25" },
-    { id: 2, name: "CoverLetter_Google.docx", type: "DOCX", size: "0.5 MB", uploadDate: "2024-07-20" },
-    { id: 3, name: "Portfolio_Link.txt", type: "Link", size: "0.1 MB", uploadDate: "2024-07-18" },
+    {
+      id: 1,
+      name: "Resume_YashSharma.pdf",
+      type: "PDF",
+      size: "2.1 MB",
+      uploadDate: "2024-07-25",
+    },
+    {
+      id: 2,
+      name: "CoverLetter_Google.docx",
+      type: "DOCX",
+      size: "0.5 MB",
+      uploadDate: "2024-07-20",
+    },
+    {
+      id: 3,
+      name: "Portfolio_Link.txt",
+      type: "Link",
+      size: "0.1 MB",
+      uploadDate: "2024-07-18",
+    },
   ]);
 
   const ATTACHMENT_LIMIT = 3;
@@ -571,7 +629,10 @@ const Attachments = () => {
     }
 
     const newAttachment = {
-      id: attachments.length > 0 ? Math.max(...attachments.map(a => a.id)) + 1 : 1,
+      id:
+        attachments.length > 0
+          ? Math.max(...attachments.map((a) => a.id)) + 1
+          : 1,
       name: `New_Attachment_${attachments.length + 1}.pdf`,
       type: "PDF",
       size: "1.0 MB",
@@ -582,7 +643,9 @@ const Attachments = () => {
 
   const handleDeleteAttachment = (id) => {
     // Filter out the attachment that matches the provided id
-    const updatedAttachments = attachments.filter(attachment => attachment.id !== id);
+    const updatedAttachments = attachments.filter(
+      (attachment) => attachment.id !== id
+    );
     setAttachments(updatedAttachments);
   };
 
@@ -591,15 +654,14 @@ const Attachments = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold mb-1">Attachments</h1>
-          <p className="text-white text-sm sm:text-base">Manage your job application attachments</p>
         </div>
         <button
           onClick={handleUploadAttachment}
           disabled={attachments.length >= ATTACHMENT_LIMIT}
           className={`mt-4 sm:mt-0 text-white font-semibold py-2 px-4 rounded-lg flex items-center shadow-lg transition duration-200 ease-in-out transform ${
             attachments.length >= ATTACHMENT_LIMIT
-              ? 'bg-gray-500 cursor-not-allowed'
-              : 'bg-purple-600 hover:bg-purple-700 hover:-translate-y-0.5'
+              ? "bg-gray-500 cursor-not-allowed"
+              : "bg-purple-600 hover:bg-purple-700 hover:-translate-y-0.5"
           }`}
         >
           <Upload size={20} className="mr-2" /> Upload Attachment
@@ -607,35 +669,57 @@ const Attachments = () => {
       </div>
 
       <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20 shadow-md">
-        <h2 className="text-xl font-semibold mb-4 text-gray-200">Your Attachments</h2>
+        <h2 className="text-xl font-semibold mb-4 text-gray-200">
+          Your Attachments
+        </h2>
         {attachments.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-[#2C2C2C]">
               <thead>
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Type</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Size</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Upload Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Name
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Type
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Size
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Upload Date
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#2C2C2C]">
                 {attachments.map((attachment) => (
                   <tr key={attachment.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">{attachment.name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{attachment.type}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{attachment.size}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{attachment.uploadDate}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
+                      {attachment.name}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                      {attachment.type}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                      {attachment.size}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                      {attachment.uploadDate}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <button className="text-purple-400 hover:text-purple-600 mr-4">
-                        <Eye size={16} className="inline-block mr-1" />View
+                        <Eye size={16} className="inline-block mr-1" />
+                        View
                       </button>
                       <button
                         onClick={() => handleDeleteAttachment(attachment.id)}
                         className="text-red-400 hover:text-red-600"
                       >
-                        <Trash2 size={16} className="inline-block mr-1" />Delete
+                        <Trash2 size={16} className="inline-block mr-1" />
+                        Delete
                       </button>
                     </td>
                   </tr>
@@ -658,7 +742,8 @@ const Templates = () => {
       type: "featured",
       icon: <FileText size={20} />,
       title: "Senior Software Engineer Cover Letter",
-      description: "Professional cover letter template optimized for senior engineering roles",
+      description:
+        "Professional cover letter template optimized for senior engineering roles",
       rating: 4.8,
       downloads: "1250",
       tags: ["Cover Letter", "Tech", "Senior Level", "AI-Optimized"],
@@ -670,7 +755,8 @@ const Templates = () => {
       type: "featured",
       icon: <FileText size={20} />,
       title: "Frontend Developer Resume",
-      description: "Modern ATS-friendly resume template for frontend developers",
+      description:
+        "Modern ATS-friendly resume template for frontend developers",
       rating: 4.9,
       downloads: "2100",
       tags: ["Resume", "Frontend", "React", "ATS-Friendly"],
@@ -712,7 +798,14 @@ const Templates = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeFilter, setActiveFilter] = useState("All");
 
-  const filterOptions = ["All", "Resume", "Cover Letter", "Email", "Message", "Package"];
+  const filterOptions = [
+    "All",
+    "Resume",
+    "Cover Letter",
+    "Email",
+    "Message",
+    "Package",
+  ];
 
   const filteredTemplates = templates.filter((template) => {
     const matchesSearch =
@@ -722,8 +815,12 @@ const Templates = () => {
     return matchesSearch && matchesFilter;
   });
 
-  const featuredTemplates = filteredTemplates.filter((template) => template.type === "featured");
-  const allTemplates = filteredTemplates.filter((template) => template.type === "all");
+  const featuredTemplates = filteredTemplates.filter(
+    (template) => template.type === "featured"
+  );
+  const allTemplates = filteredTemplates.filter(
+    (template) => template.type === "all"
+  );
 
   return (
     <div className="p-4 sm:p-6 font-syne">
@@ -734,14 +831,12 @@ const Templates = () => {
             AI-powered templates to boost your application success rate
           </p>
         </div>
-        <button
-          className="mt-4 sm:mt-0 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center shadow-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5"
-        >
+        <button className="mt-4 sm:mt-0 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center shadow-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5">
           <Plus size={20} className="mr-2" /> Create Template
         </button>
       </div>
       <div className="mb-8">
-      <div className="flex flex-col sm:flex-row items-center bg-white/10 backdrop-blur-md rounded-lg p-2 border border-white/20 shadow-md">
+        <div className="flex flex-col sm:flex-row items-center bg-white/10 backdrop-blur-md rounded-lg p-2 border border-white/20 shadow-md">
           <div className="flex items-center w-full sm:w-auto flex-grow">
             <Search size={20} className="text-white ml-2 mr-3" />
             <input
@@ -775,40 +870,61 @@ const Templates = () => {
         </div>
       </div>
       <div className="mb-10">
-        <h2 className="text-xl font-semibold mb-4 text-gray-200">Featured Templates</h2>
+        <h2 className="text-xl font-semibold mb-4 text-gray-200">
+          Featured Templates
+        </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {featuredTemplates.length > 0 ? (
             featuredTemplates.map((template) => (
               <div
                 key={template.id}
-               className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 hover:border-white transition-all duration-300 shadow-md flex flex-col"
+                className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 hover:border-white transition-all duration-300 shadow-md flex flex-col"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center">
-                    <div className="p-2 bg-[#2C2C2C] rounded-full mr-3 text-white">{template.icon}</div>
+                    <div className="p-2 bg-[#2C2C2C] rounded-full mr-3 text-white">
+                      {template.icon}
+                    </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white">{template.title}</h3>
-                      <p className="text-sm text-white mt-1">{template.description}</p>
+                      <h3 className="text-lg font-semibold text-white">
+                        {template.title}
+                      </h3>
+                      <p className="text-sm text-white mt-1">
+                        {template.description}
+                      </p>
                     </div>
                   </div>
-                  <span className="bg-purple-800 text-white text-xs font-medium px-2.5 py-0.5 rounded-full">Featured</span>
+                  <span className="bg-purple-800 text-white text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    Featured
+                  </span>
                 </div>
                 <div className="flex items-center text-sm text-white mb-4">
-                  <Star size={16} className="text-yellow-400 mr-1" fill="currentColor" />
+                  <Star
+                    size={16}
+                    className="text-yellow-400 mr-1"
+                    fill="currentColor"
+                  />
                   <span>{template.rating}</span>
                   <span className="mx-2">•</span>
                   <span>{template.downloads} downloads</span>
                 </div>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {template.tags.map((tag, i) => (
-                    <span key={i} className="bg-white/10 backdrop-blur-sm text-gray-300 text-xs px-2 py-1 rounded-full">
+                    <span
+                      key={i}
+                      className="bg-white/10 backdrop-blur-sm text-gray-300 text-xs px-2 py-1 rounded-full"
+                    >
                       {tag}
                     </span>
                   ))}
                 </div>
                 <div className="flex items-center justify-between bg-[#2C2C2C] p-3 rounded-lg mb-4">
-                  <span className="text-sm text-gray-300">AI Match Score</span>
-                  <span className="text-lg font-bold text-purple-400">{template.aiMatchScore}%</span>
+                  <span className="text-sm text-gray-300">
+                    AI Match Score
+                  </span>
+                  <span className="text-lg font-bold text-purple-400">
+                    {template.aiMatchScore}%
+                  </span>
                 </div>
                 <div className="flex justify-between items-center mt-auto">
                   <button className="flex-grow bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5 mr-2">
@@ -821,12 +937,16 @@ const Templates = () => {
               </div>
             ))
           ) : (
-            <p className="text-white col-span-full">No featured templates found.</p>
+            <p className="text-white col-span-full">
+              No featured templates found.
+            </p>
           )}
         </div>
       </div>
       <div>
-        <h2 className="text-xl font-semibold font-syne mb-4 text-gray-200">All Templates</h2>
+        <h2 className="text-xl font-semibold font-syne mb-4 text-gray-200">
+          All Templates
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {allTemplates.length > 0 ? (
             allTemplates.map((template) => (
@@ -836,20 +956,32 @@ const Templates = () => {
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center">
-                    <div className="p-2 bg-[#2C2C2C] rounded-full mr-3 text-white">{template.icon}</div>
+                    <div className="p-2 bg-[#2C2C2C] rounded-full mr-3 text-white">
+                      {template.icon}
+                    </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white">{template.title}</h3>
-                      <p className="text-sm text-white mt-1">{template.description}</p>
+                      <h3 className="text-lg font-semibold text-white">
+                        {template.title}
+                      </h3>
+                      <p className="text-sm text-white mt-1">
+                        {template.description}
+                      </p>
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center text-sm text-white mb-4">
-                  <Star size={16} className="text-yellow-400 mr-1" fill="currentColor" />
+                  <Star
+                    size={16}
+                    className="text-yellow-400 mr-1"
+                    fill="currentColor"
+                  />
                   <span>{template.rating}</span>
                 </div>
                 <div className="flex items-center justify-between bg-[#2C2C2C] p-3 rounded-lg mb-4">
                   <span className="text-sm text-gray-300">Match</span>
-                  <span className="text-lg font-bold text-purple-400">{template.aiMatchScore}%</span>
+                  <span className="text-lg font-bold text-purple-400">
+                    {template.aiMatchScore}%
+                  </span>
                 </div>
                 <div className="flex justify-between items-center mt-auto">
                   <button className="flex-grow bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5 mr-2">
@@ -882,9 +1014,9 @@ const SettingsComponent = () => {
   // Handle changes in the form inputs.
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setProfileSettings(prevSettings => ({
+    setProfileSettings((prevSettings) => ({
       ...prevSettings,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -899,7 +1031,9 @@ const SettingsComponent = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold mb-1">Settings</h1>
-          <p className="text-white text-sm sm:text-base">Manage your account and email settings</p>
+          <p className="text-white text-sm sm:text-base">
+            Manage your account and email settings
+          </p>
         </div>
       </div>
 
@@ -907,16 +1041,20 @@ const SettingsComponent = () => {
         {/* Main content column */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
-
             {/* Profile Information Card */}
             <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 border border-white/20">
               <div className="flex items-center gap-4 mb-6">
                 <User className="text-purple-600" size={24} />
-                <h2 className="text-xl font-semibold text-white">Profile Information</h2>
+                <h2 className="text-xl font-semibold text-white">
+                  Profile Information
+                </h2>
               </div>
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-300 mb-1"
+                  >
                     Full Name
                   </label>
                   <div className="flex items-center space-x-2">
@@ -938,7 +1076,10 @@ const SettingsComponent = () => {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-300 mb-1"
+                  >
                     Email Address
                   </label>
                   <div className="relative">
@@ -960,33 +1101,37 @@ const SettingsComponent = () => {
                 </div>
               </div>
             </div>
-
-            {/* Email Scheduling Rules Card */}
+{/* 
+            Email Scheduling Rules Card
             <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 border border-white/20">
               <div className="flex items-center gap-4 mb-6">
                 <Clock className="text-violet-400" size={24} />
-                <h2 className="text-xl font-semibold text-white">Email Scheduling Rules</h2>
+                <h2 className="text-xl font-semibold text-white">
+                  Email Scheduling Rules
+                </h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium text-gray-300">Daily Email Limit</span>
-                  <div className="mt-2 text-xl font-bold text-white">
-                    0/50
-                  </div>
+                  <span className="text-sm font-medium text-gray-300">
+                    Daily Email Limit
+                  </span>
+                  <div className="mt-2 text-xl font-bold text-white">0/50</div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium text-gray-300">Hourly Email Limit</span>
-                  <div className="mt-2 text-xl font-bold text-white">
-                    0/20
-                  </div>
+                  <span className="text-sm font-medium text-gray-300">
+                    Hourly Email Limit
+                  </span>
+                  <div className="mt-2 text-xl font-bold text-white">0/20</div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Optimal Sending Times Card */}
             <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 border border-white/20">
               <div className="flex items-center gap-4 mb-6">
-                <h2 className="text-xl font-semibold text-white">Optimal Sending Times</h2>
+                <h2 className="text-xl font-semibold text-white">
+                  Optimal Sending Times
+                </h2>
               </div>
               <ul className="text-gray-300 space-y-2">
                 <li className="flex items-start gap-2">
@@ -1011,9 +1156,7 @@ const SettingsComponent = () => {
 
           {/* Sidebar column */}
           <div className="lg:col-span-1 space-y-6">
-
             {/* Preferences Card */}
-           
 
             {/* Account Status Card */}
             <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 border border-white/20">
@@ -1021,12 +1164,16 @@ const SettingsComponent = () => {
                 <div className="p-2 bg-white/5 rounded-full">
                   <Zap className="text-yellow-400" size={20} />
                 </div>
-                <h2 className="text-xl font-semibold text-white">Account Status</h2>
+                <h2 className="text-xl font-semibold text-white">
+                  Account Status
+                </h2>
               </div>
               <div className="flex flex-col items-center text-center">
                 <User className="text-gray-400 mb-2" size={40} />
                 <span className="text-lg font-bold text-white">Pro Plan</span>
-                <span className="text-sm text-gray-400 mt-1">50 emails/day limit</span>
+                <span className="text-sm text-gray-400 mt-1">
+                  50 emails/day limit
+                </span>
               </div>
               <ul className="mt-6 space-y-3">
                 <li className="flex items-center gap-3 text-gray-300">
@@ -1050,17 +1197,80 @@ const SettingsComponent = () => {
   );
 };
 
-
 // Main Page Component
 export default function Page() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
 
+  const ContactForm = () => {
+    const [message, setMessage] = useState("");
+    const [showPopup, setShowPopup] = useState(false);
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      setShowPopup(true);
+      setMessage("");
+      setTimeout(() => setShowPopup(false), 3000); // auto close after 3s
+    };
+    return (
+  <div className="flex-1 space-y-8">
+    
+    {/* Settings Header */}
+  
+
+    {/* Glassmorphism Card */}
+    <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 sm:p-8 shadow-xl border border-white/20">
+      <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+        Get In Touch
+      </h2>
+      
+      <p className="text-white mb-8 leading-relaxed">
+        Facilisis commodo mattis neque nulla ultrices mattis sed. Ullamcorper
+        tempus mattis ac tristique gravida ornare faucibus suspendisse.
+      </p>
+
+      {/* Contact Form */}
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <div>
+          <label className="block text-gray-200 font-medium mb-2">
+            Your Message
+          </label>
+          <textarea
+            placeholder="Write your message here..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="w-full p-4 rounded-lg bg-white/20 text-white border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none placeholder-gray-300"
+            rows={5}
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 py-3 rounded-lg shadow-lg transition"
+        >
+          Send Message
+        </button>
+      </form>
+    </div>
+
+    {/* Popup */}
+    {showPopup && (
+      <div className="fixed top-5 right-5 bg-purple-600 text-white px-4 py-2 rounded shadow-lg animate-fadeIn">
+        We will get back to you in 24 hours.
+      </div>
+    )}
+  </div>
+);
+
+    
+  };
+
   return (
     <div
       className="relative flex min-h-screen bg-gradient-to-l from-black via-[#6c00ff] to-black text-white font-syne overflow-hidden lg:overflow-visible"
       style={{
-        background: "radial-gradient(ellipse at center, #6c00ff 0%, #0f0f2d 60%, #000 100%)",
+        background:
+          "radial-gradient(ellipse at center, #6c00ff 0%, #0f0f2d 60%, #000 100%)",
       }}
     >
       {/* Sidebar - fixed and responsive */}
@@ -1074,7 +1284,10 @@ export default function Page() {
             <h1 className="text-2xl font-bold font-syne">
               Out<span className="text-purple-500">mail</span>
             </h1>
-            <button onClick={() => setIsSidebarOpen(false)} className="lg:hidden p-2 text-white hover:text-purple-400">
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              className="lg:hidden p-2 text-white hover:text-purple-400"
+            >
               <ChevronLeft size={24} />
             </button>
           </div>
@@ -1082,28 +1295,43 @@ export default function Page() {
             <CircleUserRound className="w-10 h-10 text-white" />
             <div>
               <p className="font-semibold">Yash Sharma</p>
-              <span className="text-xs bg-[#2C2C2C] px-2 py-0.5 rounded text-purple-400">PRO</span>
+              <span className="text-xs bg-[#2C2C2C] px-2 py-0.5 rounded text-purple-400">
+                PRO
+              </span>
             </div>
           </div>
           <nav className="space-y-4 mt-10">
             <a
-              onClick={() => {setActiveSection("dashboard"); setIsSidebarOpen(false);}}
+              onClick={() => {
+                setActiveSection("dashboard");
+                setIsSidebarOpen(false);
+              }}
               className={`flex items-center gap-2 transition cursor-pointer ${
-                activeSection === "dashboard" ? "text-purple-400 font-bold" : "text-white hover:text-purple-400"
+                activeSection === "dashboard"
+                  ? "text-purple-400 font-bold"
+                  : "text-white hover:text-purple-400"
               }`}
             >
-              <LayoutDashboard size={16} />  Dashboard
+              <LayoutDashboard size={16} /> Dashboard
             </a>
             <a
-              onClick={() => {setActiveSection("campaign"); setIsSidebarOpen(false);}}
+              onClick={() => {
+                setActiveSection("campaign");
+                setIsSidebarOpen(false);
+              }}
               className={`flex items-center gap-2 transition cursor-pointer ${
-                activeSection === "campaign" ? "text-purple-400 font-bold" : "text-white hover:text-purple-400"
+                activeSection === "campaign"
+                  ? "text-purple-400 font-bold"
+                  : "text-white hover:text-purple-400"
               }`}
             >
-              <Mail size={16} />  Campaign
+              <Mail size={16} /> Campaign
             </a>
             <a
-              onClick={() => {setActiveSection("attachments"); setIsSidebarOpen(false);}}
+              onClick={() => {
+                setActiveSection("attachments");
+                setIsSidebarOpen(false);
+              }}
               className={`block transition cursor-pointer flex items-center gap-2 ${
                 activeSection === "attachments"
                   ? "text-purple-400 font-semibold"
@@ -1114,7 +1342,10 @@ export default function Page() {
               Attachments
             </a>
             <a
-              onClick={() => {setActiveSection("templates"); setIsSidebarOpen(false);}}
+              onClick={() => {
+                setActiveSection("templates");
+                setIsSidebarOpen(false);
+              }}
               className={`block transition cursor-pointer flex items-center gap-2 ${
                 activeSection === "templates"
                   ? "text-purple-400 font-semibold"
@@ -1125,7 +1356,10 @@ export default function Page() {
               Templates
             </a>
             <a
-              onClick={() => {setActiveSection("settings"); setIsSidebarOpen(false);}}
+              onClick={() => {
+                setActiveSection("settings");
+                setIsSidebarOpen(false);
+              }}
               className={`block transition cursor-pointer flex items-center gap-2 ${
                 activeSection === "settings"
                   ? "text-purple-400 font-semibold"
@@ -1136,7 +1370,10 @@ export default function Page() {
               Settings
             </a>
             <a
-              onClick={() => {setActiveSection("contact"); setIsSidebarOpen(false);}}
+              onClick={() => {
+                setActiveSection("contact");
+                setIsSidebarOpen(false);
+              }}
               className={`block transition cursor-pointer flex items-center gap-2 ${
                 activeSection === "contact"
                   ? "text-purple-400 font-semibold"
@@ -1149,7 +1386,10 @@ export default function Page() {
           </nav>
         </div>
         <div className="mt-auto">
-          <a href="#" className="flex items-center gap-2 text-white hover:text-red-500 transition">
+          <a
+            href="#"
+            className="flex items-center gap-2 text-white hover:text-red-500 transition"
+          >
             <LogOut size={16} /> Logout
           </a>
         </div>
@@ -1179,67 +1419,69 @@ export default function Page() {
         {activeSection === "settings" && <SettingsComponent />}
         {activeSection === "contact" && (
           <div className="flex-1 bg-transparent p-8 text-black">
-           
-          <div className="bg-transparent flex flex-col lg:flex-row items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8 font-inter -mt-35">
-      {/* Inner container with max width and rounded corners */}
-      <div className="mt-20 max-w-6xl w-full bg-white/10 backdrop-blur-md shadow-lg border border-white/30 rounded-xl p-6 sm:p-8 lg:p-12 flex flex-col lg:flex-row gap-8 lg:gap-12">
+            <div className="bg-transparent flex flex-col lg:flex-row items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8 font-inter -mt-35">
+              {/* Inner container with max width and rounded corners */}
+              <div className="mt-20 max-w-6xl w-full bg-white/10 backdrop-blur-md shadow-lg border border-white/30 rounded-xl p-6 sm:p-8 lg:p-12 flex flex-col lg:flex-row gap-8 lg:gap-12">
+                {/* Left Column: Contact Info */}
+                <div className="flex-1 flex flex-col gap-8">
+                  {/* Placeholder box */}
+                  <div className="bg-purple-200 rounded-xl h-64 w-full flex items-center justify-center text-purple-600 text-lg font-semibold">
+                    Placeholder for Image/Map
+                  </div>
 
-        
-        {/* Left Column: Contact Info */}
-        <div className="flex-1 flex flex-col gap-8">
-          {/* Placeholder box */}
-          <div className="bg-purple-200 rounded-xl h-64 w-full flex items-center justify-center text-purple-600 text-lg font-semibold">
-            Placeholder for Image/Map
-          </div>
+                  {/* Phone Number */}
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 p-3 bg-purple-100 rounded-full text-purple-600">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-white font-semibold text-lg">
+                        Phone Number
+                      </p>
+                      <p className="text-white">+123 456 789 101</p>
+                    </div>
+                  </div>
 
-          {/* Phone Number */}
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 p-3 bg-purple-100 rounded-full text-purple-600">
-              <Phone className="w-5 h-5" />
+                  {/* Business Hours */}
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 p-3 bg-purple-100 rounded-full text-purple-600">
+                      <Clock className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-white font-semibold text-lg">
+                        Business Hours
+                      </p>
+                      <p className="text-white">Monday - Friday / 8AM to 5PM</p>
+                    </div>
+                  </div>
+
+                  {/* Social Media Icons */}
+                  <div className="flex space-x-4">
+                    <a
+                      href="#"
+                      className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200"
+                    >
+                      <Twitter className="w-5 h-5" />
+                    </a>
+                    <a
+                      href="#"
+                      className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200"
+                    >
+                      <Linkedin className="w-5 h-5" />
+                    </a>
+                    <a
+                      href="#"
+                      className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200"
+                    >
+                      <Instagram className="w-5 h-5" />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Right Column: Contact Form */}
+                <ContactForm />
+              </div>
             </div>
-            <div>
-              <p className="text-white font-semibold text-lg">Phone Number</p>
-              <p className="text-white">+123 456 789 101</p>
-            </div>
-          </div>
-
-          {/* Business Hours */}
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 p-3 bg-purple-100 rounded-full text-purple-600">
-              <Clock className="w-5 h-5" />
-            </div>
-            <div>
-              <p className="text-white font-semibold text-lg">Business Hours</p>
-              <p className="text-white">Monday - Friday / 8AM to 5PM</p>
-            </div>
-          </div>
-
-          {/* Social Media Icons */}
-          <div className="flex space-x-4">
-            <a href="#" className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200">
-              <Twitter className="w-5 h-5" />
-            </a>
-            <a href="#" className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200">
-              <Linkedin className="w-5 h-5" />
-            </a>
-            <a href="#" className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200">
-              <Instagram className="w-5 h-5" />
-            </a>
-          </div>
-        </div>
-
-        {/* Right Column: Contact Form */}
-        <div className="flex-1">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Get In Touch</h2>
-          <p className="text-white mb-8 leading-relaxed">
-            Facilisis commodo mattis neque nulla ultrices mattis sed. Ullamcorper tempus mattis ac tristique gravida ornare faucibus suspendisse.
-          </p>
-
-          
-        </div>
-      </div>
-    </div>
-
           </div>
         )}
       </main>

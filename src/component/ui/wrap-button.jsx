@@ -1,13 +1,12 @@
 import React from "react"
 import Link from "next/link"
 import { ArrowRight, Globe } from "lucide-react"
-
 import { cn } from "@/lib/utils"
 
 /**
- * @param {{ className?: string, children: React.ReactNode, href?: string }} props
+ * @param {{ className?: string, children?: React.ReactNode, href?: string }} props
  */
-const WrapButton = ({ className, children, href }) => {
+const WrapButton = ({ className, children, href = "/app-login" }) => {
   const gradientBg = "bg-[#9810FA]"
 
   const outerButtonStyle = cn(
@@ -18,27 +17,11 @@ const WrapButton = ({ className, children, href }) => {
 
   return (
     <div className="flex items-center justify-center">
-      {href ? (
-        <Link href={href}>
-          <div className={outerButtonStyle}>
-            <div className="border border-[#3B3A3A] bg-[#ff3f17] h-[20px] rounded-full flex items-center justify-center text-white">
-              <p className="font-medium tracking-tight mr-3 ml-2 flex items-center gap-2 justify-center">
-                {children}
-              </p>
-            </div>
-            <div className="text-[#3b3a3a] group-hover:ml-2 ease-in-out transition-all size-[20px] flex items-center justify-center rounded-full border-2 border-[#3b3a3a]">
-              <ArrowRight
-                size={18}
-                className="group-hover:rotate-45 ease-in-out transition-all"
-              />
-            </div>
-          </div>
-        </Link>
-      ) : (
+      <Link href={href}>
         <div className={outerButtonStyle}>
-          <div className="  bg-[#9810FA] h-20px  hover:text-black rounded-full flex items-center justify-center text-white">
-            <Globe className="mx-2 animate-spin" />
-            <p className="font-medium tracking-tight mr-3">
+          <div className="bg-[#9810FA] rounded-full flex items-center justify-center text-white">
+            <Globe className="mx-2 animate-spin group-hover:text-black" />
+            <p className="font-medium tracking-tight mr-3 group-hover:text-black">
               {children ? children : "Get Started"}
             </p>
           </div>
@@ -49,7 +32,7 @@ const WrapButton = ({ className, children, href }) => {
             />
           </div>
         </div>
-      )}
+      </Link>
     </div>
   )
 }
