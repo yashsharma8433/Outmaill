@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   CircleUserRound,
   LogOut,
@@ -47,8 +47,91 @@ import {
   Phone,
 } from "lucide-react";
 
+// Modal component for creating a new template
+const CreateTemplateModal = ({ isOpen, onClose, onSave }) => {
+  const [templateName, setTemplateName] = useState("");
+  const [emailSubject, setEmailSubject] = useState("");
+  const [emailBody, setEmailBody] = useState("");
+
+  const handleSave = () => {
+    if (templateName && emailSubject && emailBody) {
+      onSave({
+        id: Date.now(), // Use a unique ID
+        icon: <Mail size={20} />, // Default icon for custom email templates
+        title: templateName,
+        description: `Subject: ${emailSubject}`, // Display the subject as the description
+        rating: 0, // No rating initially
+        category: "Custom",
+        emailSubject: emailSubject,
+        emailBody: emailBody,
+      });
+      setTemplateName("");
+      setEmailSubject("");
+      setEmailBody("");
+      onClose();
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+      <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-xl border border-white/20 w-full max-w-lg">
+        <h2 className="text-2xl font-bold text-white mb-6">Create New Template</h2>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-white font-medium mb-2">Template Name</label>
+            <input
+              type="text"
+              value={templateName}
+              onChange={(e) => setTemplateName(e.target.value)}
+              placeholder="Enter template name"
+              className="w-full p-3 bg-white/20 text-white rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+          <div>
+            <label className="block text-white font-medium mb-2">Email Subject</label>
+            <input
+              type="text"
+              value={emailSubject}
+              onChange={(e) => setEmailSubject(e.target.value)}
+              placeholder="Enter email subject"
+              className="w-full p-3 bg-white/20 text-white rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+          <div>
+            <label className="block text-white font-medium mb-2">Email Body</label>
+            <textarea
+              value={emailBody}
+              onChange={(e) => setEmailBody(e.target.value)}
+              placeholder="Enter email body (HTML allowed, use {{placeholder}} for variables)"
+              rows="6"
+              className="w-full p-3 bg-white/20 text-white rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-y"
+            ></textarea>
+          </div>
+          <div className="flex justify-end gap-4 mt-6">
+            <button
+              onClick={onClose}
+              className="px-6 py-2 text-white font-semibold rounded-lg hover:bg-white/20 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleSave}
+              className="px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
 // The campaign creation form, extracted and renamed for clarity
-const CampaignForm = () => {
+const CampaignForm = ({ templates, attachments }) => {
   const [campaignName, setCampaignName] = useState("");
   const [emailSubject, setEmailSubject] = useState("");
   const [emailBody, setEmailBody] = useState("");
@@ -57,9 +140,20 @@ const CampaignForm = () => {
   const [endTime, setEndTime] = useState("");
   const [timezone, setTimezone] = useState(
     "(GMT+5:50) Chennai, Kolkata, Mumbai, New Delhi"
-  ); // Corrected time zone to match the image
+  ); 
+  const [selectedTemplate, setSelectedTemplate] = useState("");
+  const [selectedAttachment, setSelectedAttachment] = useState("");
 
-  // Placeholder function for handling form submission
+  const handleTemplateChange = (e) => {
+    const templateTitle = e.target.value;
+    setSelectedTemplate(templateTitle);
+    const selected = templates.find(t => t.title === templateTitle);
+    if (selected) {
+      setEmailSubject(selected.emailSubject || selected.title);
+      setEmailBody(selected.emailBody || selected.description);
+    }
+  };
+
   const handleStartCampaign = () => {
     console.log("Starting Campaign:", {
       campaignName,
@@ -68,9 +162,9 @@ const CampaignForm = () => {
       startTime,
       endTime,
       timezone,
+      selectedTemplate,
+      selectedAttachment
     });
-    // In a real application, you would send this data to a server.
-    // Also, handle file uploads and email inputs.
   };
   return (
     <div className="w-full max-w-7xl bg-white/10 ounded-2xl p-6 text-white  border border-white/20  border backdrop-blur-lg shadow-md rounded-xl sm:p-8 lg:p-10">
@@ -127,6 +221,45 @@ const CampaignForm = () => {
           emails above.
         </p>
       </div>
+
+      {/* Template and Attachments Dropdowns */}
+      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+        <div className="flex-1 relative">
+          <label className="block text-white font-medium mb-2">Choose Email Template</label>
+          <select
+            value={selectedTemplate}
+            onChange={handleTemplateChange}
+            className="w-full p-3 bg-white/20 text-white rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 appearance-none pr-10"
+          >
+            <option value="" disabled>Select a template</option>
+            {templates.map(t => (
+              <option key={t.id} value={t.title}>{t.title}</option>
+            ))}
+          </select>
+          <ChevronDown size={20} className="absolute right-3 top-1/2 mt-2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+        </div>
+        <div className="flex-1 relative">
+          <label className="block text-white font-medium mb-2">Attach File</label>
+          <select
+            value={selectedAttachment}
+            onChange={(e) => setSelectedAttachment(e.target.value)}
+            className="w-full p-3 bg-white/20 text-white rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 appearance-none pr-10"
+          >
+            <option value="" disabled>Select a file</option>
+            {attachments.map(a => (
+              <option key={a.id} value={a.name}>{a.name}</option>
+            ))}
+          </select>
+          <ChevronDown size={20} className="absolute right-3 top-1/2 mt-2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+        </div>
+      </div>
+      {/* Attached file display */}
+      {selectedAttachment && (
+        <div className="flex items-center gap-2 mb-6 p-2 bg-white/10 rounded-lg">
+          <File size={20} className="text-white"/>
+          <p className="text-sm text-white">{selectedAttachment}</p>
+        </div>
+      )}
 
       {/* Email Subject Input */}
       <div className="mb-6">
@@ -596,80 +729,87 @@ const CombinedDashboard = () => {
   );
 };
 
-// Attachments Component
-const Attachments = () => {
-  const [attachments, setAttachments] = useState([
-    {
-      id: 1,
-      name: "Resume_YashSharma.pdf",
-      type: "PDF",
-      size: "2.1 MB",
-      uploadDate: "2024-07-25",
-    },
-    {
-      id: 2,
-      name: "CoverLetter_Google.docx",
-      type: "DOCX",
-      size: "0.5 MB",
-      uploadDate: "2024-07-20",
-    },
-    {
-      id: 3,
-      name: "Portfolio_Link.txt",
-      type: "Link",
-      size: "0.1 MB",
-      uploadDate: "2024-07-18",
-    },
-  ]);
 
+// PDF Viewer Modal
+const PdfViewerModal = ({ isOpen, onClose, pdfUrl }) => {
+  if (!isOpen || !pdfUrl) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+      <div className="relative bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/20 w-full max-w-4xl h-3/4 flex flex-col">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white text-3xl font-bold"
+        >
+          &times;
+        </button>
+        <iframe
+          src={pdfUrl}
+          title="PDF Viewer"
+          className="w-full h-full rounded-xl"
+          frameBorder="0"
+        />
+      </div>
+    </div>
+  );
+};
+
+
+// AttachmentManager Component with corrected confirm logic
+const AttachmentManager = ({ attachments, handleUploadAttachment, handleDeleteAttachment, handleViewAttachment }) => {
   const ATTACHMENT_LIMIT = 3;
+  const fileInputRef = useRef(null);
+  
+  const isAttachmentLimitReached = attachments.length >= ATTACHMENT_LIMIT;
 
-  const handleUploadAttachment = () => {
-    if (attachments.length >= ATTACHMENT_LIMIT) {
-      alert("You have reached the maximum limit of 3 attachments.");
-      return;
+  const handleButtonClick = () => {
+    if (!isAttachmentLimitReached) {
+      fileInputRef.current.click();
     }
-
-    const newAttachment = {
-      id:
-        attachments.length > 0
-          ? Math.max(...attachments.map((a) => a.id)) + 1
-          : 1,
-      name: `New_Attachment_${attachments.length + 1}.pdf`,
-      type: "PDF",
-      size: "1.0 MB",
-      uploadDate: new Date().toISOString().slice(0, 10),
-    };
-    setAttachments([...attachments, newAttachment]);
   };
 
-  const handleDeleteAttachment = (id) => {
-    // Filter out the attachment that matches the provided id
-    const updatedAttachments = attachments.filter(
-      (attachment) => attachment.id !== id
-    );
-    setAttachments(updatedAttachments);
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file && file.type === "application/pdf") {
+      handleUploadAttachment(file);
+      // Reset the file input to allow re-uploading the same file
+      event.target.value = null; 
+    } else if (file) {
+      alert("Please upload a PDF file.");
+      event.target.value = null;
+    }
   };
+
 
   return (
     <div className="p-4 sm:p-6 font-syne">
+      {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold mb-1">Attachments</h1>
         </div>
         <button
-          onClick={handleUploadAttachment}
-          disabled={attachments.length >= ATTACHMENT_LIMIT}
+          onClick={handleButtonClick}
+          disabled={isAttachmentLimitReached}
           className={`mt-4 sm:mt-0 text-white font-semibold py-2 px-4 rounded-lg flex items-center shadow-lg transition duration-200 ease-in-out transform ${
-            attachments.length >= ATTACHMENT_LIMIT
+            isAttachmentLimitReached
               ? "bg-gray-500 cursor-not-allowed"
               : "bg-purple-600 hover:bg-purple-700 hover:-translate-y-0.5"
           }`}
         >
-          <Upload size={20} className="mr-2" /> Upload Attachment
+          <Upload size={20} className="mr-2" />
+          {isAttachmentLimitReached ? "Max 3 Allowed" : "Upload Attachment"}
         </button>
+         <input 
+          type="file" 
+          ref={fileInputRef} 
+          onChange={handleFileChange} 
+          className="hidden" 
+          accept=".pdf"
+        />
       </div>
 
+      {/* Attachments List */}
       <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 border border-white/20 shadow-md">
         <h2 className="text-xl font-semibold mb-4 text-gray-200">
           Your Attachments
@@ -712,7 +852,7 @@ const Attachments = () => {
                       {attachment.uploadDate}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button className="text-purple-400 hover:text-purple-600 mr-4">
+                      <button onClick={() => handleViewAttachment(attachment.file)} className="text-purple-400 hover:text-purple-600 mr-4">
                         <Eye size={16} className="inline-block mr-1" />
                         View
                       </button>
@@ -737,61 +877,22 @@ const Attachments = () => {
   );
 };
 
+
 // Templates Component
-const Templates = () => {
-  const [templates] = useState([
-    {
-      id: 1,
-      icon: <FileText size={20} />,
-      title: "Senior Software Engineer Cover Letter",
-      description:
-        "Professional cover letter template optimized for senior engineering roles",
-      rating: 4.8,
-      downloads: "1250",
-      tags: ["Cover Letter", "Tech", "Senior Level", "AI-Optimized"],
-      aiMatchScore: 95,
-      category: "Cover Letter",
-    },
-    {
-      id: 2,
-      icon: <FileText size={20} />,
-      title: "Frontend Developer Resume",
-      description:
-        "Modern ATS-friendly resume template for frontend developers",
-      rating: 4.9,
-      downloads: "2100",
-      tags: ["Resume", "Frontend", "React", "ATS-Friendly"],
-      aiMatchScore: 92,
-      category: "Resume",
-    },
-    {
-      id: 3,
-      icon: <Mail size={20} />,
-      title: "Technical Interview Email",
-      description: "Follow-up email template for technical interviews",
-      rating: 4.7,
-      aiMatchScore: 88,
-      category: "Email",
-    },
-    // {
-    //   id: 4,
-    //   icon: <Package size={20} />,
-    //   title: "Product Manager Application",
-    //   description: "Complete application package for product management roles",
-    //   rating: 4.8,
-    //   aiMatchScore: 85,
-    //   category: "Package",
-    // },
-    // {
-    //   id: 5,
-    //   icon: <FileText size={20} />,
-    //   title: "Startup Cover Letter",
-    //   description: "Dynamic cover letter template for startup environments",
-    //   rating: 4.5,
-    //   aiMatchScore: 83,
-    //   category: "Cover Letter",
-    // },
-  ]);
+const Templates = ({ templates, handleSaveTemplate, handleDeleteTemplate }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const templateLimit = 3;
+  const currentCustomTemplates = templates.filter(t => t.category === "Custom");
+
+  const handleCreateTemplate = () => {
+    if (currentCustomTemplates.length >= templateLimit) {
+      alert("You have reached the maximum limit of 3 custom templates.");
+      return;
+    }
+    setIsModalOpen(true);
+  };
+
+  const isTemplateLimitReached = currentCustomTemplates.length >= templateLimit;
 
   return (
     <div className="p-4 sm:p-6 font-syne">
@@ -802,10 +903,27 @@ const Templates = () => {
             AI-powered templates to boost your application success rate
           </p>
         </div>
-        <button className="mt-4 sm:mt-0 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center shadow-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5">
-          <Plus size={20} className="mr-2" /> Create Template
+        <button
+          onClick={handleCreateTemplate}
+          disabled={isTemplateLimitReached}
+          className={`mt-4 sm:mt-0 text-white font-semibold py-2 px-4 rounded-lg flex items-center shadow-lg transition duration-200 ease-in-out transform ${
+            isTemplateLimitReached
+              ? "bg-gray-500 cursor-not-allowed"
+              : "bg-purple-600 hover:bg-purple-700 hover:-translate-y-0.5"
+          }`}
+        >
+          <Plus size={20} className="mr-2" />
+          {isTemplateLimitReached ? "Max 3 Allowed" : "Create Template"}
         </button>
       </div>
+
+      <CreateTemplateModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSaveTemplate}
+      />
+
+      {/* All Templates section */}
       <div>
         <h2 className="text-xl font-semibold font-syne mb-4 text-gray-200">
           All Templates
@@ -833,26 +951,29 @@ const Templates = () => {
                   </div>
                 </div>
                 <div className="flex items-center text-sm text-white mb-4">
-                  <Star
-                    size={16}
-                    className="text-yellow-400 mr-1"
-                    fill="currentColor"
-                  />
-                  <span>{template.rating}</span>
-                </div>
-                <div className="flex items-center justify-between bg-[#2C2C2C] p-3 rounded-lg mb-4">
-                  <span className="text-sm text-gray-300">Match</span>
-                  <span className="text-lg font-bold text-purple-400">
-                    {template.aiMatchScore}%
-                  </span>
+                  {template.rating > 0 && (
+                    <>
+                      <Star
+                        size={16}
+                        className="text-yellow-400 mr-1"
+                        fill="currentColor"
+                      />
+                      <span>{template.rating}</span>
+                    </>
+                  )}
                 </div>
                 <div className="flex justify-between items-center mt-auto">
                   <button className="flex-grow bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5 mr-2">
                     Use Template
                   </button>
-                  <button className="p-2 bg-[#2C2C2C] hover:bg-[#3A3A3A] rounded-lg text-white hover:text-white transition">
-                    <MoreHorizontal size={20} />
-                  </button>
+                  {template.category === "Custom" && (
+                     <button
+                        onClick={() => handleDeleteTemplate(template.id)}
+                        className="p-2 bg-[#2C2C2C] hover:bg-[#3A3A3A] rounded-lg text-red-400 hover:text-red-300 transition"
+                      >
+                        <Trash2 size={20} />
+                      </button>
+                  )}
                 </div>
               </div>
             ))
@@ -1063,6 +1184,109 @@ const SettingsComponent = () => {
 export default function Page() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
+  const [templates, setTemplates] = useState([
+    // {
+    //   id: 1,
+    //   icon: <FileText size={20} />,
+    //   title: "Senior Software Engineer Cover Letter",
+    //   description:
+    //     "Professional cover letter template optimized for senior engineering roles",
+    //   rating: 4.8,
+    //   downloads: "1250",
+    //   tags: ["Cover Letter", "Tech", "Senior Level", "AI-Optimized"],
+    //   aiMatchScore: 95,
+    //   category: "Cover Letter",
+    //   emailSubject: "Application for Senior Software Engineer Position",
+    //   emailBody: "Dear [Hiring Manager], I am writing to express my keen interest in the Senior Software Engineer position at [Company Name]...",
+    // },
+    // {
+    //   id: 2,
+    //   icon: <FileText size={20} />,
+    //   title: "Frontend Developer Resume",
+    //   description:
+    //     "Modern ATS-friendly resume template for frontend developers",
+    //   rating: 4.9,
+    //   downloads: "2100",
+    //   tags: ["Resume", "Frontend", "React", "ATS-Friendly"],
+    //   aiMatchScore: 92,
+    //   category: "Resume",
+    //   emailSubject: "Frontend Developer Application",
+    //   emailBody: "Hello, I am excited to apply for the Frontend Developer role. My skills include...",
+    // },
+    // {
+    //   id: 3,
+    //   icon: <Mail size={20} />,
+    //   title: "Technical Interview Email",
+    //   description: "Follow-up email template for technical interviews",
+    //   rating: 4.7,
+    //   aiMatchScore: 88,
+    //   category: "Email",
+    //   emailSubject: "Following up on our interview for [Position Name]",
+    //   emailBody: "Hi [Interviewer Name], Thank you for taking the time to speak with me today about the [Position Name] role. I really enjoyed our conversation about...",
+    // },
+  ]);
+  const [attachments, setAttachments] = useState([]);
+  const [isPdfViewerOpen, setIsPdfViewerOpen] = useState(false);
+  const [pdfToView, setPdfToView] = useState(null);
+  const ATTACHMENT_LIMIT = 3;
+
+
+  const handleSaveTemplate = (newTemplate) => {
+    setTemplates([...templates, newTemplate]);
+  };
+
+  const handleDeleteTemplate = (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this template?");
+    if (confirmDelete) {
+      const updatedTemplates = templates.filter(template => template.id !== id);
+      setTemplates(updatedTemplates);
+    }
+  };
+
+  const handleUploadAttachment = (file) => {
+    if (attachments.length >= ATTACHMENT_LIMIT) {
+      alert("You have reached the maximum limit of 3 attachments.");
+      return;
+    }
+    const newAttachment = {
+      id: Date.now(),
+      name: file.name,
+      type: file.type,
+      size: `${(file.size / 1024 / 1024).toFixed(2)} MB`,
+      uploadDate: new Date().toISOString().slice(0, 10),
+      file: file, // Store the actual file object
+    };
+    setAttachments([...attachments, newAttachment]);
+  };
+
+  const handleDeleteAttachment = (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this attachment?"
+    );
+    if (!confirmDelete) return;
+
+    const updatedAttachments = attachments.filter(
+      (attachment) => attachment.id !== id
+    );
+    setAttachments(updatedAttachments);
+  };
+  
+  const handleViewAttachment = (file) => {
+    if (file) {
+      const fileUrl = URL.createObjectURL(file);
+      setPdfToView(fileUrl);
+      setIsPdfViewerOpen(true);
+    }
+  };
+  
+  const handleClosePdfViewer = () => {
+    setIsPdfViewerOpen(false);
+    // Clean up the object URL to free up memory
+    if (pdfToView) {
+      URL.revokeObjectURL(pdfToView);
+      setPdfToView(null);
+    }
+  };
 
   const ContactForm = () => {
     const [message, setMessage] = useState("");
@@ -1281,9 +1505,9 @@ export default function Page() {
         <Header setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen} />
         {/* Conditional rendering based on activeSection */}
         {activeSection === "dashboard" && <CombinedDashboard />}
-        {activeSection === "campaign" && <CampaignForm />}
-        {activeSection === "attachments" && <Attachments />}
-        {activeSection === "templates" && <Templates />}
+        {activeSection === "campaign" && <CampaignForm templates={templates} attachments={attachments} />}
+        {activeSection === "attachments" && <AttachmentManager attachments={attachments} handleUploadAttachment={handleUploadAttachment} handleDeleteAttachment={handleDeleteAttachment} handleViewAttachment={handleViewAttachment} />}
+        {activeSection === "templates" && <Templates templates={templates} handleSaveTemplate={handleSaveTemplate} handleDeleteTemplate={handleDeleteTemplate} />}
         {activeSection === "settings" && <SettingsComponent />}
         {activeSection === "contact" && (
           <div className="flex-1 bg-transparent p-8 text-black">
@@ -1353,6 +1577,11 @@ export default function Page() {
           </div>
         )}
       </main>
+      <PdfViewerModal
+        isOpen={isPdfViewerOpen}
+        onClose={handleClosePdfViewer}
+        pdfUrl={pdfToView}
+      />
     </div>
   );
 }
