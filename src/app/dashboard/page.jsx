@@ -1564,19 +1564,21 @@ export default function Page() {
         {activeSection === "contact" && (
 
           <div className="flex-1 bg-transparent p-8 text-black">
-  {/* Heading & Subtext at the top, centered */}
-  <div className="text-left mt-10  mb-8">
-    <h1 className="text-2xl sm:text-3xl text-white font-bold mb-1 mr-100mt-10">
-      Contact Us
-    </h1>
-    <p className="text-white text-sm sm:text-base">
-      Fill the form below to get in touch with us. We will respond within 24 hours.
-    </p>
-  </div>
+ {/* Heading & Subtext */}
+<div className="text-left mb-4">
+  <h1 className="text-2xl sm:text-3xl text-white font-bold mb-0">
+    Contact Us
+  </h1>
+  <p className="text-white text-sm sm:text-base mt-0">
+    Fill the form below to get in touch with us. We will respond within 24 hours.
+  </p>
+</div>
+
+
 
   {/* Main container */}
-  <div className="bg-transparent flex flex-col lg:flex-row items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8 font-inter">
-    <div className="mt-1 max-w-6xl w-full bg-white/10 backdrop-blur-md shadow-lg border border-white/30 rounded-xl p-6 sm:p-8 lg:p-12 flex flex-col lg:flex-row gap-8 lg:gap-12">
+ <div className="bg-transparent flex flex-col lg:flex-row items-center justify-center p-4 sm:p-6 lg:p-8 font-inter">
+  <div className="max-w-6xl w-full bg-white/10 backdrop-blur-md shadow-lg border border-white/30 rounded-xl p-6 sm:p-8 lg:p-12 flex flex-col lg:flex-row gap-8 lg:gap-12">
       
       {/* Left Column */}
       <div className="flex-1 flex flex-col gap-8">
