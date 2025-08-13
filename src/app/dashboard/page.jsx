@@ -47,6 +47,91 @@ import {
   Phone,
 } from "lucide-react";
 
+// **NEW: Modal component for editing an existing template**
+const EditTemplateModal = ({ isOpen, onClose, onUpdate, template }) => {
+  const [templateName, setTemplateName] = useState("");
+  const [emailSubject, setEmailSubject] = useState("");
+  const [emailBody, setEmailBody] = useState("");
+
+  useEffect(() => {
+    if (template) {
+      setTemplateName(template.title);
+      setEmailSubject(template.emailSubject);
+      setEmailBody(template.emailBody);
+    }
+  }, [template]);
+
+  const handleUpdate = () => {
+    if (templateName && emailSubject && emailBody) {
+      onUpdate({
+        ...template,
+        title: templateName,
+        description: `Subject: ${emailSubject}`,
+        emailSubject: emailSubject,
+        emailBody: emailBody,
+      });
+      onClose();
+    }
+  };
+
+  if (!isOpen || !template) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+      <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-xl border border-white/20 w-full max-w-lg">
+        <h2 className="text-2xl font-bold text-white mb-6">Edit Template</h2>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-white font-medium mb-2">Template Name</label>
+            <input
+              type="text"
+              value={templateName}
+              onChange={(e) => setTemplateName(e.target.value)}
+              placeholder="Enter template name"
+              className="w-full p-3 bg-white/20 text-white rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+          <div>
+            <label className="block text-white font-medium mb-2">Email Subject</label>
+            <input
+              type="text"
+              value={emailSubject}
+              onChange={(e) => setEmailSubject(e.target.value)}
+              placeholder="Enter email subject"
+              className="w-full p-3 bg-white/20 text-white rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+          <div>
+            <label className="block text-white font-medium mb-2">Email Body</label>
+            <textarea
+              value={emailBody}
+              onChange={(e) => setEmailBody(e.target.value)}
+              placeholder="Enter email body (HTML allowed, use {{placeholder}} for variables)"
+              rows="6"
+              className="w-full p-3 bg-white/20 text-white rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-y"
+            ></textarea>
+          </div>
+          <div className="flex justify-end gap-4 mt-6">
+            <button
+              onClick={onClose}
+              className="px-6 py-2 text-white font-semibold rounded-lg hover:bg-white/20 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleUpdate}
+              className="px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors"
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
 // Modal component for creating a new template
 const CreateTemplateModal = ({ isOpen, onClose, onSave }) => {
   const [templateName, setTemplateName] = useState("");
@@ -883,7 +968,7 @@ const AttachmentManager = ({ attachments, handleUploadAttachment, handleDeleteAt
   );
 };
 
-// ** NEW: Template Viewer Modal **
+
 const TemplateViewerModal = ({ isOpen, onClose, template }) => {
   if (!isOpen || !template) return null;
 
@@ -910,9 +995,11 @@ const TemplateViewerModal = ({ isOpen, onClose, template }) => {
 };
 
 
-// Templates Component
-const Templates = ({ templates, handleSaveTemplate, handleDeleteTemplate, handleViewTemplate }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
+const Templates = ({ templates, handleSaveTemplate, handleUpdateTemplate, handleDeleteTemplate, handleViewTemplate }) => {
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [templateToEdit, setTemplateToEdit] = useState(null);
   const templateLimit = 3;
   const currentCustomTemplates = templates.filter(t => t.category === "Custom");
 
@@ -921,7 +1008,12 @@ const Templates = ({ templates, handleSaveTemplate, handleDeleteTemplate, handle
       alert("You have reached the maximum limit of 3 custom templates.");
       return;
     }
-    setIsModalOpen(true);
+    setIsCreateModalOpen(true);
+  };
+  
+  const handleEditTemplate = (template) => {
+    setTemplateToEdit(template);
+    setIsEditModalOpen(true);
   };
 
   const isTemplateLimitReached = currentCustomTemplates.length >= templateLimit;
@@ -932,7 +1024,7 @@ const Templates = ({ templates, handleSaveTemplate, handleDeleteTemplate, handle
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold mb-1 mt-10">Templates</h1>
           <p className="text-white text-sm sm:text-base">
- Create and Manage Your templates
+            Create and Manage Your templates
           </p>
         </div>
         <button
@@ -950,16 +1042,19 @@ const Templates = ({ templates, handleSaveTemplate, handleDeleteTemplate, handle
       </div>
 
       <CreateTemplateModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
         onSave={handleSaveTemplate}
       />
+      
+      <EditTemplateModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        onUpdate={handleUpdateTemplate}
+        template={templateToEdit}
+      />
 
-      {/* All Templates section */}
       <div>
-        {/* <h2 className="text-xl font-semibold font-syne mb-4 mt-40 ml-90 text-gray-200">
-          All Templates
-        </h2> */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {templates.length > 0 ? (
             templates.map((template) => (
@@ -994,23 +1089,33 @@ const Templates = ({ templates, handleSaveTemplate, handleDeleteTemplate, handle
                     </>
                   )}
                 </div>
-                <div className="flex justify-between items-center mt-auto">
-                  {/* Replaced 'Use Template' button with 'View' button */}
+                
+                <div className="flex justify-between items-center mt-auto gap-2">
                   <button
                     onClick={() => handleViewTemplate(template)}
-                    className="flex-grow bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5 mr-2 flex items-center justify-center gap-1"
+                    className="flex-grow bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5 flex items-center justify-center gap-1"
                   >
                     <Eye size={18} /> View
                   </button>
+                  
                   {template.category === "Custom" && (
-                     <button
+                    <>
+                      <button
+                        onClick={() => handleEditTemplate(template)}
+                        className="flex-grow bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5 flex items-center justify-center gap-1"
+                      >
+                        <Edit size={18} /> Edit
+                      </button>
+                      <button
                         onClick={() => handleDeleteTemplate(template.id)}
                         className="p-2 bg-[#2C2C2C] hover:bg-[#3A3A3A] rounded-lg text-red-400 hover:text-red-300 transition"
                       >
                         <Trash2 size={20} />
                       </button>
+                    </>
                   )}
                 </div>
+
               </div>
             ))
           ) : (
@@ -1281,6 +1386,13 @@ export default function Page() {
     }
   };
 
+  const handleUpdateTemplate = (updatedTemplate) => {
+    const updatedTemplates = templates.map(t =>
+      t.id === updatedTemplate.id ? updatedTemplate : t
+    );
+    setTemplates(updatedTemplates);
+  };
+
   // NEW handler for viewing a template
   const handleViewTemplate = (template) => {
     setTemplateToView(template);
@@ -1356,7 +1468,7 @@ export default function Page() {
 
 
     {/* Glassmorphism Card */}
-    <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 sm:p-8 shadow-xl border border-white/20">
+    <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 sm:p-8 shadow-xl border border-white/20  ">
       <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
         Get In Touch
       </h2>
@@ -1559,7 +1671,7 @@ export default function Page() {
         {activeSection === "dashboard" && <CombinedDashboard />}
         {activeSection === "campaign" && <CampaignForm templates={templates} attachments={attachments} />}
         {activeSection === "attachments" && <AttachmentManager attachments={attachments} handleUploadAttachment={handleUploadAttachment} handleDeleteAttachment={handleDeleteAttachment} handleViewAttachment={handleViewAttachment} />}
-        {activeSection === "templates" && <Templates templates={templates} handleSaveTemplate={handleSaveTemplate} handleDeleteTemplate={handleDeleteTemplate} handleViewTemplate={handleViewTemplate} />}
+        {activeSection === "templates" && <Templates templates={templates} handleSaveTemplate={handleSaveTemplate} handleUpdateTemplate={handleUpdateTemplate} handleDeleteTemplate={handleDeleteTemplate} handleViewTemplate={handleViewTemplate} />}
         {activeSection === "settings" && <SettingsComponent />}
         {activeSection === "contact" && (
 
@@ -1577,8 +1689,8 @@ export default function Page() {
 
 
   {/* Main container */}
- <div className="bg-transparent flex flex-col lg:flex-row items-center justify-center p-4 sm:p-6 lg:p-8 font-inter">
-  <div className="max-w-6xl w-full bg-white/10 backdrop-blur-md shadow-lg border border-white/30 rounded-xl p-6 sm:p-8 lg:p-12 flex flex-col lg:flex-row gap-8 lg:gap-12">
+ <div className="bg-transparent flex flex-col lg:flex-row items-start justify-start p-4 sm:p-6 lg:p-8 font-inter ">
+  <div className="max-w-6xl w-full bg-white/10 backdrop-blur-md shadow-lg border border-white/30 rounded-xl p-6 sm:p-8 lg:p-12 flex flex-col lg:flex-row gap-8 lg:gap-12  ">
       
       {/* Left Column */}
       <div className="flex-1 flex flex-col gap-8">
