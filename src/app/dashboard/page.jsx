@@ -167,223 +167,236 @@ const CampaignForm = ({ templates, attachments }) => {
     });
   };
   return (
-    <div className="w-full max-w-7xl bg-white/10 ounded-2xl p-6 text-white  border border-white/20  border backdrop-blur-lg shadow-md rounded-xl sm:p-8 lg:p-10">
-      <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6 flex items-center gap-2">
-        Create Campaign
-      </h1>
-
-      {/* Campaign Name Input */}
-      <div className="mb-6">
-        <label className="block text-white font-medium mb-2">
-          Campaign Name
-        </label>
-        <input
-          type="text"
-          value={campaignName}
-          onChange={(e) => setCampaignName(e.target.value)}
-          placeholder=""
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
-        />
-      </div>
-
-      {/* Upload CSV or Enter Emails Section */}
-      <div className="mb-6">
-        <label className="block text-white font-medium mb-2">
-          Upload CSV File or Enter Emails <br />
-          <span className="text-sm text-red-500  font-bold font-normal">
-            Important: Your file must have a column named "email". If not, email
-            addresses will not be fetched and mails will not be sent.
-          </span>
-        </label>
-        <div className="flex flex-col sm:flex-row gap-4">
-          {/* File Upload Input */}
-          <div className="flex-1">
-            <label className="w-full flex items-center justify-center p-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-              <Upload size={20} className="text-white mr-2" />
-              <span className="text-gray-500">Choose file</span>
-              <input type="file" className="hidden" />
-            </label>
-          </div>
-
-          {/* Manual Email Input */}
-          <div className="flex-1">
-            <input
-              type="text"
-              value={emailsManual}
-              onChange={(e) => setEmailsManual(e.target.value)}
-              placeholder=""
-              className="w-full p-3  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
-            />
-          </div>
+    <>
+      {/* Attachments Heading */}
+      <div>
+          <h1 className="text-2xl sm:text-3xl font-bold mt-8 mb-1">Campaign</h1>
+          <p className="text-white text-sm sm:text-base">
+           Create and Manage your Campaigns
+          </p>
         </div>
-        <p className="text-sm text-white mt-2">
-          CSV should contain name, email, and company columns. Or manually enter
-          emails above.
-        </p>
-      </div>
-
-      {/* Template and Attachments Dropdowns */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-6">
-        <div className="flex-1 relative">
-          <label className="block text-white font-medium mb-2">Choose Email Template</label>
-          <select
-            value={selectedTemplate}
-            onChange={handleTemplateChange}
-            className="w-full p-3 bg-white/20 text-white rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 appearance-none pr-10"
-          >
-            <option value="" disabled>Select a template</option>
-            {templates.map(t => (
-              <option key={t.id} value={t.title}>{t.title}</option>
-            ))}
-          </select>
-          <ChevronDown size={20} className="absolute right-3 top-1/2 mt-2 -translate-y-1/2 text-gray-500 pointer-events-none" />
-        </div>
-        <div className="flex-1 relative">
-          <label className="block text-white font-medium mb-2">Attach File</label>
-          <select
-            value={selectedAttachment}
-            onChange={(e) => setSelectedAttachment(e.target.value)}
-            className="w-full p-3 bg-white/20 text-white rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 appearance-none pr-10"
-          >
-            <option value="" disabled>Select a file</option>
-            {attachments.map(a => (
-              <option key={a.id} value={a.name}>{a.name}</option>
-            ))}
-          </select>
-          <ChevronDown size={20} className="absolute right-3 top-1/2 mt-2 -translate-y-1/2 text-gray-500 pointer-events-none" />
-        </div>
-      </div>
-      {/* Attached file display */}
-      {selectedAttachment && (
-        <div className="flex items-center gap-2 mb-6 p-2 bg-white/10 rounded-lg">
-          <File size={20} className="text-white"/>
-          <p className="text-sm text-white">{selectedAttachment}</p>
-        </div>
-      )}
-
-      {/* Email Subject Input */}
-      <div className="mb-6">
-        <label className="block text-white font-medium mb-2">
-          Email Subject*
-        </label>
-        <input
-          type="text"
-          value={emailSubject}
-          onChange={(e) => setEmailSubject(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
-        />
-      </div>
-
-      {/* Email Body Text Area */}
-      <div className="mb-6">
-        <label className="block text-white font-medium mb-2">
-          Email Body*
-        </label>
-        <textarea
-          value={emailBody}
-          onChange={(e) => setEmailBody(e.target.value)}
-          rows="6"
-          placeholder="Hi there,"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y transition-shadow"
-        ></textarea>
-        <p className="text-sm text-white mt-2">
-          Use personalization variables for better engagement
-        </p>
-      </div>
-
-      {/* Time and Timezone Section */}
-      <div className="flex flex-col md:flex-row gap-6 mb-6">
-        {/* Start Time */}
-        <div className="flex-1">
+  
+      {/* Create Campaign Card */}
+      <div className="mt-15 w-full max-w-7xl bg-white/10 rounded-2xl p-6 text-white border border-white/20 backdrop-blur-lg shadow-md sm:p-8 lg:p-10">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6 flex items-center gap-2">
+          Create Campaign
+        </h1>
+  
+        {/* Campaign Name Input */}
+        <div className="mb-6">
           <label className="block text-white font-medium mb-2">
-            Start Time*
+            Campaign Name
           </label>
-          <div className="flex items-center gap-2">
-            <input
-              type="date"
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
-            />
-          </div>
-        </div>
-        {/* End Time */}
-        <div className="flex-1">
-          <label className="block text-white font-medium mb-2"></label>
-        </div>
-      </div>
-
-      {/* Timezone Dropdown */}
-      <div className="mb-6">
-        <label className="block text-white font-medium mb-2">Timezone*</label>
-        <div className="relative">
-          <select
-            value={timezone}
-            onChange={(e) => setTimezone(e.target.value)}
-            className="appearance-none w-full p-3 border border-gray-300 rounded-lg pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
-          >
-            <option>(GMT+5:50) Chennai, Kolkata, Mumbai, New Delhi</option>
-            {/* Add more timezone options here */}
-          </select>
-          <Globe
-            size={20}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
+          <input
+            type="text"
+            value={campaignName}
+            onChange={(e) => setCampaignName(e.target.value)}
+            placeholder=""
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
           />
         </div>
+  
+        {/* Upload CSV or Enter Emails Section */}
+        <div className="mb-6">
+          <label className="block text-white font-medium mb-2">
+            Upload CSV File or Enter Emails <br />
+            <span className="text-sm text-red-500 font-bold font-normal">
+              Important: Your file must have a column named "email". If not, email
+              addresses will not be fetched and mails will not be sent.
+            </span>
+          </label>
+          <div className="flex flex-col sm:flex-row gap-4">
+            {/* File Upload Input */}
+            <div className="flex-1">
+              <label className="w-full flex items-center justify-center p-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                <Upload size={20} className="text-white mr-2" />
+                <span className="text-gray-500">Choose file</span>
+                <input type="file" className="hidden" />
+              </label>
+            </div>
+  
+            {/* Manual Email Input */}
+            <div className="flex-1">
+              <input
+                type="text"
+                value={emailsManual}
+                onChange={(e) => setEmailsManual(e.target.value)}
+                placeholder=""
+                className="w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+              />
+            </div>
+          </div>
+          <p className="text-sm text-white mt-2">
+            CSV should contain name, email, and company columns. Or manually enter
+            emails above.
+          </p>
+        </div>
+  
+        {/* Template and Attachments Dropdowns */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-6 ">
+          <div className="flex-1 relative">
+            <label className="block text-white font-medium mb-2">
+              Choose Email Template
+            </label>
+            <select
+              value={selectedTemplate}
+              onChange={handleTemplateChange}
+              className="w-full p-3 bg-white/20 text-white rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 appearance-none pr-10"
+            >
+              <option value="" disabled>
+                Select a template
+              </option>
+              {templates.map((t) => (
+                <option key={t.id} value={t.title}>
+                  {t.title}
+                </option>
+              ))}
+            </select>
+            <ChevronDown
+              size={20}
+              className="absolute right-3 top-1/2 mt-2 -translate-y-1/2 text-gray-500 pointer-events-none"
+            />
+          </div>
+          <div className="flex-1 relative">
+            <label className="block text-white font-medium mb-2">
+              Attach File
+            </label>
+            <select
+              value={selectedAttachment}
+              onChange={(e) => setSelectedAttachment(e.target.value)}
+              className="w-full p-3 bg-white/20 text-white rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-500 appearance-none pr-10"
+            >
+              <option value="" disabled>
+                Select a file
+              </option>
+              {attachments.map((a) => (
+                <option key={a.id} value={a.name}>
+                  {a.name}
+                </option>
+              ))}
+            </select>
+            <ChevronDown
+              size={20}
+              className="absolute right-3 top-1/2 mt-2 -translate-y-1/2 text-gray-500 pointer-events-none"
+            />
+          </div>
+        </div>
+  
+        {/* Attached file display */}
+        {selectedAttachment && (
+          <div className="flex items-center gap-2 mb-6 p-2 bg-white/10 rounded-lg">
+            <File size={20} className="text-white" />
+            <p className="text-sm text-white">{selectedAttachment}</p>
+          </div>
+        )}
+  
+        {/* Email Subject Input */}
+        <div className="mb-6">
+          <label className="block text-white font-medium mb-2">
+            Email Subject*
+          </label>
+          <input
+            type="text"
+            value={emailSubject}
+            onChange={(e) => setEmailSubject(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+          />
+        </div>
+  
+        {/* Email Body Text Area */}
+        <div className="mb-6">
+          <label className="block text-white font-medium mb-2">
+            Email Body*
+          </label>
+          <textarea
+            value={emailBody}
+            onChange={(e) => setEmailBody(e.target.value)}
+            rows="6"
+            placeholder="Hi there,"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y transition-shadow"
+          ></textarea>
+          <p className="text-sm text-white mt-2">
+            Use personalization variables for better engagement
+          </p>
+        </div>
+  
+        {/* Time and Timezone Section */}
+        <div className="flex flex-col md:flex-row gap-6 mb-6">
+          {/* Start Time */}
+          <div className="flex-1">
+            <label className="block text-white font-medium mb-2">
+              Start Time*
+            </label>
+            <div className="flex items-center gap-2">
+              <input
+                type="date"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+              />
+            </div>
+          </div>
+          {/* End Time */}
+          <div className="flex-1">
+            <label className="block text-white font-medium mb-2"></label>
+          </div>
+        </div>
+  
+        {/* Timezone Dropdown */}
+        <div className="mb-6">
+          <label className="block text-white font-medium mb-2">Timezone*</label>
+          <div className="relative">
+            <select
+              value={timezone}
+              onChange={(e) => setTimezone(e.target.value)}
+              className="appearance-none w-full p-3 border border-gray-300 rounded-lg pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+            >
+              <option>(GMT+5:50) Chennai, Kolkata, Mumbai, New Delhi</option>
+            </select>
+            <Globe
+              size={20}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
+            />
+          </div>
+        </div>
+  
+        {/* Campaign Details Section */}
+        <div className="mb-8">
+          <h2 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+            <Settings size={20} className="text-white" />
+            Campaign Details
+          </h2>
+          <ul className="list-disc list-inside text-white space-y-1">
+            <li>Delay between each email</li>
+            <li>Emails personalized with name, email, and company</li>
+            <li>Fixed HTML template with placeholders</li>
+            <li>CSV data stored securely</li>
+          </ul>
+        </div>
+  
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <button
+            onClick={handleStartCampaign}
+            className="flex-1 w-full bg-purple-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-purple-400 transition-colors flex items-center justify-center gap-2"
+          >
+            <Play size={20} />
+            Start Campaign
+          </button>
+          <button className="flex-1 w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+            <Eye size={20} />
+            Preview Email & Check Placeholders
+          </button>
+        </div>
       </div>
-
-      {/* Campaign Details Section */}
-      <div className="mb-8">
-        <h2 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-          <Settings size={20} className="text-white" />
-          Campaign Details
-        </h2>
-        <ul className="list-disc list-inside text-white space-y-1">
-          <li>Delay between each email</li>
-          <li>Emails personalized with name, email, and company</li>
-          <li>Fixed HTML template with placeholders</li>
-          <li>CSV data stored securely</li>
-        </ul>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="flex flex-col sm:flex-row gap-4">
-        <button
-          onClick={handleStartCampaign}
-          className="flex-1 w-full bg-purple-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-purple-400 transition-colors flex items-center justify-center gap-2"
-        >
-          <Play size={20} />
-          Start Campaign
-        </button>
-        <button className="flex-1 w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
-          <Eye size={20} />
-          Preview Email & Check Placeholders
-        </button>
-      </div>
-    </div>
+    </>
   );
+  
 };
 
-const Header = ({ setIsSidebarOpen, isSidebarOpen, activeSection }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const shouldShowNav = activeSection === "dashboard";
-
+const Header = ({ setIsSidebarOpen, isSidebarOpen }) => {
   return (
-    <div
-      className={`bg-transparent sticky p-3 sm:p-4 rounded-full ${
-        isScrolled ? "border-white/10" : "border-transparent"
-      } top-0 z-10 flex justify-between items-center transition-all duration-300`}
-    >
+    <div className="">
       <div className="flex items-center gap-2 sm:gap-4">
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -392,32 +405,13 @@ const Header = ({ setIsSidebarOpen, isSidebarOpen, activeSection }) => {
           <Menu className="text-white w-5 sm:w-6 h-5 sm:h-6" />
         </button>
         <div>
-          <h2 className="text-lg sm:text-xl font-bold">Welcome Yash!</h2>
+          <h2 className="text-lg sm:text-xl font-bold"></h2>
         </div>
       </div>
-      {shouldShowNav && (
-        <div className="flex items-center gap-2 sm:gap-4">
-          <div className="flex flex-col gap-4 font-syne text-white">
-            <div className="relative ">
-              <select
-                className="bg-[#2C2C2C] text-gray-300 px-2 sm:px-3 py-1 rounded appearance-none pr-6 sm:pr-8 text-xs sm:text-sm"
-                onChange={() => {}}
-              >
-                <option value="7 days">7 days</option>
-                <option value="15 days">15 days</option>
-                <option value="30 days">30 days</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-300">
-                <ChevronDown className="fill-current h-4 w-4" />
-              </div>
-            </div>
-            {/* ... rest of the TopHorizontalCards component ... */}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
+
 
 // Mock ChartComponent for demonstration purposes
 const ChartComponent = ({ type, data, title, isMini }) => {
@@ -455,22 +449,24 @@ const Card = ({ title, value, percentage, icon }) => {
 const TopHorizontalCards = () => {
   return (
     <div className="flex flex-col gap-4 font-syne text-white">
-      <div className="relative -mt-10">
-        <select
-          className="bg-[#2C2C2C] text-gray-300 px-2 sm:px-3 py-1 rounded appearance-none pr-6 sm:pr-8 text-xs sm:text-sm "
-          onChange={() => {}}
-        >
-          <option value="7 days">7 days</option>
-          <option value="15 days">15 days</option>
-          <option value="30 days">30 days</option>
-        </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0  items-center px-2 text-gray-300">
-          <ChevronDown className="fill-current h-4 w-4" />
-        </div>
-      </div>
+     <div className="relative  mt-3 inline-block">
+  <select
+    className="bg-[#2C2C2C] text-gray-300 px-2   ml-70 sm:px-3 py-1 rounded appearance-none pr-8 text-xs sm:text-sm"
+    onChange={() => {}}
+  >
+    <option value="7 days">7 days</option>
+    <option value="15 days">15 days</option>
+    <option value="30 days">30 days</option>
+  </select>
+  
+  <div className="pointer-events-none absolute  mr-1 inset-y-0 right-2 flex items-center">
+    <ChevronDown className="h-4 w-4 text-gray-300" />
+  </div>
+</div>
       {/* Card 1: Acceptance Rate */}
-      <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 flex flex-col items-center justify-center shadow-lg border border-white/10">
-        <h2 className="text-lg font-semibold text-white mb-1">
+      <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 flex flex-col items-center justify-center shadow-lg border border-white/10 mt-2">
+
+        <h2 className="text-lg font-semibold text-white mb-1 ">
           Acceptance Rate
         </h2>
         <div className="relative w-28 h-28">
@@ -556,28 +552,35 @@ const TopHorizontalCards = () => {
 // SalesOverview Component
 const SalesOverview = () => {
   return (
-    <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-white shadow-xl border border-white/20 col-span-2">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl font-semibold"> Company Overview</h3>
-        <span className="text-sm text-green-400">+5% more in 2021</span>
-        <div className="flex items-center gap-2">
-          <button className="p-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm">
-            Jan
-          </button>
-          <button className="p-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm">
-            Feb
-          </button>
-          <button className="p-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm">
-            Mar
-          </button>
+    <div>
+      {/* Welcome text */}
+      <h2 className="text-2xl font-bold text-white mb-8">Welcome Yash!</h2>
+  
+      {/* Glassmorphism Card */}
+      <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-white shadow-xl border border-white/20 col-span-2">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-xl font-semibold">Company Overview</h3>
+          <span className="text-sm text-green-400">+5% more in 2021</span>
+          <div className="flex items-center gap-2">
+            <button className="p-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm">
+              Jan
+            </button>
+            <button className="p-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm">
+              Feb
+            </button>
+            <button className="p-1 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm">
+              Mar
+            </button>
+          </div>
         </div>
-      </div>
-
-      <div className="h-64 mb-1">
-        <ChartComponent type="line" title="Sales Overview" />
+  
+        <div className="h-64 mb-1">
+          <ChartComponent type="line" title="Sales Overview" />
+        </div>
       </div>
     </div>
   );
+  
 };
 
 // ActiveUsers Component
@@ -782,22 +785,25 @@ const AttachmentManager = ({ attachments, handleUploadAttachment, handleDeleteAt
 
 
   return (
-    <div className="p-4 sm:p-6 font-syne">
+    <div className="p-4 sm:p-6 font-syne mt-6  ">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold mb-1">Attachments</h1>
+      <div>
+          <h1 className="text-2xl sm:text-3xl font-bold mt-7 mb-1">Attachments</h1>
+          <p className="text-white text-sm sm:text-base">
+           Create and Manage your Attachments
+          </p>
         </div>
         <button
           onClick={handleButtonClick}
           disabled={isAttachmentLimitReached}
-          className={`mt-4 sm:mt-0 text-white font-semibold py-2 px-4 rounded-lg flex items-center shadow-lg transition duration-200 ease-in-out transform ${
+          className={`mt-4 sm:mt-0 text-white font-semibold  py-2 px-4 rounded-lg flex items-center shadow-lg transition duration-200 ease-in-out transform ${
             isAttachmentLimitReached
               ? "bg-gray-500 cursor-not-allowed"
               : "bg-purple-600 hover:bg-purple-700 hover:-translate-y-0.5"
           }`}
         >
-          <Upload size={20} className="mr-2" />
+          <Upload size={18} className="mr-2" />
           {isAttachmentLimitReached ? "Max 3 Allowed" : "Upload Attachment"}
         </button>
          <input 
@@ -877,9 +883,35 @@ const AttachmentManager = ({ attachments, handleUploadAttachment, handleDeleteAt
   );
 };
 
+// ** NEW: Template Viewer Modal **
+const TemplateViewerModal = ({ isOpen, onClose, template }) => {
+  if (!isOpen || !template) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+      <div className="relative bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/20 w-full max-w-4xl h-3/4 flex flex-col">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white text-3xl font-bold"
+        >
+          &times;
+        </button>
+        <div className="flex-1 overflow-y-auto">
+          <h2 className="text-2xl font-bold text-white mb-2">{template.title}</h2>
+          <h3 className="text-xl font-semibold text-gray-300 mb-4">Subject: {template.emailSubject}</h3>
+          <div
+            className="text-white prose prose-invert max-w-none"
+            dangerouslySetInnerHTML={{ __html: template.emailBody }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
 // Templates Component
-const Templates = ({ templates, handleSaveTemplate, handleDeleteTemplate }) => {
+const Templates = ({ templates, handleSaveTemplate, handleDeleteTemplate, handleViewTemplate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const templateLimit = 3;
   const currentCustomTemplates = templates.filter(t => t.category === "Custom");
@@ -898,9 +930,9 @@ const Templates = ({ templates, handleSaveTemplate, handleDeleteTemplate }) => {
     <div className="p-4 sm:p-6 font-syne">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold mb-1">Templates</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold mb-1 mt-10">Templates</h1>
           <p className="text-white text-sm sm:text-base">
-            AI-powered templates to boost your application success rate
+ Create and Manage Your templates
           </p>
         </div>
         <button
@@ -925,9 +957,9 @@ const Templates = ({ templates, handleSaveTemplate, handleDeleteTemplate }) => {
 
       {/* All Templates section */}
       <div>
-        <h2 className="text-xl font-semibold font-syne mb-4 text-gray-200">
+        {/* <h2 className="text-xl font-semibold font-syne mb-4 mt-40 ml-90 text-gray-200">
           All Templates
-        </h2>
+        </h2> */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {templates.length > 0 ? (
             templates.map((template) => (
@@ -963,8 +995,12 @@ const Templates = ({ templates, handleSaveTemplate, handleDeleteTemplate }) => {
                   )}
                 </div>
                 <div className="flex justify-between items-center mt-auto">
-                  <button className="flex-grow bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5 mr-2">
-                    Use Template
+                  {/* Replaced 'Use Template' button with 'View' button */}
+                  <button
+                    onClick={() => handleViewTemplate(template)}
+                    className="flex-grow bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5 mr-2 flex items-center justify-center gap-1"
+                  >
+                    <Eye size={18} /> View
                   </button>
                   {template.category === "Custom" && (
                      <button
@@ -978,7 +1014,7 @@ const Templates = ({ templates, handleSaveTemplate, handleDeleteTemplate }) => {
               </div>
             ))
           ) : (
-            <p className="text-white col-span-full">No templates found.</p>
+            <p className="text-white col-span-full ml-100 mt-60">No templates found.</p>
           )}
         </div>
       </div>
@@ -1014,7 +1050,7 @@ const SettingsComponent = () => {
     <div className="p-4 sm:p-6 font-syne">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold mb-1">Settings</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold mb-1 mt-10">Settings</h1>
           <p className="text-white text-sm sm:text-base">
             Manage your account and email settings
           </p>
@@ -1228,6 +1264,8 @@ export default function Page() {
   const [attachments, setAttachments] = useState([]);
   const [isPdfViewerOpen, setIsPdfViewerOpen] = useState(false);
   const [pdfToView, setPdfToView] = useState(null);
+  const [isTemplateViewerOpen, setIsTemplateViewerOpen] = useState(false);
+  const [templateToView, setTemplateToView] = useState(null);
   const ATTACHMENT_LIMIT = 3;
 
 
@@ -1241,6 +1279,17 @@ export default function Page() {
       const updatedTemplates = templates.filter(template => template.id !== id);
       setTemplates(updatedTemplates);
     }
+  };
+
+  // NEW handler for viewing a template
+  const handleViewTemplate = (template) => {
+    setTemplateToView(template);
+    setIsTemplateViewerOpen(true);
+  };
+
+  const handleCloseTemplateViewer = () => {
+    setIsTemplateViewerOpen(false);
+    setTemplateToView(null);
   };
 
   const handleUploadAttachment = (file) => {
@@ -1299,10 +1348,12 @@ export default function Page() {
       setTimeout(() => setShowPopup(false), 3000); // auto close after 3s
     };
     return (
+
+      <>
+
   <div className="flex-1 space-y-8">
     
-    {/* Settings Header */}
-  
+
 
     {/* Glassmorphism Card */}
     <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 sm:p-8 shadow-xl border border-white/20">
@@ -1346,6 +1397,7 @@ export default function Page() {
       </div>
     )}
   </div>
+  </>
 );
 
     
@@ -1507,80 +1559,82 @@ export default function Page() {
         {activeSection === "dashboard" && <CombinedDashboard />}
         {activeSection === "campaign" && <CampaignForm templates={templates} attachments={attachments} />}
         {activeSection === "attachments" && <AttachmentManager attachments={attachments} handleUploadAttachment={handleUploadAttachment} handleDeleteAttachment={handleDeleteAttachment} handleViewAttachment={handleViewAttachment} />}
-        {activeSection === "templates" && <Templates templates={templates} handleSaveTemplate={handleSaveTemplate} handleDeleteTemplate={handleDeleteTemplate} />}
+        {activeSection === "templates" && <Templates templates={templates} handleSaveTemplate={handleSaveTemplate} handleDeleteTemplate={handleDeleteTemplate} handleViewTemplate={handleViewTemplate} />}
         {activeSection === "settings" && <SettingsComponent />}
         {activeSection === "contact" && (
+
           <div className="flex-1 bg-transparent p-8 text-black">
-            <div className="bg-transparent flex flex-col lg:flex-row items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8 font-inter -mt-35">
-              {/* Inner container with max width and rounded corners */}
-              <div className="mt-20 max-w-6xl w-full bg-white/10 backdrop-blur-md shadow-lg border border-white/30 rounded-xl p-6 sm:p-8 lg:p-12 flex flex-col lg:flex-row gap-8 lg:gap-12">
-                {/* Left Column: Contact Info */}
-                <div className="flex-1 flex flex-col gap-8">
-                  {/* Placeholder box */}
-                  <div className="bg-purple-200 rounded-xl h-64 w-full flex items-center justify-center text-purple-600 text-lg font-semibold">
-                    Placeholder for Image/Map
-                  </div>
+  {/* Heading & Subtext at the top, centered */}
+  <div className="text-left mt-10  mb-8">
+    <h1 className="text-2xl sm:text-3xl text-white font-bold mb-1 mr-100mt-10">
+      Contact Us
+    </h1>
+    <p className="text-white text-sm sm:text-base">
+      Fill the form below to get in touch with us. We will respond within 24 hours.
+    </p>
+  </div>
 
-                  {/* Phone Number */}
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 p-3 bg-purple-100 rounded-full text-purple-600">
-                      <Phone className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold text-lg">
-                        Phone Number
-                      </p>
-                      <p className="text-white">+123 456 789 101</p>
-                    </div>
-                  </div>
+  {/* Main container */}
+  <div className="bg-transparent flex flex-col lg:flex-row items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8 font-inter">
+    <div className="mt-1 max-w-6xl w-full bg-white/10 backdrop-blur-md shadow-lg border border-white/30 rounded-xl p-6 sm:p-8 lg:p-12 flex flex-col lg:flex-row gap-8 lg:gap-12">
+      
+      {/* Left Column */}
+      <div className="flex-1 flex flex-col gap-8">
+        <div className="bg-purple-200 rounded-xl h-64 w-full flex items-center justify-center text-purple-600 text-lg font-semibold">
+          Placeholder for Image/Map
+        </div>
 
-                  {/* Business Hours */}
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 p-3 bg-purple-100 rounded-full text-purple-600">
-                      <Clock className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold text-lg">
-                        Business Hours
-                      </p>
-                      <p className="text-white">Monday - Friday / 8AM to 5PM</p>
-                    </div>
-                  </div>
-
-                  {/* Social Media Icons */}
-                  <div className="flex space-x-4">
-                    <a
-                      href="#"
-                      className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200"
-                    >
-                      <Twitter className="w-5 h-5" />
-                    </a>
-                    <a
-                      href="#"
-                      className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200"
-                    >
-                      <Linkedin className="w-5 h-5" />
-                    </a>
-                    <a
-                      href="#"
-                      className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200"
-                    >
-                      <Instagram className="w-5 h-5" />
-                    </a>
-                  </div>
-                </div>
-
-                {/* Right Column: Contact Form */}
-                <ContactForm />
-              </div>
-            </div>
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 p-3 bg-purple-100 rounded-full text-purple-600">
+            <Phone className="w-5 h-5" />
           </div>
+          <div>
+            <p className="text-white font-semibold text-lg">Phone Number</p>
+            <p className="text-white">+123 456 789 101</p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 p-3 bg-purple-100 rounded-full text-purple-600">
+            <Clock className="w-5 h-5" />
+          </div>
+          <div>
+            <p className="text-white font-semibold text-lg">Business Hours</p>
+            <p className="text-white">Monday - Friday / 8AM to 5PM</p>
+          </div>
+        </div>
+
+        <div className="flex space-x-4">
+          <a href="#" className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200">
+            <Twitter className="w-5 h-5" />
+          </a>
+          <a href="#" className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200">
+            <Linkedin className="w-5 h-5" />
+          </a>
+          <a href="#" className="p-3 bg-gray-100 rounded-full text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition duration-200">
+            <Instagram className="w-5 h-5" />
+          </a>
+        </div>
+      </div>
+
+      {/* Right Column */}
+      <ContactForm />
+    </div>
+  </div>
+</div>
+
         )}
       </main>
       <PdfViewerModal
         isOpen={isPdfViewerOpen}
         onClose={handleClosePdfViewer}
         pdfUrl={pdfToView}
+      />
+      {/* NEW: Render the TemplateViewerModal */}
+      <TemplateViewerModal
+        isOpen={isTemplateViewerOpen}
+        onClose={handleCloseTemplateViewer}
+        template={templateToView}
       />
     </div>
   );
