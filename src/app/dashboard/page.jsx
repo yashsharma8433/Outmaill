@@ -1678,10 +1678,10 @@ export default function Page() {
           <div className="flex-1 bg-transparent p-8 text-black">
  {/* Heading & Subtext */}
 <div className="text-left mb-4">
-  <h1 className="text-2xl sm:text-3xl text-white font-bold mb-0">
+  <h1 className="text-2xl ml-9 sm:text-3xl text-white font-bold mb-0">
     Contact Us
   </h1>
-  <p className="text-white text-sm sm:text-base mt-0">
+  <p className="text-white ml-9 text-sm sm:text-base mt-0">
     Fill the form below to get in touch with us. We will respond within 24 hours.
   </p>
 </div>
