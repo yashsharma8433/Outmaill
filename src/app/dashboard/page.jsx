@@ -222,10 +222,11 @@ const CampaignForm = ({ templates, attachments }) => {
   const [emailBody, setEmailBody] = useState("");
   const [emailsManual, setEmailsManual] = useState("");
   const [startTime, setStartTime] = useState("");
+  const [selectedCsvFile, setSelectedCsvFile] = useState(null); // Add state for the selected CSV file
   const [endTime, setEndTime] = useState("");
   const [timezone, setTimezone] = useState(
     "(GMT+5:50) Chennai, Kolkata, Mumbai, New Delhi"
-  ); 
+  );
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const [selectedAttachment, setSelectedAttachment] = useState("");
 
@@ -238,6 +239,14 @@ const CampaignForm = ({ templates, attachments }) => {
       setEmailBody(selected.emailBody || selected.description);
     }
   };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedCsvFile(file);
+    }
+  };
+
 
   const handleStartCampaign = () => {
     console.log("Starting Campaign:", {
@@ -293,11 +302,18 @@ const CampaignForm = ({ templates, attachments }) => {
           <div className="flex flex-col sm:flex-row gap-4">
             {/* File Upload Input */}
             <div className="flex-1">
-              <label className="w-full flex items-center justify-center p-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                <Upload size={20} className="text-white mr-2" />
-                <span className="text-gray-500">Choose file</span>
-                <input type="file" className="hidden" />
-              </label>
+            <label className="w-full flex items-center justify-center p-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+              <Upload size={20} className="text-white mr-2" />
+              <span className="text-gray-500">
+                {selectedCsvFile ? selectedCsvFile.name : "Choose file"}
+              </span>
+              <input
+                type="file"
+                className="hidden"
+                onChange={handleFileChange}
+                accept=".csv"
+              />
+            </label>
             </div>
   
             {/* Manual Email Input */}
@@ -1325,47 +1341,7 @@ const SettingsComponent = () => {
 export default function Page() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
-  const [templates, setTemplates] = useState([
-    // {
-    //   id: 1,
-    //   icon: <FileText size={20} />,
-    //   title: "Senior Software Engineer Cover Letter",
-    //   description:
-    //     "Professional cover letter template optimized for senior engineering roles",
-    //   rating: 4.8,
-    //   downloads: "1250",
-    //   tags: ["Cover Letter", "Tech", "Senior Level", "AI-Optimized"],
-    //   aiMatchScore: 95,
-    //   category: "Cover Letter",
-    //   emailSubject: "Application for Senior Software Engineer Position",
-    //   emailBody: "Dear [Hiring Manager], I am writing to express my keen interest in the Senior Software Engineer position at [Company Name]...",
-    // },
-    // {
-    //   id: 2,
-    //   icon: <FileText size={20} />,
-    //   title: "Frontend Developer Resume",
-    //   description:
-    //     "Modern ATS-friendly resume template for frontend developers",
-    //   rating: 4.9,
-    //   downloads: "2100",
-    //   tags: ["Resume", "Frontend", "React", "ATS-Friendly"],
-    //   aiMatchScore: 92,
-    //   category: "Resume",
-    //   emailSubject: "Frontend Developer Application",
-    //   emailBody: "Hello, I am excited to apply for the Frontend Developer role. My skills include...",
-    // },
-    // {
-    //   id: 3,
-    //   icon: <Mail size={20} />,
-    //   title: "Technical Interview Email",
-    //   description: "Follow-up email template for technical interviews",
-    //   rating: 4.7,
-    //   aiMatchScore: 88,
-    //   category: "Email",
-    //   emailSubject: "Following up on our interview for [Position Name]",
-    //   emailBody: "Hi [Interviewer Name], Thank you for taking the time to speak with me today about the [Position Name] role. I really enjoyed our conversation about...",
-    // },
-  ]);
+  const [templates, setTemplates] = useState([]);
   const [attachments, setAttachments] = useState([]);
   const [isPdfViewerOpen, setIsPdfViewerOpen] = useState(false);
   const [pdfToView, setPdfToView] = useState(null);
