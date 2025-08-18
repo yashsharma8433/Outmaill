@@ -15,7 +15,7 @@ function page() {
     <div>
       <Navbar/>
 
-      <div className="bg-gradient-to-l from-black via-[#6c00ff] to-black ">   
+      <div className=" bg-gradient-to-l from-black via-[#6c00ff] to-black ">   
       
 
       <div className="container mx-auto px-4 text-center">
@@ -26,7 +26,7 @@ function page() {
         <h1 className="text-4xl sm:text-5xl px-4  font-syne font-bold tracking-wide mt-25">
           Contact Us
         </h1>
-        <p className="text-[#C0C0C0] text-base sm:text-lg mt-6 mb-25 leading-relaxed">
+        <p className=" text-base sm:text-lg mt-6 mb-25 leading-relaxed">
           If you have any query , please fill the below form.
           <br />
           {/* <span className="block mt-2">.</span> */}

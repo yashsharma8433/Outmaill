@@ -11,7 +11,7 @@ function Hero() {
     <div className="bg-gradient-to-l from-black via-[#6c00ff] to-black py-20 lg:py-32">
   <div className="container mx-auto px-4 text-center">
     <div className="inline-block px-4 py-1   rounded-md">
-      <span className="text-[#C0C0C0] hover:text-purple-400 transition font-syne text-base">
+      <span className="text-[#ffffff] hover:text-purple-400 transition font-syne text-base">
         Welcome to Outmail
       </span>
     </div>
@@ -23,7 +23,7 @@ function Hero() {
             Apply for You!
           </h2>
 
-          <p className="text-[#C0C0C0] text-base sm:text-lg mt-6 leading-relaxed">
+          <p className="text-[#ffffff] text-base sm:text-lg mt-6 leading-relaxed">
             Automate your job search, create stunning resumes, and track every application — all in
             <br />
             <span className="block mt-2">one place.</span>

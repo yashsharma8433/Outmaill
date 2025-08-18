@@ -142,7 +142,7 @@ const CreateTemplateModal = ({ isOpen, onClose, onSave }) => {
     if (templateName && emailSubject && emailBody) {
       onSave({
         id: Date.now(), // Use a unique ID
-        icon: <Mail size={20} />, // Default icon for custom email templates
+        icon: <Mail size={40} />, // Default icon for custom email templates
         title: templateName,
         description: `Subject: ${emailSubject}`, // Display the subject as the description
         rating: 0, // No rating initially
@@ -912,7 +912,7 @@ const AttachmentManager = ({ attachments, handleUploadAttachment, handleDeleteAt
           ref={fileInputRef} 
           onChange={handleFileChange} 
           className="hidden" 
-          accept=".pdf"
+          accept="*/*"
         />
       </div>
 
@@ -1076,23 +1076,29 @@ const Templates = ({ templates, handleSaveTemplate, handleUpdateTemplate, handle
             templates.map((template) => (
               <div
                 key={template.id}
-                className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-[#2C2C2C] hover:border-white transition-all duration-300 shadow-md flex flex-col"
+                className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-[#2C2C2C] hover:border-white transition-all duration-300 shadow-md flex h-[500px] flex-col justify-between"
               >
-                <div className="flex justify-between items-start mb-4">
-                  <div className="flex items-center">
-                    <div className="p-2 bg-[#2C2C2C] rounded-full mr-3 text-white">
-                      {template.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white">
-                        {template.title}
-                      </h3>
-                      <p className="text-sm text-white mt-1">
-                        {template.description}
-                      </p>
-                    </div>
+                {/* Top Section */}
+                <div className="flex items-center mb-4">
+                  <div className="p-2 bg-[#2C2C2C] rounded-full mr-3 text-white">
+                    {template.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">
+                      {template.title}
+                    </h3>
+                    <p className="text-sm text-white mt-1">
+                      {template.description}
+                    </p>
                   </div>
                 </div>
+
+                {/* Email Body Section - New and Adjusted */}
+                <div className="flex-1 overflow-y-auto text-white/80 p-2 my-4 bg-white/5 rounded-lg">
+                  {template.emailBody || 'No body content available.'}
+                </div>
+                
+                {/* Rating Section */}
                 <div className="flex items-center text-sm text-white mb-4">
                   {template.rating > 0 && (
                     <>
@@ -1105,8 +1111,9 @@ const Templates = ({ templates, handleSaveTemplate, handleUpdateTemplate, handle
                     </>
                   )}
                 </div>
-                
-                <div className="flex justify-between items-center mt-auto gap-2">
+
+                {/* Buttons Section - Pushed to the bottom by justify-between */}
+                <div className="flex justify-between items-center gap-2">
                   <button
                     onClick={() => handleViewTemplate(template)}
                     className="flex-grow bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5 flex items-center justify-center gap-1"
@@ -1131,7 +1138,6 @@ const Templates = ({ templates, handleSaveTemplate, handleUpdateTemplate, handle
                     </>
                   )}
                 </div>
-
               </div>
             ))
           ) : (
@@ -1142,7 +1148,6 @@ const Templates = ({ templates, handleSaveTemplate, handleUpdateTemplate, handle
     </div>
   );
 };
-
 // Settings Component
 const SettingsComponent = () => {
   // State to manage the user's settings.
